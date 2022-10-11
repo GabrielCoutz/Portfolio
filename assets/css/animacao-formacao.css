@@ -1,0 +1,31 @@
+.formacao:before,
+.formacao:after {
+  content: "";
+  position: absolute;
+  width: 95%;
+  align-self: center;
+  justify-self: center;
+  height: 85%;
+  display: inline-block;
+  background: var(--gradiente);
+  background-size: 400%;
+  z-index: -1;
+  animation: animate 10s linear infinite;
+  border-radius: var(--borda-redonda);
+}
+
+.formacao:after {
+  filter: blur(50px);
+}
+
+@keyframes animate {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 300% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

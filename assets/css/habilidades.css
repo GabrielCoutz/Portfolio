@@ -1,0 +1,77 @@
+.habilidades {
+  display: grid;
+  gap: 60px;
+  position: relative;
+}
+
+.habilidades-lista {
+  position: relative;
+  display: flex;
+  gap: 30px 190px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.habilidades-lista::after {
+  content: url("../img/Detalhe-1.svg");
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.habilidades::before {
+  content: url("../img/Detalhe-3.svg");
+  position: absolute;
+  top: 10px;
+  right: -140px;
+}
+
+.habilidades-lista::before {
+  content: url("../img/Detalhe-3.svg");
+  position: absolute;
+  top: 100px;
+  left: -140px;
+  animation: 15s diagonal-2 ease-in-out infinite alternate;
+}
+
+.habilidades::after {
+  content: url("../img/Detalhe-4.svg");
+  position: absolute;
+  bottom: 90px;
+  left: 40px;
+  animation: 2s diagonal-1 ease-in-out infinite alternate;
+}
+
+.habilidades-lista li {
+  animation: 15s paralax ease-in-out infinite alternate;
+}
+
+@keyframes diagonal-1 {
+  0% {
+    transform: translate(10px, 10px);
+  }
+  100% {
+    transform: translate(50px 50px);
+  }
+}
+@keyframes diagonal-2 {
+  0% {
+    transform: translate(-50px, 50px);
+  }
+  100% {
+    transform: translate(-70px 100px);
+  }
+}
+
+@keyframes paralax {
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 15px);
+  }
+  100% {
+    transform: translate(0, -0px);
+  }
+}

@@ -98,3 +98,14 @@ li {
 .texto {
   font: 400 1.25rem/1.4 var(--fonte-texto);
 }
+
+.titulos-box {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.obj[id$="titulo"],
+.titulos-box {
+  font: 400 2.5rem/1.4 var(--fonte-display);
+}
