@@ -1,0 +1,15 @@
+.intro {
+  display: grid;
+  gap: 30px;
+  font-family: var(--fonte-display);
+}
+.sub-titulo {
+  margin-bottom: -25px;
+  font-size: 1.56rem;
+}
+.sub-titulo .texto {
+  font-size: 1.6rem;
+}
+.intro .texto {
+  max-width: 50ch;
+}

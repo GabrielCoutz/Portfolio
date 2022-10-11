@@ -25,10 +25,11 @@
   --fonte-texto: "Nunito", sans-serif;
 
   --gradiente: linear-gradient(
-    270deg,
-    #2515db -13.62%,
-    #ad26dd 55%,
-    #dd26c0 111.86%
+    45deg,
+    #2515db 0%,
+    #ad26dd 39.89%,
+    #dd26c0 72.07%,
+    #dd2631 102.81%
   );
 
   --c1: #262f38;
@@ -44,6 +45,7 @@
 
   --borda-redonda: 12px;
   --sombra: 0px 13px 4px rgba(201, 201, 201, 0.48);
+  --largura-max: 1200px;
 }
 
 body {
@@ -84,9 +86,15 @@ li {
 
 .titulo {
   color: var(--c1);
+  font: 400 2.81rem/1.4 var(--fonte-display);
 }
 
 .container {
-  max-width: 1200px;
-  padding: 60px;
+  margin: 0 auto;
+  max-width: var(--largura-max);
+  padding: 60px 0;
+}
+
+.texto {
+  font: 400 1.25rem/1.4 var(--fonte-texto);
 }

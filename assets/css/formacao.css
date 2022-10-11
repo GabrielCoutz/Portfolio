@@ -1,0 +1,47 @@
+.formacao {
+  background-color: white;
+  border-radius: var(--borda-redonda);
+  position: relative;
+}
+.formacao .titulo {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.formacao {
+  position: relative;
+  display: grid;
+}
+
+.formacao:before,
+.formacao:after {
+  content: "";
+  position: absolute;
+  width: 90%;
+  align-self: center;
+  justify-self: center;
+  height: 90%;
+  display: inline-block;
+  background: var(--gradiente);
+  background-size: 400%;
+  z-index: -1;
+  animation: animate 10s linear infinite;
+  border-radius: var(--borda-redonda);
+}
+
+.formacao:after {
+  filter: blur(50px);
+}
+
+@keyframes animate {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 300% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
