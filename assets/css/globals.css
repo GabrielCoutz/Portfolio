@@ -1,0 +1,92 @@
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/IBM-Plex-Mono/IBMPlexMono-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  src: url("../fonts/IBM-Plex-Mono/IBMPlexMono-Medium.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/Nunito/Nunito-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --fonte-display: "IBM Plex Mono", monospace;
+  --fonte-texto: "Nunito", sans-serif;
+
+  --gradiente: linear-gradient(
+    270deg,
+    #2515db -13.62%,
+    #ad26dd 55%,
+    #dd26c0 111.86%
+  );
+
+  --c1: #262f38;
+  --c2: #383737;
+
+  --obj: #a86ac9;
+  --const: #c96930;
+  --str: #668946;
+  --chaves: #ffca19;
+
+  --b1: #fdfdfd;
+  --b2: #fff;
+
+  --borda-redonda: 12px;
+  --sombra: 0px 13px 4px rgba(201, 201, 201, 0.48);
+}
+
+body {
+  background-color: var(--b1);
+}
+
+.const {
+  color: var(--const);
+}
+
+.obj {
+  color: var(--obj);
+}
+
+.str {
+  color: var(--str);
+}
+
+.chaves {
+  color: var(--chaves);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  cursor: default;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+}
+
+.titulo {
+  color: var(--c1);
+}
+
+.container {
+  max-width: 1200px;
+  padding: 60px;
+}

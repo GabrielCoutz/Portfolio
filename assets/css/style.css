@@ -1,14 +1,2 @@
-* {
-  margin: 0;
-  padding: 0;
-  cursor: default;
-}
-
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-li {
-  list-style: none;
-}
+@import url("globals.css");
+@import url("header.css");

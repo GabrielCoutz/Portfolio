@@ -1,0 +1,13 @@
+.header {
+  background: rgba(255, 255, 255, 0.58);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
