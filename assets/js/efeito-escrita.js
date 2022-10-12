@@ -1,55 +1,46 @@
 export default class EfeitoEscrita {
   constructor(elemento) {
     this.elemento = document.querySelector(elemento);
+    this.frases = this.elemento.dataset.jsEscrita.split(",");
+    this.isAdding = true;
+    this.index = 0;
+    this.fraseIndex = 0;
   }
 
-  apagar(time) {
+  apagar() {
     return setTimeout(() => {
-      clearTimeout(time);
       this.playAnim();
-      console.log("apagou");
     }, 2000);
   }
 
   playAnim() {
-    var textToBeTypedArr = this.elemento.dataset.jsEscrita.split(",");
-    var index = 0,
-      isAdding = true,
-      textToBeTypedIndex = 0;
-
-    let time = setTimeout(
+    setTimeout(
       () => {
-        this.elemento.innerText = textToBeTypedArr[textToBeTypedIndex].slice(
+        this.elemento.innerText = this.frases[this.fraseIndex].slice(
           0,
-          index
+          this.index
         );
-        console.log(isAdding);
-        if (isAdding) {
-          if (index > textToBeTypedArr[textToBeTypedIndex].length) {
-            isAdding = false;
-
-            time = this.apagar(time);
-            return;
+        if (this.isAdding) {
+          if (this.index > this.frases[this.fraseIndex].length) {
+            this.isAdding = false;
+            return this.apagar();
           } else {
-            index++;
+            this.index++;
           }
         } else {
-          if (index === 0) {
-            isAdding = true;
-
-            textToBeTypedIndex =
-              (textToBeTypedIndex + 1) % textToBeTypedArr.length;
+          if (this.index === 0) {
+            this.isAdding = true;
+            this.fraseIndex = (this.fraseIndex + 1) % this.frases.length;
           } else {
-            index--;
+            this.index--;
           }
         }
-
         this.playAnim();
       },
-
-      isAdding ? 120 : 60
+      this.isAdding ? 120 : 60
     );
   }
+
   init() {
     this.playAnim();
   }
