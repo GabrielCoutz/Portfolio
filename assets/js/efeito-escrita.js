@@ -2,46 +2,48 @@ export default class EfeitoEscrita {
   constructor(elemento) {
     this.elemento = document.querySelector(elemento);
     this.frases = this.elemento.dataset.jsEscrita.split(",");
-    this.isAdding = true;
+    this.escrevendo = true;
     this.index = 0;
     this.fraseIndex = 0;
   }
 
   apagar() {
+    this.escrevendo = false;
     return setTimeout(() => {
-      this.playAnim();
+      this.escrever();
     }, 2000);
   }
 
-  playAnim() {
+  resetar() {
+    if (this.index) return this.index--;
+    this.escrevendo = true;
+    this.fraseIndex = (this.fraseIndex + 1) % this.frases.length;
+  }
+
+  escrever() {
+    const acabouDeEscrever = this.index > this.frases[this.fraseIndex].length;
+
     setTimeout(
       () => {
         this.elemento.innerText = this.frases[this.fraseIndex].slice(
           0,
           this.index
         );
-        if (this.isAdding) {
-          if (this.index > this.frases[this.fraseIndex].length) {
-            this.isAdding = false;
+        if (this.escrevendo) {
+          if (acabouDeEscrever) {
+            console.log("acabou");
             return this.apagar();
-          } else {
-            this.index++;
-          }
-        } else {
-          if (this.index === 0) {
-            this.isAdding = true;
-            this.fraseIndex = (this.fraseIndex + 1) % this.frases.length;
-          } else {
-            this.index--;
-          }
-        }
-        this.playAnim();
+          } else this.index++;
+        } else this.resetar();
+
+        this.escrever();
       },
-      this.isAdding ? 120 : 60
+      this.escrevendo ? 120 : 60
     );
   }
 
   init() {
-    this.playAnim();
+    this.escrever();
+    return this;
   }
 }
