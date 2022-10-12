@@ -31,7 +31,6 @@ export default class EfeitoEscrita {
         );
         if (this.escrevendo) {
           if (acabouDeEscrever) {
-            console.log("acabou");
             return this.apagar();
           } else this.index++;
         } else this.resetar();

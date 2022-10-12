@@ -52,7 +52,6 @@
 
 body {
   background-color: var(--b1);
-  /* overflow-x: hidden; */
   outline: 4px solid black;
 }
 
