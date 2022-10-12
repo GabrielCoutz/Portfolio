@@ -2,11 +2,6 @@
   position: relative;
   display: grid;
 }
-.formacao-bloco {
-  border-radius: var(--borda-redonda);
-  background-color: white;
-  padding: 30px 60px;
-}
 
 .formacao-lista {
   padding: 30px 0;

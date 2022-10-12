@@ -1,0 +1,24 @@
+.contato-lista li a,
+.contato-lista li div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
+
+.contato-lista li > :not(div) * {
+  cursor: pointer;
+}
+
+.contato {
+  position: relative;
+  display: grid;
+}
+
+.contato-lista {
+  justify-items: start;
+  padding: 30px 0;
+  display: grid;
+  gap: 30px;
+  font: 500 1.56rem/1.4 var(--fonte-display);
+}

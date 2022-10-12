@@ -18,6 +18,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
+  animation: 5s diagonal-4 ease-in-out infinite alternate;
 }
 
 .habilidades::before {
@@ -25,6 +26,7 @@
   position: absolute;
   top: 10px;
   right: -140px;
+  animation: 7s diagonal-3 ease-in-out infinite alternate;
 }
 
 .habilidades-lista::before {
@@ -44,7 +46,7 @@
 }
 
 .habilidades-lista li {
-  animation: 15s paralax ease-in-out infinite alternate;
+  animation: 10s respiracao ease-in-out infinite alternate;
 }
 
 @keyframes diagonal-1 {
@@ -63,8 +65,27 @@
     transform: translate(-70px 100px);
   }
 }
+@keyframes diagonal-3 {
+  0% {
+    transform: translate(-50px, 50px);
+  }
+  100% {
+    transform: translate(-30px 100px);
+  }
+}
+@keyframes diagonal-4 {
+  0% {
+    transform: translate(0, 0px);
+  }
+  50% {
+    transform: translate(0, 15px);
+  }
+  100% {
+    transform: translate(0, -0px);
+  }
+}
 
-@keyframes paralax {
+@keyframes respiracao {
   0% {
     transform: translate(0, 0px);
   }

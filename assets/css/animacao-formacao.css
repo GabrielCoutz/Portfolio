@@ -1,5 +1,7 @@
-.formacao:before,
-.formacao:after {
+.formacao::before,
+.contato::before,
+.contato::after,
+.formacao::after {
   content: "";
   position: absolute;
   width: 95%;
@@ -14,8 +16,21 @@
   border-radius: var(--borda-redonda);
 }
 
-.formacao:after {
+.contato::after,
+.contato::before {
+  height: 65%;
+}
+
+.contato::after,
+.formacao::after {
   filter: blur(50px);
+}
+
+.formacao-bloco,
+.contato-bloco {
+  border-radius: var(--borda-redonda);
+  background-color: white;
+  padding: 30px 60px;
 }
 
 @keyframes animate {
