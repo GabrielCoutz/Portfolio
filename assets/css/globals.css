@@ -124,3 +124,13 @@ li {
 .titulos-box {
   font: 400 2.5rem/1.4 var(--fonte-display);
 }
+
+.linha > .obj {
+  position: relative;
+}
+
+.linha > .str::after {
+  content: ",";
+  color: var(--c1);
+  display: inline;
+}
