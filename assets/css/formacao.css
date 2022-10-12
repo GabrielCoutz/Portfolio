@@ -2,15 +2,13 @@
   position: relative;
   display: grid;
 }
-.formacao-bloco {
-  border-radius: var(--borda-redonda);
-  background-color: white;
-  padding: 30px 60px;
-}
 
 .formacao-lista {
   padding: 30px 0;
   display: grid;
   gap: 30px;
-  font: 500 1.56rem/1.4 var(--fonte-display);
+}
+
+.formacao-lista li {
+  padding-left: 60px;
 }

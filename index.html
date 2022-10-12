@@ -18,14 +18,15 @@
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="#formacao">Formação</a></li>
-                <li><a href="#">Habilidades</a></li>
-                <li><a href="#">Contato</a></li>
+                <li><a href="#habilidades">Habilidades</a></li>
+                <li><a href="#contato">Contato</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="intro container" aria-labelledby="intro-titulo">
-        <span class="sub-titulo">Dev Front-end <span class="texto">& UI Designer;</span></span>
+        <span class="sub-titulo" data-js-escrita="Dev Front-end;, UI Designer;">Dev Front-end <span class="texto">& UI
+                Designer;</span></span>
         <h1 class="titulo" id="intro-titulo">Olá, sou Nome Sobrenome;</h1>
         <span class="texto">
             Gosto de programar no front-end, não só por gostar de desenvover soluções para problemas em forma de
@@ -44,52 +45,60 @@
             </div>
             <ul class="formacao-lista">
                 <li>
-                    <pre>
-        <span class="obj">TécnicoEmInformática</span>: {
-            <span class="obj">duração:</span> <span class="str">"2021 - Atualmente"</span> ,
-            <span class="obj">local:</span> <span class="str">"ETEC de Itaquaquecetuba"</span>,
-            },
-                        </pre>
+                    <span class="obj">TécnicoEmInformática</span>: {
+                    <div class="linha">
+                        <span class="obj">duração:</span> <span class="str">"2021 - Atualmente"</span>
+                    </div>
+                    <div class="linha">
+                        <span class="obj">local:</span> <span class="str">"ETEC de
+                            Itaquaquecetuba"</span>
+                    </div>
+                    },
                 </li>
                 <li>
-                    <pre>
-        <span class="obj">UIDesignAvançado</span>: {
-            <span class="obj">duração:</span> <span class="str">“64h”</span>,
-            <span class="obj">plataforma:</span> <span class="str">"Origamid"</span>,
-            },
-                </pre>
+                    <div>
+                        <span class="obj">UIDesignAvançado</span>: {
+                        <div class="linha"> <span class="obj">duração:</span> <span class="str">“64h”</span></div>
+                        <div class="linha"> <span class="obj">plataforma:</span> <span class="str">"Origamid"</span>
+                        </div>
+                        },
+                    </div>
                 </li>
                 <li>
-                    <pre>
-        <span class="obj">Css-Grid&Flex-Layout</span>: {
-            <span class="obj">duração:</span> <span class="str">"16h"</span>,
-            <span class="obj">plataforma:</span> <span class="str">"Origamid"</span>,
-            },
-                </pre>
+                    <div>
+                        <span class="obj">Css-Grid&Flex-Layout</span>: {
+                        <div class="linha"> <span class="obj">duração:</span> <span class="str">"16h"</span></div>
+                        <div class="linha"> <span class="obj">plataforma:</span> <span class="str">"Origamid"</span>
+                        </div>
+                        },
+                    </div>
                 </li>
                 <li>
-                    <pre>
-        <span class="obj">JavascriptES6</span>: {
-            <span class="obj">duração:</span> <span class="str">"37h"</span>,
-            <span class="obj">plataforma:</span> <span class="str">"Origamid"</span>,
-            },
-                </pre>
+                    <div>
+                        <span class="obj">JavascriptES6</span>: {
+                        <div class="linha"> <span class="obj">duração:</span> <span class="str">"37h"</span></div>
+                        <div class="linha"> <span class="obj">plataforma:</span> <span class="str">"Origamid"</span>
+                        </div>
+                        },
+                    </div>
                 </li>
                 <li>
-                    <pre>
-        <span class="obj">HTML&CSS</span>: {
-            <span class="obj">duração:</span> <span class="str">"46h"</span>,
-            <span class="obj">plataforma:</span> <span class="str">"Origamid"</span>,
-            },
-                </pre>
+                    <div>
+                        <span class="obj">HTML&CSS</span>: {
+                        <div class="linha"> <span class="obj">duração:</span> <span class="str">"46h"</span></div>
+                        <div class="linha"> <span class="obj">plataforma:</span> <span class="str">"Origamid"</span>
+                        </div>
+                        },
+                    </div>
                 </li>
                 <li>
-                    <pre>
-        <span class="obj">InglêsBásico</span>: {
-            <span class="obj">duração:</span> <span class="str">"46h"</span>,
-            <span class="obj">local:</span> <span class="str">"Prepara Cursos Arujá"</span>,
-            },
-                </pre>
+                    <div>
+                        <span class="obj">InglêsBásico</span>: {
+                        <div class="linha"> <span class="obj">duração:</span> <span class="str">"46h"</span></div>
+                        <div class="linha"> <span class="obj">local:</span> <span class="str">"Prepara Cursos
+                                Arujá"</span></div>
+                        },
+                    </div>
                 </li>
             </ul>
             <div class="titulos-box">
@@ -113,30 +122,39 @@
         </ul>
     </section>
 
-    <section class="contato" aria-labelledby="contato-titulo">
-        <div class="titulos-box">
-            <span class="const">const </span>
-            <h1 class="obj" id="contato-titulo">Contato</h1>
-            =
-            <span class="chaves">{</span>
+    <section class="contato container" aria-labelledby="contato-titulo" id="contato">
+        <div class="contato-bloco">
+            <div class="titulos-box">
+                <span class="const">const </span>
+                <h1 class="obj" id="contato-titulo">Contato</h1>
+                =
+                <span class="chaves">{</span>
+            </div>
+            <ul class="contato-lista">
+                <li>
+                    <a href="https://github.com/gabrielcoutz" target="_blank">
+                        <img src="assets/img/Github-icon.svg" width="40" height="41" alt="GitHub logo">:
+                        <span class="str">“gabrielcoutz”</span>,
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/gabrielcoutinhoz/" target="_blank">
+                        <img src="assets/img/Instagram-icon.svg" width="40" height="41" alt="Instagram logo">:
+                        <span class="str">“gabrielcoutinhoz”</span>,
+                    </a>
+                </li>
+                <li>
+                    <div>
+                        <img src="assets/img/Email-icon.svg" width="40" height="41" alt="Email ícone">:
+                        <span class="str">“gabriel.coutz.c@gmail.com”</span>,
+                    </div>
+                </li>
+            </ul>
+            <div class="titulos-box">
+                <span class="chaves">}</span>;
+            </div>
         </div>
-        <ul class="contato-lista">
-            <li>
-                <a href="">
-                    <img src="" alt="GitHub logo">:
-                    <span class="str">“gabrielcoutz”</span>,
-                </a>
-                <a href="">
-                    <img src="" alt="Instagram logo">:
-                    <span class="str">“gabrielcoutinhoz”</span>,
-                </a>
-                <a href="">
-                    <img src="" alt="Email ícone">:
-                    <span class="str">“gabriel.coutz.c@gmail.com”</span>,
-                </a>
-            </li>
-        </ul>
-        <span class="chaves">}</span>;
+
     </section>
 </body>
 <script type="module" src="assets/js/script.js"></script>

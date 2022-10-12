@@ -4,3 +4,92 @@
 @import url("formacao.css");
 @import url("animacao-formacao.css");
 @import url("habilidades.css");
+@import url("contato.css");
+
+@media (max-width: 1600px) {
+  .habilidades::before,
+  .habilidades-lista::before {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .formacao-lista,
+  .contato-lista {
+    font-weight: 400;
+    font-size: 1.4rem;
+  }
+  .obj[id$="titulo"],
+  .titulos-box {
+    font-weight: 400;
+    font-size: 2.2rem;
+  }
+  .formacao,
+  .contato {
+    padding: 60px 0;
+  }
+  .formacao::before,
+  .contato::before,
+  .contato::after,
+  .formacao::after {
+    width: 100%;
+  }
+  .contato::after,
+  .contato::before {
+    height: 70%;
+  }
+  .contato {
+    padding-bottom: 0;
+  }
+  .contato-bloco,
+  .formacao-bloco {
+    border-radius: 0;
+    padding: 30px;
+  }
+  .contato-lista li a,
+  .contato-lista li div {
+    gap: 5px;
+  }
+  .habilidades-lista {
+    gap: 60px;
+  }
+}
+
+@media (max-width: 500px) {
+  .linha,
+  .formacao-lista li {
+    padding-left: 30px;
+  }
+
+  .contato-lista img {
+    width: 32px;
+    height: 32px;
+  }
+  .titulos-box {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  .contato-bloco,
+  .formacao-bloco {
+    padding: 30px 15px;
+  }
+  .linha,
+  .formacao-lista li {
+    padding-left: 15px;
+  }
+  .contato-lista li {
+    font-size: 1.1rem;
+  }
+  .obj[id$="titulo"],
+  .titulos-box {
+    font-size: 2rem;
+  }
+  .habilidades.container {
+    padding: 60px 0;
+  }
+  #habilidades-titulo {
+    text-align: center;
+  }
+}

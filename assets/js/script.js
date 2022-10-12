@@ -1,4 +1,8 @@
-import Parallax from "./paralax.js";
+import HeaderFixo from "./header-fixo.js";
+import EfeitoEscrita from "./efeito-escrita.js";
 
-const paralax = new Parallax(".habilidades-lista li");
-paralax.init();
+const headerfixo = new HeaderFixo(".header");
+headerfixo.init();
+
+const efeitoEscrita = new EfeitoEscrita("[data-js-escrita]");
+efeitoEscrita.init();

@@ -1,31 +1,47 @@
-.formacao:before,
-.formacao:after {
+.formacao::before,
+.contato::before,
+.contato::after,
+.formacao::after {
   content: "";
   position: absolute;
-  width: 95%;
+  width: 90%;
   align-self: center;
   justify-self: center;
-  height: 85%;
+  height: 90%;
   display: inline-block;
   background: var(--gradiente);
-  background-size: 400%;
+  background-size: 600%;
   z-index: -1;
-  animation: animate 10s linear infinite;
+  animation: animate 15s linear infinite;
   border-radius: var(--borda-redonda);
 }
 
-.formacao:after {
-  filter: blur(50px);
+.contato::after,
+.contato::before {
+  height: 65%;
+}
+
+.contato::after,
+.formacao::after {
+  filter: blur(30px);
+  opacity: 0.7;
+}
+
+.formacao-bloco,
+.contato-bloco {
+  border-radius: var(--borda-redonda);
+  background-color: white;
+  padding: 30px 60px;
 }
 
 @keyframes animate {
   0% {
-    background-position: 0 0;
+    background-position: 0% 50%;
   }
   50% {
-    background-position: 300% 0;
+    background-position: 100% 50%;
   }
   100% {
-    background-position: 0 0;
+    background-position: 0% 50%;
   }
 }
