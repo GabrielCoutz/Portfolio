@@ -20,15 +20,20 @@ export default class EfeitoEscrita {
     this.fraseIndex = (this.fraseIndex + 1) % this.frases.length;
   }
 
+  mudarFonte() {
+    this.fraseIndex === 1
+      ? this.elemento.classList.add("textFont")
+      : this.elemento.classList.remove("textFont");
+  }
+
   escrever() {
     const acabouDeEscrever = this.index > this.frases[this.fraseIndex].length;
 
     setTimeout(
       () => {
-        this.elemento.innerText = this.frases[this.fraseIndex].slice(
-          0,
-          this.index
-        );
+        let letra = this.frases[this.fraseIndex].slice(0, this.index);
+        this.elemento.innerText = letra;
+        this.mudarFonte();
         if (this.escrevendo) {
           if (acabouDeEscrever) {
             return this.apagar();

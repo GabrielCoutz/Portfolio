@@ -6,10 +6,17 @@
 .sub-titulo {
   margin-bottom: -25px;
   font-size: 1.56rem;
+  position: relative;
 }
 .sub-titulo .texto {
   font-size: 1.6rem;
 }
 .intro .texto {
   max-width: 50ch;
+}
+
+.js .habilidades h1::after {
+  content: "|";
+  position: absolute;
+  animation: barrinhaPiscando 0.5s alternate infinite;
 }

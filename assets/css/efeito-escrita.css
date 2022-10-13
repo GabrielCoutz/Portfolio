@@ -1,0 +1,21 @@
+.js [data-js-escrita] {
+  min-height: 2.2rem;
+}
+
+.js [data-js-escrita]::after {
+  content: "|";
+  position: absolute;
+  animation: barrinhaPiscando 0.5s alternate infinite;
+}
+.js .textFont {
+  font-family: var(--fonte-texto);
+}
+
+@keyframes barrinhaPiscando {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
