@@ -21,9 +21,8 @@ export default class EfeitoEscrita {
   }
 
   mudarFonte() {
-    this.fraseIndex === 1
-      ? this.elemento.classList.add("textFont")
-      : this.elemento.classList.remove("textFont");
+    if (this.fraseIndex === 1) this.elemento.classList.add("textFont");
+    else this.elemento.classList.remove("textFont");
   }
 
   escrever() {
@@ -35,9 +34,8 @@ export default class EfeitoEscrita {
         this.elemento.innerText = letra;
         this.mudarFonte();
         if (this.escrevendo) {
-          if (acabouDeEscrever) {
-            return this.apagar();
-          } else this.index++;
+          if (acabouDeEscrever) return this.apagar();
+          else this.index++;
         } else this.resetar();
 
         this.escrever();

@@ -1,13 +1,11 @@
-.formacao::before,
-.contato::before,
-.contato::after,
-.formacao::after {
+.formacao-bloco::before,
+.formacao-bloco::after,
+.gradiente::before,
+.gradiente::after {
   content: "";
   position: absolute;
   width: 90%;
-  align-self: center;
-  justify-self: center;
-  height: 90%;
+  height: 5%;
   display: inline-block;
   background: var(--gradiente);
   background-size: 600%;
@@ -16,15 +14,46 @@
   border-radius: var(--borda-redonda);
 }
 
+.formacao-bloco::before {
+  align-self: start;
+  justify-self: center;
+}
+
+.gradiente,
+.formacao-bloco {
+  display: grid;
+}
+
+.formacao-bloco::after {
+  align-self: end;
+  justify-self: center;
+}
+
+.gradiente::after {
+  align-self: start;
+  justify-self: start;
+  width: 5%;
+  height: 90%;
+}
+.gradiente::before {
+  justify-self: end;
+  width: 5%;
+  height: 90%;
+}
+
 .contato::after,
 .contato::before {
   height: 65%;
 }
 
 .contato::after,
-.formacao::after {
+.formacao-bloco::before,
+.formacao-bloco::after,
+.gradiente::after,
+.gradiente::before {
   filter: blur(30px);
-  opacity: 0.7;
+  border-radius: 30px;
+  opacity: 0.6;
 }
 
 .formacao-bloco,

@@ -29,10 +29,10 @@
   .contato {
     padding: 60px 0;
   }
-  .formacao::before,
+  .formacao-bloco::before,
   .contato::before,
   .contato::after,
-  .formacao::after {
+  .formacao-bloco::after {
     width: 100%;
   }
   .contato::after,
@@ -53,6 +53,9 @@
   }
   .habilidades-lista {
     gap: 60px;
+  }
+  .gradiente {
+    display: none;
   }
 }
 
