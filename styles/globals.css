@@ -37,11 +37,11 @@
 }
 
 .title {
-  font: 700 5.375rem/1.5rem var(--fonteDisplay);
+  font: 700 5.375rem/6.6rem var(--fontDisplay);
 }
 
 .destaque {
-  color: var(--primaryColor);
+  background: var(--primaryColor);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

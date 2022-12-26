@@ -1,0 +1,15 @@
+.subTitle {
+  font: 400 2.2rem/1.3rem var(--fontDisplay);
+  margin-top: 0.6rem;
+}
+
+.intro {
+  display: grid;
+  justify-items: center;
+  margin: 15rem 0px;
+}
+.mouse {
+  display: inline-block;
+  position: relative;
+  top: 15rem;
+}
