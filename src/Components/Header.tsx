@@ -5,17 +5,10 @@ const Header = () => {
   return (
     <div className={styles.wrapperHeader}>
       <header className={`${styles.header} container`}>
-        <div className={styles.logo}>G. Coutinho</div>
-        <nav>
-          <ul className={styles.nav}>
-            <li>
-              <a href="#projetos">Projetos</a>
-            </li>
-            <li>
-              <a href="#contato">Contato</a>
-            </li>
-          </ul>
-        </nav>
+        <span>G. Coutinho</span>
+        <a href="#contato" className={styles.link}>
+          Contato
+        </a>
       </header>
     </div>
   );
