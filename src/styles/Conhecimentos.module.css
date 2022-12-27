@@ -1,12 +1,15 @@
 .wrapperConhecimentos {
   background-color: white;
+  padding: 10rem 0;
+  margin: 5rem 0;
+  display: grid;
+  gap: 4rem;
 }
 
 .conhecimentos {
   display: grid;
   align-items: center;
   justify-content: center;
-  padding: 30rem 0;
 }
 
 .conhecimentos h1 {
@@ -23,10 +26,27 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: scale(2);
+}
+
+.parallax {
+  overflow: hidden;
+}
+
+.scrollItems {
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+  align-items: center;
 }
 
 .frame {
   width: 100vh;
   height: 2000px;
   background-color: rgb(41, 41, 41);
+}
+
+.scroller {
+  display: flex;
+  flex-direction: row;
 }
