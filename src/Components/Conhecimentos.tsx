@@ -26,9 +26,8 @@ const variants = {
   hover: {
     transition: {
       type: "spring",
-      bounce: 0.5,
+      bounce: 0.7,
       duration: 0.7,
-      velocity: 2,
     },
     scale: 1.1,
   },
@@ -36,8 +35,14 @@ const variants = {
 
 const Conhecimentos = () => {
   return (
-    <div className={styles.wrapperConhecimentos}>
-      <section className={`${styles.conhecimentos} container`}>
+    <motion.div
+      className={styles.wrapperConhecimentos}
+      initial={{ backgroundColor: "rgba(255,255,255,0)" }}
+      whileHover={{
+        backgroundColor: "rgba(255,255,255,1)",
+      }}
+    >
+      <motion.section className={`${styles.conhecimentos} container`}>
         <h1>What i know?</h1>
         <motion.div className={styles.icons}>
           <motion.div
@@ -129,8 +134,8 @@ const Conhecimentos = () => {
             <VueSvg fill={SVGColor} />
           </motion.div>
         </motion.div>
-      </section>
-    </div>
+      </motion.section>
+    </motion.div>
   );
 };
 

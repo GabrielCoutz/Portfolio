@@ -1,15 +1,17 @@
 .wrapperConhecimentos {
   background-color: white;
-  padding: 10rem 0;
-  margin: 5rem 0;
   display: grid;
   gap: 4rem;
+  margin-top: 30rem;
+  margin-bottom: 10rem;
 }
 
 .conhecimentos {
+  padding: 10rem 0;
   display: grid;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
+  gap: 7rem;
 }
 
 .conhecimentos h1 {
