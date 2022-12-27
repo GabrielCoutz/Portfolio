@@ -9,6 +9,7 @@ interface CardModel {
   image: string;
   date: string;
   description: string;
+  tecnologies: string[];
 }
 
 const variants: Variants = {
@@ -67,7 +68,14 @@ const listVariant: Variants = {
   },
 };
 
-const Card = ({ image, title, subtitle, date, description }: CardModel) => {
+const Card = ({
+  image,
+  title,
+  subtitle,
+  date,
+  description,
+  tecnologies,
+}: CardModel) => {
   return (
     <motion.div
       className={styles.card}
@@ -82,11 +90,9 @@ const Card = ({ image, title, subtitle, date, description }: CardModel) => {
       <div className={styles.details}>
         <motion.span variants={spanVariant}>{description}</motion.span>
         <motion.ul className={styles.tecnologias} variants={listVariant}>
-          <motion.li>React</motion.li>
-          <motion.li>Next Js</motion.li>
-          <motion.li>GrapQL</motion.li>
-          <motion.li>Typescript</motion.li>
-          <motion.li>UX/UX</motion.li>
+          {tecnologies.map((tecnologie) => (
+            <motion.li key={Math.random()}>{tecnologie}</motion.li>
+          ))}
         </motion.ul>
         <motion.div variants={imageVariant}>
           <Image src={image} width={300} height={300} alt={title} />
@@ -96,25 +102,47 @@ const Card = ({ image, title, subtitle, date, description }: CardModel) => {
   );
 };
 
+const wrapperVariant: Variants = {
+  active: {
+    transitionDuration: "3s",
+    color: "rgb(255, 255, 255)",
+  },
+};
+
 const Projetos = () => {
   return (
-    <div className={`${styles.projetos} container`}>
-      <h1 className="title">Projetos</h1>
-      <Card
-        title="Essencial Calçados"
-        subtitle="Front end & UI Design"
-        date="2022"
-        image={require("../public/All-star.webp")}
-        description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem blanditiis quod nobis amet dolorum itaque at mollitia animi recusandae, necessitatibus a exercitationem minus, reiciendis quisquam nam et assumenda suscipit unde?"
-      />
-      <Card
-        title="Kairos"
-        subtitle="Front/Back end & UI/UX Design"
-        date="2021 - 2022"
-        image={require("../public/Nike-Air-Force-2.webp")}
-        description="Voluptatem blanditiis quod nobis amet dolorum itaque at mollitia animi recusandae, necessitatibus a exercitationem minus, reiciendis quisquam nam et assumenda suscipit unde?"
-      />
-    </div>
+    <motion.div
+      variants={wrapperVariant}
+      whileInView="active"
+      className={styles.wrapperProjetos}
+    >
+      <div className={`${styles.projetos} container`}>
+        <h1 className="title">Projetos</h1>
+        <Card
+          title="Essencial Calçados"
+          subtitle="Front end & UI Design"
+          date="2022"
+          image={require("../public/All-star.webp")}
+          description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem blanditiis quod nobis amet dolorum itaque at mollitia animi recusandae, necessitatibus a exercitationem minus, reiciendis quisquam nam et assumenda suscipit unde?"
+          tecnologies={[
+            "React",
+            "Next.js",
+            "Typescript",
+            "GrapqQL",
+            "HTML",
+            "CSS",
+          ]}
+        />
+        <Card
+          title="Kairos"
+          subtitle="Front/Back end & UI/UX Design"
+          date="2021 - 2022"
+          image={require("../public/Nike-Air-Force-2.webp")}
+          description="Voluptatem blanditiis quod nobis amet dolorum itaque at mollitia animi recusandae, necessitatibus a exercitationem minus, reiciendis quisquam nam et assumenda suscipit unde?"
+          tecnologies={["HTML", "CSS", "JavaScript", "PHP"]}
+        />
+      </div>
+    </motion.div>
   );
 };
 
