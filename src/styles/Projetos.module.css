@@ -42,3 +42,15 @@
   margin-top: 5rem;
   justify-self: start;
 }
+
+.details {
+  position: relative;
+}
+
+.details > span {
+  position: absolute;
+  width: 100%;
+  padding: 1rem;
+  background: white;
+  bottom: 0px;
+}

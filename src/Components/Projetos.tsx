@@ -26,8 +26,19 @@ const variants: Variants = {
       type: "spring",
       bounce: 0.7,
       duration: 0.7,
+      delayChildren: 0.3,
     },
+
     scale: 1.1,
+  },
+};
+
+const spanVariant: Variants = {
+  default: {
+    opacity: 0,
+  },
+  hover: {
+    opacity: 1,
   },
 };
 
@@ -43,13 +54,13 @@ const Card = ({ image, title, subtitle, date }: CardModel) => {
       <h3 className={styles.subtitle}>{subtitle}</h3>
       <h1 className={styles.title}>{title}</h1>
       <h3 className={styles.date}>{date}</h3>
-      <motion.span style={{ display: "none" }}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam et
-        reiciendis rerum repellendus magnam eligendi corrupti architecto ad
-        tempore dolorum? Facilis iure saepe ut sapiente adipisci minus harum!
-        Est, quam.
-      </motion.span>
-      <div>
+      <div className={styles.details}>
+        <motion.span variants={spanVariant}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam et
+          reiciendis rerum repellendus magnam eligendi corrupti architecto ad
+          tempore dolorum? Facilis iure saepe ut sapiente adipisci minus harum!
+          Est, quam.
+        </motion.span>
         <Image src={image} width={300} height={300} alt={title} />
       </div>
     </motion.div>
