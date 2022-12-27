@@ -17,36 +17,8 @@
   color: var(--c1);
 }
 
-.bubble {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  box-shadow: rgb(199 199 199 / 73%) 0px 20px 30px;
-  padding: 1rem;
+.icons {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: scale(2);
-}
-
-.parallax {
-  overflow: hidden;
-}
-
-.scrollItems {
-  display: flex;
-  gap: 2rem;
-  flex-direction: row;
-  align-items: center;
-}
-
-.frame {
-  width: 100vh;
-  height: 2000px;
-  background-color: rgb(41, 41, 41);
-}
-
-.scroller {
-  display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 3rem;
 }
