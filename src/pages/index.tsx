@@ -6,9 +6,9 @@ import Projetos from "../Components/Projetos";
 export default function Home() {
   return (
     <>
-      <Header />
+      {/* <Header />
       <Intro />
-      <Conhecimentos />
+      <Conhecimentos /> */}
       <Projetos />
     </>
   );

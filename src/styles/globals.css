@@ -71,3 +71,12 @@ body {
 li {
   list-style: none;
 }
+
+@keyframes animacao {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(5px);
+  }
+}

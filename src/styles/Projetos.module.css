@@ -29,10 +29,16 @@
   margin-bottom: 40rem;
 }
 
-.projetos > :nth-child(odd) {
+.projetos > h1 {
+  text-align: center;
+  grid-column: 1/-1;
+}
+
+.projetos > div:nth-child(odd) {
+  margin-top: 30rem;
   justify-self: end;
 }
-.projetos > :nth-child(even) {
+.projetos > div:nth-child(even) {
+  margin-top: 5rem;
   justify-self: start;
-  margin-top: 30rem;
 }
