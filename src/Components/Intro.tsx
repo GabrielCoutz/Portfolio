@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../styles/Intro.module.css";
+import styles from "../styles/Intro.module.css";
 import MouseSvg from "./UiElements/MouseSvg";
 
 const Intro = () => {
