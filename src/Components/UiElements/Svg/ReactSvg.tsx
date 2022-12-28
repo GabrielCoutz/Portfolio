@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { variants } from "./FramerMotion/variants";
+import { variants } from "../FramerMotion/variants";
 
 const ReactSvg = ({ fill }: { fill: string }) => {
   return (

@@ -37,7 +37,7 @@
 }
 
 .title {
-  font: 700 5.375rem/6.6rem var(--fontDisplay);
+  font: 700 5.375rem/3.9rem var(--fontDisplay);
 }
 
 .destaque {
@@ -78,5 +78,11 @@ li {
   }
   to {
     transform: translateY(5px);
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 4.375rem;
   }
 }

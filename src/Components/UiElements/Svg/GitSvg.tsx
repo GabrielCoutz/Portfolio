@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { variants } from "./FramerMotion/variants";
+import { variants } from "../FramerMotion/variants";
 
 const GitSvg = ({ fill }: { fill: string }) => {
   return (

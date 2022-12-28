@@ -1,37 +1,19 @@
 import React from "react";
 import styles from "../styles/Conhecimentos.module.css";
 import { motion } from "framer-motion";
-import ReactSvg from "./UiElements/ReactSvg";
-import NextSvg from "./UiElements/NextSvg";
-import GraphqlSvg from "./UiElements/GraphqlSvg";
-import CssSvg from "./UiElements/CssSvg";
-import GitSvg from "./UiElements/GitSvg";
-import HtmlSvg from "./UiElements/HtmlSvg";
-import JavascriptSvg from "./UiElements/JavascriptSvg";
-import SassSvg from "./UiElements/SassSvg";
-import TypescriptSvg from "./UiElements/TypescriptSvg";
-import VueSvg from "./UiElements/VueSvg";
+import ReactSvg from "./UiElements/Svg/ReactSvg";
+import NextSvg from "./UiElements/Svg/NextSvg";
+import GraphqlSvg from "./UiElements/Svg/GraphqlSvg";
+import CssSvg from "./UiElements/Svg/CssSvg";
+import GitSvg from "./UiElements/Svg/GitSvg";
+import HtmlSvg from "./UiElements/Svg/HtmlSvg";
+import JavascriptSvg from "./UiElements/Svg/JavascriptSvg";
+import SassSvg from "./UiElements/Svg/SassSvg";
+import TypescriptSvg from "./UiElements/Svg/TypescriptSvg";
+import VueSvg from "./UiElements/Svg/VueSvg";
+import { variantsConhecimentos } from "./UiElements/FramerMotion/ConhecimentosVariants";
 
 const SVGColor = "#0e0e0e";
-
-const variants = {
-  default: {
-    opacity: 0,
-    scale: 0,
-  },
-  active: {
-    opacity: 1,
-    scale: 1,
-  },
-  hover: {
-    transition: {
-      type: "spring",
-      bounce: 0.7,
-      duration: 0.7,
-    },
-    scale: 1.1,
-  },
-};
 
 const Conhecimentos = () => {
   return (
@@ -43,10 +25,10 @@ const Conhecimentos = () => {
       }}
     >
       <motion.section className={`${styles.conhecimentos} container`}>
-        <h1>What i know?</h1>
+        <h1 className="title">What i know?</h1>
         <motion.div className={styles.icons}>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
@@ -55,7 +37,7 @@ const Conhecimentos = () => {
             <ReactSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
@@ -63,7 +45,7 @@ const Conhecimentos = () => {
             <NextSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
@@ -72,7 +54,7 @@ const Conhecimentos = () => {
             <GraphqlSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
@@ -81,7 +63,7 @@ const Conhecimentos = () => {
             <CssSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
@@ -89,7 +71,7 @@ const Conhecimentos = () => {
             <GitSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
@@ -98,7 +80,7 @@ const Conhecimentos = () => {
             <HtmlSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
@@ -107,7 +89,7 @@ const Conhecimentos = () => {
             <JavascriptSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
@@ -116,7 +98,7 @@ const Conhecimentos = () => {
             <SassSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
@@ -125,7 +107,7 @@ const Conhecimentos = () => {
             <TypescriptSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variants}
+            variants={variantsConhecimentos}
             initial={"default"}
             whileInView="active"
             whileHover="hover"
