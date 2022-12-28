@@ -117,7 +117,7 @@ const Projetos = () => {
       className={styles.wrapperProjetos}
     >
       <div className={`${styles.projetos} container`}>
-        <h1 className="title">Projetos</h1>
+        <h1 className="title">Projects</h1>
         <Card
           title="Essencial Calçados"
           subtitle="Front end & UI Design"
