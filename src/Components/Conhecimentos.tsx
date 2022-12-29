@@ -25,7 +25,7 @@ const Conhecimentos = () => {
       }}
     >
       <motion.section className={`${styles.conhecimentos} container`}>
-        <h1 className="title">What i know?</h1>
+        <h1 className="title">Coisinhas q sei...</h1>
         <motion.div className={styles.icons}>
           <motion.div
             variants={variantsConhecimentos}

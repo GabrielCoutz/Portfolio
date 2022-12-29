@@ -6,7 +6,7 @@ const Intro = () => {
   return (
     <section className={`${styles.intro} container`}>
       <h1 className="title">
-        Hi, i am <span className="destaque">Christopher Hansen</span>
+        Olá, sou <span className="destaque">Gabriel Coutinho</span>
       </h1>
       <span className={styles.subTitle}>Dev Front-end | UI Designer</span>
       <div className={styles.mouse}>

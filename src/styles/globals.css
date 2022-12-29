@@ -31,6 +31,10 @@
   );
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .container {
   max-width: 1400px;
   margin: 0 auto;
@@ -70,6 +74,19 @@ body {
 
 li {
   list-style: none;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bgColor);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--c1);
+  border-radius: var(--borderRadius);
 }
 
 @keyframes animacao {

@@ -23,12 +23,21 @@
   grid-column: 1/-1;
 }
 
-.projetos > div:nth-child(odd) {
-  margin-top: 30rem;
-  justify-self: end;
-}
-.projetos > div:nth-child(even) {
-  margin-top: 5rem;
-  justify-self: start;
+@media (min-width: 1100px) {
+  .projetos > div:nth-child(odd) {
+    margin-top: 30rem;
+    justify-self: end;
+  }
+  .projetos > div:nth-child(even) {
+    margin-top: 5rem;
+    justify-self: start;
+  }
 }
 
+@media (max-width: 1100px) {
+  .projetos {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 7rem;
+  }
+}

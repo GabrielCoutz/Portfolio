@@ -1,0 +1,28 @@
+.contato {
+  display: grid;
+  gap: 4rem;
+  margin: 20rem auto;
+}
+
+.contato h1 {
+  text-align: center;
+}
+
+.lista {
+  display: flex;
+  gap: 3rem;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.lista svg {
+  position: relative;
+  top: 6px;
+}
+
+.lista a {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font: 400 2.2rem/1.9rem var(--fontDisplay);
+}
