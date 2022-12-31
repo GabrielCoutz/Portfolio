@@ -11,6 +11,7 @@ import JavascriptSvg from "./UiElements/Svg/JavascriptSvg";
 import SassSvg from "./UiElements/Svg/SassSvg";
 import TypescriptSvg from "./UiElements/Svg/TypescriptSvg";
 import VueSvg from "./UiElements/Svg/VueSvg";
+import Subtitle from "./Subtitle";
 
 const SVGColor = "#0e0e0e";
 
@@ -27,7 +28,8 @@ const Conhecimentos = () => {
       }}
     >
       <motion.section className={`${styles.conhecimentos} container`}>
-        <h1 className="title">Languages items</h1>
+        <Subtitle>Por enquanto...</Subtitle>
+        <h1 className="title">Conhecimentos</h1>
 
         <motion.div className={styles.icons}>
           <motion.div

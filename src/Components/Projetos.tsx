@@ -3,6 +3,7 @@ import styles from "../styles/Projetos.module.css";
 import { motion } from "framer-motion";
 import Card from "./Card";
 import { wrapperVariant } from "./UiElements/FramerMotion/ProjetosVariants";
+import Subtitle from "./Subtitle";
 
 const Projetos = () => {
   return (
@@ -12,6 +13,7 @@ const Projetos = () => {
       className={styles.wrapperProjetos}
     >
       <div className={`${styles.projetos} container`}>
+        <Subtitle>Feitos com muito carinho</Subtitle>
         <h1 className="title">Alguns dos meus projetos</h1>
         <Card
           title="Essencial Calçados"

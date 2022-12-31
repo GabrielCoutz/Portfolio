@@ -1,6 +1,7 @@
 import styles from "../styles/Intro.module.css";
 import MouseSvg from "./UiElements/Svg/MouseSvg";
 import { motion, Variants } from "framer-motion";
+import Subtitle from "./Subtitle";
 
 export const introVariant: Variants = {
   default: {
@@ -26,7 +27,7 @@ const nameVariant: Variants = {
   },
 };
 
-function createDiv(text: string) {
+function splitPhrase(text: string) {
   return text
     .split("")
     .filter((item) => item.trim())
@@ -37,45 +38,35 @@ function createDiv(text: string) {
     ));
 }
 
-export const subtitleVariant: Variants = {
-  default: {
-    background:
-      "linear-gradient(270.4deg, rgb(14 14 14) -27.9%, rgb(14 14 14) 118.28%)",
-    WebkitTextFillColor: "transparent",
-    WebkitBackgroundClip: "text",
-  },
-  active: {
-    transition: {
-      delay: 1,
-      duration: 1,
-    },
-    background:
-      "linear-gradient(270.4deg, rgb(39 27 181) -27.9%, rgb(79 67 209) 118.28%)",
-    WebkitTextFillColor: "transparent",
-    WebkitBackgroundClip: "text",
-  },
-};
-
 const Intro = () => {
   return (
     <section className={`${styles.intro} container`}>
-      <motion.span
-        className={styles.subTitle}
-        variants={subtitleVariant}
-        initial="default"
-        whileInView="active"
-      >
-        Dev Front-end | UI Designer
-      </motion.span>
+      <Subtitle>Dev Front-end | UI Designer</Subtitle>
       <motion.h1
         className="title"
         variants={introVariant}
         initial="default"
         whileInView="active"
       >
-        {createDiv("Hi,")} {createDiv("i")} {createDiv("am")}{" "}
-        {createDiv("Chistopher")} {createDiv("Hansen")}
+        {splitPhrase("Olá,")} {splitPhrase("eu")} {splitPhrase("sou")}{" "}
+        {splitPhrase("Gabriel")} {splitPhrase("Coutinho")}
       </motion.h1>
+      <motion.a
+        href="#contato"
+        className={styles.button}
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{
+          scale: [0, 1.3, 1],
+          opacity: 1,
+          transition: {
+            type: "spring",
+            delay: 1.7,
+            duration: 3,
+          },
+        }}
+      >
+        Diga um olá
+      </motion.a>
       <div className={styles.mouse}>
         <MouseSvg />
       </div>

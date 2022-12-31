@@ -1,13 +1,14 @@
 import Link from "next/link";
-import React from "react";
 import styles from "../styles/Contato.module.css";
 import GitHubSvg from "./UiElements/Svg/GitHubSvg";
 import InstagramSvg from "./UiElements/Svg/InstagramSvg";
 import LinkedinSvg from "./UiElements/Svg/LinkedinSvg";
+import Subtitle from "./Subtitle";
 
 const Contato = () => {
   return (
     <section className={`${styles.contato} container`} id="contato">
+      <Subtitle>Cola aí</Subtitle>
       <h1 className="title">
         Bora trocar uma <span className="destaque">ideia?</span>
       </h1>

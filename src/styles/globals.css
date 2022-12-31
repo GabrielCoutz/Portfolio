@@ -51,11 +51,9 @@ html {
   position: relative;
 }
 
-.destaque {
-  background: var(--primaryColor);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+.subTitle {
+  font: 400 2.2rem/2.5rem var(--fontDisplay);
+  margin-bottom: 2rem;
 }
 
 img {
