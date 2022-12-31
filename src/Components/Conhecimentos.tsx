@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/Conhecimentos.module.css";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import ReactSvg from "./UiElements/Svg/ReactSvg";
 import NextSvg from "./UiElements/Svg/NextSvg";
 import GraphqlSvg from "./UiElements/Svg/GraphqlSvg";
@@ -11,11 +11,13 @@ import JavascriptSvg from "./UiElements/Svg/JavascriptSvg";
 import SassSvg from "./UiElements/Svg/SassSvg";
 import TypescriptSvg from "./UiElements/Svg/TypescriptSvg";
 import VueSvg from "./UiElements/Svg/VueSvg";
-import { variantsConhecimentos } from "./UiElements/FramerMotion/ConhecimentosVariants";
 
 const SVGColor = "#0e0e0e";
 
 const Conhecimentos = () => {
+  const { scrollYProgress } = useScroll();
+  const scale = useTransform(scrollYProgress, [0, 1], [0.6, 3]);
+
   return (
     <motion.div
       className={styles.wrapperConhecimentos}
@@ -25,93 +27,86 @@ const Conhecimentos = () => {
       }}
     >
       <motion.section className={`${styles.conhecimentos} container`}>
-        <h1 className="title">Coisinhas q sei...</h1>
+        <h1 className="title">Languages items</h1>
+
         <motion.div className={styles.icons}>
           <motion.div
-            variants={variantsConhecimentos}
-            initial={"default"}
-            whileInView="active"
+            initial="default"
             whileHover="hover"
-            style={{ color: "#61DAFB" }}
+            style={{ color: "#61DAFB", scale }}
+            title="React"
           >
             <ReactSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variantsConhecimentos}
             initial={"default"}
-            whileInView="active"
             whileHover="hover"
+            style={{ scale }}
+            title="Next.js"
           >
             <NextSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variantsConhecimentos}
             initial={"default"}
-            whileInView="active"
             whileHover="hover"
-            style={{ color: "#E535AB" }}
+            style={{ color: "#E535AB", scale }}
+            title="GraphQL"
           >
             <GraphqlSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variantsConhecimentos}
             initial={"default"}
-            whileInView="active"
             whileHover="hover"
-            style={{ color: "#1B73BA" }}
+            style={{ color: "#1B73BA", scale }}
+            title="CSS"
           >
             <CssSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variantsConhecimentos}
             initial={"default"}
-            whileInView="active"
             whileHover="hover"
+            style={{ scale }}
+            title="Git"
           >
             <GitSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variantsConhecimentos}
             initial={"default"}
-            whileInView="active"
             whileHover="hover"
-            style={{ color: "#FC490B" }}
+            style={{ color: "#FC490B", scale }}
+            title="HTML"
           >
             <HtmlSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variantsConhecimentos}
             initial={"default"}
-            whileInView="active"
             whileHover="hover"
-            style={{ color: "#FFDE25" }}
+            style={{ color: "#FFDE25", scale }}
+            title="Javascript"
           >
             <JavascriptSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variantsConhecimentos}
             initial={"default"}
-            whileInView="active"
             whileHover="hover"
-            style={{ color: "#CF649A" }}
+            style={{ color: "#CF649A", scale }}
+            title="SASS"
           >
             <SassSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variantsConhecimentos}
             initial={"default"}
-            whileInView="active"
             whileHover="hover"
-            style={{ color: "#017ACB" }}
+            style={{ color: "#017ACB", scale }}
+            title="Typescript"
           >
             <TypescriptSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            variants={variantsConhecimentos}
             initial={"default"}
-            whileInView="active"
             whileHover="hover"
-            style={{ color: "#41B883" }}
+            style={{ color: "#41B883", scale }}
+            title="Vue.js"
           >
             <VueSvg fill={SVGColor} />
           </motion.div>

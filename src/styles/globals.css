@@ -42,6 +42,13 @@ html {
 
 .title {
   font: 700 5.375rem/3.9rem var(--fontDisplay);
+  padding-bottom: 1rem;
+  overflow: hidden;
+}
+
+.title > * {
+  transition: 0.3 all;
+  position: relative;
 }
 
 .destaque {
