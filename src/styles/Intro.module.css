@@ -6,9 +6,7 @@
 }
 
 .mouse {
-  display: inline-block;
-  position: relative;
-  top: calc(100vh - 55rem);
+  margin-top: 6rem;
 }
 
 .button {
@@ -26,5 +24,9 @@
 @media (max-width: 768px) {
   .subTitle {
     justify-self: start;
+  }
+  .intro {
+    margin: 5rem auto;
+    padding: 0 2rem;
   }
 }

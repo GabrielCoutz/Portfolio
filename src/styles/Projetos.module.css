@@ -47,3 +47,16 @@
     justify-items: center;
   }
 }
+
+@media (max-width: 768px) {
+  .wrapperProjetos {
+    padding: 5rem 0;
+  }
+  .projetos {
+    padding: 0 2rem;
+  }
+  .cards {
+    display: grid;
+    gap: 2rem;
+  }
+}

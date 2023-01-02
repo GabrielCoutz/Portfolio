@@ -23,9 +23,20 @@
   flex-wrap: wrap;
   gap: 3rem;
   justify-content: center;
+  overflow: hidden;
 }
 
 .icons svg {
   height: 100px;
   width: 100px;
+}
+
+@media (max-width: 768px) {
+  .wrapperConhecimentos {
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
+  .conhecimentos {
+    padding: 5rem 0;
+  }
 }
