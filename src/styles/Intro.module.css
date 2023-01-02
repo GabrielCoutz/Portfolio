@@ -26,7 +26,11 @@
     justify-self: start;
   }
   .intro {
-    margin: 5rem auto;
-    padding: 0 2rem;
+    margin: 10rem auto 5rem auto;
+    padding: 0 1rem;
+  }
+  .button {
+    width: 100%;
+    text-align: center;
   }
 }

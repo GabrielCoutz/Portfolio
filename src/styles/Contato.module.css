@@ -36,4 +36,11 @@
   .contato {
     margin: 5rem auto 10rem auto;
   }
+  .lista a {
+    font-size: 1.8rem;
+  }
+  .lista svg {
+    width: 32px;
+    height: 32px;
+  }
 }
