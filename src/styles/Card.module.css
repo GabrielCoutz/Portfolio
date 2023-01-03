@@ -1,27 +1,59 @@
 .subtitle,
 .date {
-  font: 400 1.5rem/0.5 var(--fontDisplay);
+  font: 400 1.5rem/1 var(--fontDisplay);
   color: var(--c1);
 }
 .title {
-  font: 700 2.5rem/1.5 var(--fontDisplay);
+  font: 700 2.5rem/0.8 var(--fontDisplay);
+  color: var(--c1);
+  /* margin-top: 1rem; */
+}
+
+.card a {
   color: var(--c1);
 }
 
-.date {
-  margin-bottom: 2rem;
-}
-
 .card {
-  max-width: 600px;
+  max-width: 680px;
   width: 100%;
   background-color: white;
   padding: 2rem;
   border-radius: var(--borderRadius);
+  display: grid;
+  grid-template-columns: 1fr auto;
 }
 
-.card img {
-  border-radius: calc(var(--borderRadius) / 2);
+.subtitle::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: -10px;
+  width: 2px;
+  height: 13px;
+  background: var(--primaryColor);
+}
+
+.title {
+  grid-column: 1/-1;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.subtitle {
+  grid-column: 1/-1;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.icons {
+  grid-column: 2;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.icons a {
+  padding: 0.5rem;
 }
 
 .details {

@@ -37,16 +37,6 @@ export const spanVariant: Variants = {
   },
 };
 
-export const imageVariant: Variants = {
-  default: {
-    filter: "none",
-  },
-  hover: {
-    filter: "blur(2px)",
-    scale: 0.95,
-  },
-};
-
 export const listVariant: Variants = {
   default: {
     transform: "translateY(-200px)",

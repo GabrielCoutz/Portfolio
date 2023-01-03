@@ -3,23 +3,24 @@ import { motion } from "framer-motion";
 import styles from "../styles/Card.module.css";
 import Image from "next/image";
 import {
-  imageVariant,
   listVariant,
   spanVariant,
   variantsProjetos,
 } from "./UiElements/FramerMotion/ProjetosVariants";
+import ExternalLink from "./UiElements/Svg/ExternalLink";
+import GithubLined from "./UiElements/Svg/GithubLined";
 
 interface CardModel {
   title: string;
   subtitle: string;
-  image: string;
+  // image: string;
   date: string;
   description: string;
   tecnologies: string[];
 }
 
 const Card = ({
-  image,
+  // image,
   title,
   subtitle,
   date,
@@ -37,17 +38,25 @@ const Card = ({
       <h3 className={styles.subtitle}>{subtitle}</h3>
       <h1 className={styles.title}>{title}</h1>
       <h3 className={styles.date}>{date}</h3>
-      <div className={styles.details}>
-        <motion.span variants={spanVariant}>{description}</motion.span>
-        <motion.ul className={styles.tecnologias} variants={listVariant}>
+      <div className={styles.icons}>
+        <a href="#">
+          <GithubLined />
+        </a>
+        <a href="#">
+          <ExternalLink />
+        </a>
+      </div>
+      {/* <div className={styles.details}> */}
+      {/* <motion.span variants={spanVariant}>{description}</motion.span> */}
+      {/* <motion.ul className={styles.tecnologias} variants={listVariant}>
           {tecnologies.map((tecnologie) => (
             <motion.li key={Math.random()}>{tecnologie}</motion.li>
           ))}
-        </motion.ul>
-        <motion.div variants={imageVariant}>
+        </motion.ul> */}
+      {/* <motion.div variants={imageVariant}>
           <Image src={image} width={300} height={300} alt={title} />
-        </motion.div>
-      </div>
+        </motion.div> */}
+      {/* </div> */}
     </motion.div>
   );
 };

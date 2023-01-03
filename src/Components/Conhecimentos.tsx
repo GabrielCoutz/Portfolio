@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../styles/Conhecimentos.module.css";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import ReactSvg from "./UiElements/Svg/ReactSvg";
 import NextSvg from "./UiElements/Svg/NextSvg";
 import GraphqlSvg from "./UiElements/Svg/GraphqlSvg";
@@ -16,9 +16,6 @@ import Subtitle from "./Subtitle";
 const SVGColor = "#0e0e0e";
 
 const Conhecimentos = () => {
-  const { scrollYProgress } = useScroll();
-  const scale = useTransform(scrollYProgress, [0, 1], [0.6, 3]);
-
   return (
     <motion.div
       className={styles.wrapperConhecimentos}
@@ -35,79 +32,69 @@ const Conhecimentos = () => {
           <motion.div
             initial="default"
             whileHover="hover"
-            style={{ color: "#61DAFB", scale }}
+            style={{ color: "#61DAFB" }}
             title="React"
           >
             <ReactSvg fill={SVGColor} />
           </motion.div>
-          <motion.div
-            initial={"default"}
-            whileHover="hover"
-            style={{ scale }}
-            title="Next.js"
-          >
+          <motion.div initial="default" whileHover="hover" title="Next.js">
             <NextSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            initial={"default"}
+            initial="default"
             whileHover="hover"
-            style={{ color: "#E535AB", scale }}
+            style={{ color: "#E535AB" }}
             title="GraphQL"
           >
             <GraphqlSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            initial={"default"}
+            initial="default"
             whileHover="hover"
-            style={{ color: "#1B73BA", scale }}
+            style={{ color: "#1B73BA" }}
             title="CSS"
           >
             <CssSvg fill={SVGColor} />
           </motion.div>
-          <motion.div
-            initial={"default"}
-            whileHover="hover"
-            style={{ scale }}
-            title="Git"
-          >
+          <motion.div initial="default" whileHover="hover" title="Git">
             <GitSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            initial={"default"}
+            initial="default"
             whileHover="hover"
-            style={{ color: "#FC490B", scale }}
+            style={{ color: "#FC490B" }}
             title="HTML"
           >
             <HtmlSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            initial={"default"}
+            initial="default"
             whileHover="hover"
-            style={{ color: "#FFDE25", scale }}
+            style={{ color: "#FFDE25" }}
             title="Javascript"
           >
             <JavascriptSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            initial={"default"}
+            initial="default"
             whileHover="hover"
-            style={{ color: "#CF649A", scale }}
+            style={{ color: "#CF649A" }}
             title="SASS"
           >
             <SassSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            initial={"default"}
+            initial="default"
             whileHover="hover"
-            style={{ color: "#017ACB", scale }}
+            style={{ color: "#017ACB" }}
             title="Typescript"
           >
             <TypescriptSvg fill={SVGColor} />
           </motion.div>
           <motion.div
-            initial={"default"}
+            initial="default"
             whileHover="hover"
-            style={{ color: "#41B883", scale }}
+            style={{ color: "#41B883" }}
             title="Vue.js"
           >
             <VueSvg fill={SVGColor} />

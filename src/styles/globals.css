@@ -22,13 +22,7 @@
 
   --fontDisplay: "Darker Grotesque";
 
-  --primaryColor: linear-gradient(
-    90deg,
-    #314fef -30.52%,
-    #8228f3 21.47%,
-    #d400f7 67.71%,
-    #f7003b 122.15%
-  );
+  --primaryColor: linear-gradient(270.4deg, #271bb5 -27.9%, #4f43d1 118.28%);
 }
 
 html {
@@ -95,15 +89,6 @@ li {
   border-radius: var(--borderRadius);
 }
 
-@keyframes animacao {
-  from {
-    transform: translateY(0px);
-  }
-  to {
-    transform: translateY(5px);
-  }
-}
-
 @media (max-width: 768px) {
   .title {
     font-size: 3.375rem;
@@ -114,5 +99,6 @@ li {
     font-size: 1.8rem;
     line-height: 2rem;
     margin-bottom: 2rem;
+    text-align: center;
   }
 }

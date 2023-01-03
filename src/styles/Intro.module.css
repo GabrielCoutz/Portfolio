@@ -18,7 +18,7 @@
   cursor: pointer;
   margin-top: 4rem;
   box-shadow: 0px 7px 40px rgba(50, 38, 189, 0.21);
-  background: linear-gradient(270.4deg, #271bb5 -27.9%, #4f43d1 118.28%);
+  background: var(--primaryColor);
 }
 
 @media (max-width: 768px) {
