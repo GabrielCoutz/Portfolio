@@ -17,6 +17,14 @@ interface CardModel {
   date: string;
   description: string;
   tecnologies: string[];
+  repositoryLink?: string;
+  siteLink?: string;
+}
+
+function handleClick({ currentTarget }: any) {
+  if (currentTarget instanceof HTMLDivElement)
+    currentTarget.classList.toggle(styles.active);
+  else console.log("djisafod");
 }
 
 const Card = ({
@@ -26,6 +34,8 @@ const Card = ({
   date,
   description,
   tecnologies,
+  siteLink,
+  repositoryLink,
 }: CardModel) => {
   return (
     <motion.div
@@ -34,17 +44,22 @@ const Card = ({
       initial="default"
       whileInView="active"
       whileHover="hover"
+      onClick={handleClick}
     >
       <h3 className={styles.subtitle}>{subtitle}</h3>
       <h1 className={styles.title}>{title}</h1>
       <h3 className={styles.date}>{date}</h3>
       <div className={styles.icons}>
-        <a href="#">
-          <GithubLined />
-        </a>
-        <a href="#">
-          <ExternalLink />
-        </a>
+        {repositoryLink && (
+          <a href={repositoryLink} target="_blank" rel="noreferrer">
+            <GithubLined />
+          </a>
+        )}
+        {siteLink && (
+          <a href={siteLink} target="_blank" rel="noreferrer">
+            <ExternalLink />
+          </a>
+        )}
       </div>
       {/* <div className={styles.details}> */}
       {/* <motion.span variants={spanVariant}>{description}</motion.span> */}
