@@ -3,6 +3,7 @@
   justify-items: center;
   margin: 15rem auto;
   padding: 0 4rem;
+  overflow-x: clip;
 }
 
 .mouse {
@@ -32,5 +33,6 @@
   .button {
     width: 100%;
     text-align: center;
+    font-size: 1.4rem;
   }
 }
