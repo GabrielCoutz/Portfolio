@@ -91,12 +91,12 @@ li {
 
 @media (max-width: 768px) {
   .title {
-    font-size: 3.375rem;
-    line-height: 3rem;
+    font-size: 2.5rem;
+    line-height: 2rem;
     text-align: center;
   }
   .subTitle {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     line-height: 2rem;
     margin-bottom: 2rem;
     text-align: center;

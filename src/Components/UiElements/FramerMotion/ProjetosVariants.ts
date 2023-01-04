@@ -8,7 +8,9 @@ export const variantsProjetos: Variants = {
   active: {
     opacity: 1,
     scale: 1,
-    animation: "animacao 1s infinite alternate",
+  },
+  teste: {
+    position: "fixed",
   },
   hover: {
     animation: "none",

@@ -1,12 +1,8 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import styles from "../styles/Card.module.css";
 import Image from "next/image";
-import {
-  listVariant,
-  spanVariant,
-  variantsProjetos,
-} from "./UiElements/FramerMotion/ProjetosVariants";
+import { variantsProjetos } from "./UiElements/FramerMotion/ProjetosVariants";
 import ExternalLink from "./UiElements/Svg/ExternalLink";
 import GithubLined from "./UiElements/Svg/GithubLined";
 
@@ -37,42 +33,57 @@ const Card = ({
   siteLink,
   repositoryLink,
 }: CardModel) => {
+  const [active, setActive] = React.useState(false);
   return (
-    <motion.div
-      className={styles.card}
+    <motion.li
+      className={`${styles.card} ${active && styles.active}`}
       variants={variantsProjetos}
       initial="default"
       whileInView="active"
       whileHover="hover"
-      onClick={handleClick}
+      onClick={() => setActive(!active)}
+      layout
     >
-      <h3 className={styles.subtitle}>{subtitle}</h3>
-      <h1 className={styles.title}>{title}</h1>
-      <h3 className={styles.date}>{date}</h3>
-      <div className={styles.icons}>
+      <motion.h3 layout className={styles.subtitle}>
+        {subtitle}
+      </motion.h3>
+      <motion.h1 layout className={styles.title}>
+        {title}
+      </motion.h1>
+      <motion.h3 layout className={styles.date}>
+        {date}
+      </motion.h3>
+      <motion.div layout className={styles.icons}>
         {repositoryLink && (
-          <a href={repositoryLink} target="_blank" rel="noreferrer">
+          <motion.a
+            layout
+            href={repositoryLink}
+            target="_blank"
+            rel="noreferrer"
+          >
             <GithubLined />
-          </a>
+          </motion.a>
         )}
         {siteLink && (
-          <a href={siteLink} target="_blank" rel="noreferrer">
+          <motion.a layout href={siteLink} target="_blank" rel="noreferrer">
             <ExternalLink />
-          </a>
+          </motion.a>
         )}
-      </div>
-      {/* <div className={styles.details}> */}
-      {/* <motion.span variants={spanVariant}>{description}</motion.span> */}
-      {/* <motion.ul className={styles.tecnologias} variants={listVariant}>
-          {tecnologies.map((tecnologie) => (
-            <motion.li key={Math.random()}>{tecnologie}</motion.li>
-          ))}
-        </motion.ul> */}
-      {/* <motion.div variants={imageVariant}>
-          <Image src={image} width={300} height={300} alt={title} />
-        </motion.div> */}
-      {/* </div> */}
-    </motion.div>
+      </motion.div>
+      <AnimatePresence>
+        {active && (
+          <motion.p
+            layout
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={styles.description}
+          >
+            {description}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </motion.li>
   );
 };
 
