@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  webpack: ({ module }) => {
-    module.rules.push({
+  webpack: (config) => {
+    config.module.rules.push({
       test: /\.pdf/,
       type: "asset/resource",
       generator: {
