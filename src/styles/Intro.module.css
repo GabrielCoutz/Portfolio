@@ -14,12 +14,22 @@
   border-radius: var(--borderRadius);
   padding: 0.8rem 3rem 1rem 3rem;
   font: 700 2rem/1 var(--fontDisplay);
-  color: var(--bgcolor);
   border: none;
   cursor: pointer;
   margin-top: 4rem;
-  box-shadow: 0px 7px 40px rgba(50, 38, 189, 0.21);
+}
+
+.primary {
+  color: var(--bgcolor);
   background: var(--primaryColor);
+  box-shadow: 0px 7px 40px rgba(50, 38, 189, 0.21);
+  margin-bottom: -2.5rem;
+}
+
+.secundary {
+  border: 4px solid #271bb5;
+  color: var(--c1);
+  background: var(--bgcolor);
 }
 
 @media (max-width: 768px) {

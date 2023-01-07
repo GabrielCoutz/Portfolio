@@ -52,20 +52,27 @@ const Intro = () => {
         {splitPhrase("Gabriel")} {splitPhrase("Coutinho")}
       </motion.h1>
       <motion.a
-        href="#contato"
-        className={styles.button}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{
-          scale: [0, 1.3, 1],
-          opacity: 1,
-          transition: {
-            type: "spring",
-            delay: 1.7,
-            duration: 3,
-          },
-        }}
+        className={`${styles.button} ${styles.primary}`}
+        href={require("../public/curriculo.pdf")}
+        target="_blank"
       >
-        Diga um olá
+        Ir direto ao ponto
+      </motion.a>
+      <motion.a
+        href="#contato"
+        className={`${styles.button} ${styles.secundary}`}
+        // initial={{ scale: 0, opacity: 0 }}
+        // animate={{
+        //   scale: [0, 1.3, 1],
+        //   opacity: 1,
+        //   transition: {
+        //     type: "spring",
+        //     delay: 1.7,
+        //     duration: 3,
+        //   },
+        // }}
+      >
+        Ou dar um olá
       </motion.a>
       <div className={styles.mouse}>
         <MouseSvg />
