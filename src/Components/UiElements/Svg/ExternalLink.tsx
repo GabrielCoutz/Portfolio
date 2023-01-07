@@ -1,6 +1,6 @@
 import React from "react";
 
-const ExternalLink = ({ color = "black" }: { color: string }) => {
+const ExternalLink = ({ color = "black" }: { color?: string }) => {
   return (
     <svg
       width="26"
