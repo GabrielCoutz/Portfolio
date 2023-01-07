@@ -2,6 +2,7 @@ import styles from "../styles/Intro.module.css";
 import MouseSvg from "./UiElements/Svg/MouseSvg";
 import { motion, Variants } from "framer-motion";
 import Subtitle from "./Subtitle";
+import ExternalLink from "./UiElements/Svg/ExternalLink";
 
 export const introVariant: Variants = {
   default: {
@@ -57,6 +58,7 @@ const Intro = () => {
         target="_blank"
       >
         Ir direto ao ponto
+        <ExternalLink color="white"/>
       </motion.a>
       <motion.a
         href="#contato"
