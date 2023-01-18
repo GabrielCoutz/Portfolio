@@ -36,6 +36,7 @@
   color: var(--c1);
   grid-column: 1/-1;
   margin-top: 0.5rem;
+  word-break: break-word;
 }
 
 .subtitle::after {
@@ -133,6 +134,12 @@
   color: var(--c1);
 }
 
+@media (max-width: 600px) {
+  .image {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .title {
     font-size: 1.7rem;
@@ -143,6 +150,16 @@
     font-size: 1.2rem;
   }
   .divInfo {
-    gap: 1rem;
+    grid-column: 1/-1;
+    white-space: initial;
+    margin-bottom: 0.4rem;
+  }
+  .subtitle {
+    grid-row: 1;
+    margin-bottom: 0;
+  }
+  .date {
+    grid-row: 2;
+    grid-column: 1/-1;
   }
 }

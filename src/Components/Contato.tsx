@@ -1,7 +1,6 @@
 import Link from "next/link";
 import styles from "../styles/Contato.module.css";
 import GitHubSvg from "./UiElements/Svg/GitHubSvg";
-import InstagramSvg from "./UiElements/Svg/InstagramSvg";
 import LinkedinSvg from "./UiElements/Svg/LinkedinSvg";
 import Subtitle from "./Subtitle";
 
@@ -20,13 +19,6 @@ const Contato = () => {
         <Link href="https://www.linkedin.com/in/gabrielcoutz" target="_blank">
           <LinkedinSvg />
           gabrielcoutz
-        </Link>
-        <Link
-          href="https://www.instagram.com/gabrielcoutinhoz/"
-          target="_blank"
-        >
-          <InstagramSvg />
-          gabrielcoutinhoz
         </Link>
       </ul>
     </section>

@@ -27,6 +27,7 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  justify-content: center;
 }
 
 .primary svg {
@@ -52,5 +53,8 @@
     width: 100%;
     text-align: center;
     font-size: 1.4rem;
+  }
+  .icons {
+    grid-column: 1;
   }
 }
