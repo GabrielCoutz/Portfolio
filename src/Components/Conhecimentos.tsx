@@ -12,6 +12,9 @@ import SassSvg from "./UiElements/Svg/SassSvg";
 import TypescriptSvg from "./UiElements/Svg/TypescriptSvg";
 import VueSvg from "./UiElements/Svg/VueSvg";
 import Subtitle from "./Subtitle";
+import WooCommerceSvg from "./UiElements/Svg/WooCommerceSvg";
+import WordpressSvg from "./UiElements/Svg/WordpressSvg";
+import PhpSvg from "./UiElements/Svg/PhpSvg";
 
 const SVGColor = "#0e0e0e";
 
@@ -90,6 +93,30 @@ const Conhecimentos = () => {
             title="Typescript"
           >
             <TypescriptSvg fill={SVGColor} />
+          </motion.div>
+          <motion.div
+            initial="default"
+            whileHover="hover"
+            style={{ color: "#9B5C8F" }}
+            title="WooCommerce"
+          >
+            <WooCommerceSvg fill={SVGColor} />
+          </motion.div>
+          <motion.div
+            initial="default"
+            whileHover="hover"
+            style={{ color: "#777BB3" }}
+            title="PHP"
+          >
+            <PhpSvg fill={SVGColor} />
+          </motion.div>
+          <motion.div
+            initial="default"
+            whileHover="hover"
+            style={{ color: "#00769D" }}
+            title="Wordpress"
+          >
+            <WordpressSvg fill={SVGColor} />
           </motion.div>
           <motion.div
             initial="default"

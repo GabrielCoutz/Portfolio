@@ -19,6 +19,7 @@ const Projetos = () => {
         <AnimateSharedLayout>
           <motion.ul className={styles.cards} layout>
             <Card
+              image={require("../public/essencial.png")}
               title="Essencial Calçados"
               subtitle="Front end & UI Design"
               repositoryLink="https://github.com/GabrielCoutz/essencial-calcados"
@@ -26,7 +27,7 @@ const Projetos = () => {
               date="2022"
               description="Pequeno e-commerce de calçados
               importados. Desenvolvido utilizando
-              Cloudnary & DatoCMS para gestão de
+              DatoCMS para gestão de
               conteúdo. Atuo como front-end e UI/UX
               designer, construindo-o no Figma e
               transformando em código posteriormente."
@@ -40,10 +41,12 @@ const Projetos = () => {
               ]}
             />
             <Card
+              image={require("../public/kairos.png")}
               title="Kairos"
               subtitle="Front/Back end & UI/UX Design"
               date="2021 - 2022"
               repositoryLink="https://github.com/GabrielCoutz/Kairos-v2"
+              siteLink="https://gabrielcoutz.github.io/Kairos-v2.github.io/"
               description="Plataforma de gestão de marketing
               desenvolvida para apresentação do meu TCC.
               Atuei como front & back, desenvolvendo-a

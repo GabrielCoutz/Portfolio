@@ -24,6 +24,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   cursor: pointer;
+  align-items: center;
 }
 
 .active {
@@ -47,6 +48,37 @@
   background: var(--primaryColor);
 }
 
+.divInfo {
+  display: flex;
+  gap: 3rem;
+  white-space: nowrap;
+}
+
+.tecnologies {
+  color: var(--c1);
+  font: 400 1.5rem/1.2 var(--fontDisplay);
+  margin-bottom: 1.4rem;
+}
+
+.image {
+  grid-column: 2;
+}
+
+.tecnologies li {
+  position: relative;
+}
+
+.tecnologies li::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: -10px;
+  width: 2px;
+  height: 5px;
+  transform: rotate(90deg);
+  background: var(--primaryColor);
+}
+
 .subtitle {
   grid-column: 1/-1;
   position: relative;
@@ -58,6 +90,7 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: flex-end;
 }
 
 .icons a {
@@ -108,5 +141,8 @@
   .subtitle,
   .date {
     font-size: 1.2rem;
+  }
+  .divInfo {
+    gap: 1rem;
   }
 }
