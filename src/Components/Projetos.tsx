@@ -30,7 +30,7 @@ const Projetos = () => {
               DatoCMS para gestão de
               conteúdo. Atuo como front-end e UI/UX
               designer, construindo-o no Figma e
-              transformando em código posteriormente."
+              transformando em código posteriormente. Aprendi a lidar com REST API's, pois durante seu desenvolvimento, foram usados outros CMS's até chegar neste, que por sua vez, é construído com GraphQL, sendo necessário para a comunicação e requisições de dados. Também exercitei o modelo de desenvolvimento com React, como componentização e estados, com a Context API. Assim como, a utilização do componente nativo para imagens do Next.js, rotas e seus métodos de renderização, SSR & CSR."
               tecnologies={[
                 "React",
                 "Next.js",
@@ -50,7 +50,7 @@ const Projetos = () => {
               description="Plataforma de gestão de marketing
               desenvolvida para apresentação do meu TCC.
               Atuei como front & back, desenvolvendo-a
-              dos wireframes, ao código."
+              dos wireframes, ao código. Pratiquei a validação de dados com JS, e como salvá-los, consultá-los e manipulá-los em um banco, livre de SQL Injection, com PHP. Assim como, o design responsivo e a interação constante com formulários."
               tecnologies={["HTML", "CSS", "JavaScript", "PHP"]}
             />
           </motion.ul>
