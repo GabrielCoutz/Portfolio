@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:www.linkedin.com)",
       "mcp__ide__executeCode",
-      "WebFetch(domain:docs.expo.dev)"
+      "WebFetch(domain:docs.expo.dev)",
+      "WebSearch"
     ]
   }
 }

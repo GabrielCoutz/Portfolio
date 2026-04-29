@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia de Deploy de Apps Mobile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+
+<header>
+  <div class="header-left">
+    <button class="mobile-menu-btn" id="menuBtn" onclick="toggleNav()" aria-label="Abrir menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <span class="header-logo">Deploy Guide</span>
+  </div>
+  <button class="search-trigger" onclick="openSearch()">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    Pesquisar...
+    <span class="search-kbd" id="searchKbd"></span>
+  </button>
+  <div class="header-right">
+    <button class="header-search-icon" onclick="openSearch()" aria-label="Pesquisar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Fechar">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+  <img id="lightboxImg" src="" alt="" onclick="event.stopPropagation()" />
+</div>
+
+<div class="search-overlay" id="searchOverlay" onclick="onOverlayClick(event)">
+  <div class="search-modal">
+    <div class="search-input-wrap">
+      <button id="searchIconBtn" onclick="clearSearchInput()" style="flex-shrink:0;background:none;border:none;cursor:default;padding:0;line-height:0;color:var(--muted);">
+        <svg id="searchIconSearch" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <svg id="searchIconClear" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+      <input class="search-input" id="searchInput" placeholder="Pesquisar na documentação..." oninput="renderResults(this.value)" autocomplete="off">
+    </div>
+    <div class="search-results" id="searchResults">
+      <div class="search-empty">Digite para pesquisar...</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-overlay" id="navOverlay" onclick="closeNav()"></div>
+
+<div class="layout">
+
+  <!-- Left: Nav -->
+  <aside class="sidebar-left">
+    <div class="nav-links">
+      <div class="nav-group-label">Introdução</div>
+      <button class="nav-link active" data-page="overview" onclick="navigate('overview')">Visão Geral</button>
+      <button class="nav-link" data-page="prereqs" onclick="navigate('prereqs')">Pré-requisitos</button>
+
+      <div class="nav-group-label">Pré-build</div>
+      <button class="nav-link" data-page="assets" onclick="navigate('assets')">Assets do Tenant</button>
+      <button class="nav-link" data-page="ios" onclick="navigate('ios')">Configuração iOS</button>
+      <button class="nav-link" data-page="android" onclick="navigate('android')">Configuração Android</button>
+      <button class="nav-link" data-page="workflow" onclick="navigate('workflow')">Executar o Workflow</button>
+
+      <div class="nav-group-label">Pós-build</div>
+      <button class="nav-link" data-page="sns-ios" onclick="navigate('sns-ios')">Configuração SNS iOS</button>
+      <button class="nav-link" data-page="sns-android" onclick="navigate('sns-android')">Configuração SNS Android</button>
+
+      <div class="nav-group-label">Publicação</div>
+      <button class="nav-link" data-page="publish-ios" onclick="navigate('publish-ios')">Publicar na App Store</button>
+      <button class="nav-link" data-page="post-publish-ios" onclick="navigate('post-publish-ios')">Pós-publicação iOS</button>
+      <button class="nav-link" data-page="publish-android" onclick="navigate('publish-android')">Publicar no Google Play</button>
+
+      <div class="nav-group-label">Manutenção</div>
+      <button class="nav-link" data-page="update-ios" onclick="navigate('update-ios')">Atualizar iOS</button>
+      <button class="nav-link" data-page="update-android" onclick="navigate('update-android')">Atualizar Android</button>
+
+      <div class="nav-group-label">Outros</div>
+      <button class="nav-link" data-page="reference" onclick="navigate('reference')">Referência</button>
+    </div>
+
+    <div class="theme-toggle-wrap">
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+        <span class="theme-toggle-icon" id="themeIcon">☀️</span>
+        <span id="themeLabel">Modo claro</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Center: Content -->
+  <main class="content">
+
+    <!-- Visão Geral -->
+    <article class="page active" id="page-overview" data-sections='[
+      {"id":"about","label":"Sobre este guia"},
+      {"id":"flow","label":"Fluxo geral"},
+      {"id":"what-workflow","label":"O que o workflow faz"}
+    ]'>
+      <div class="page-badge">Introdução</div>
+      <h1>Visão Geral</h1>
+      <p class="page-desc">Entenda como funciona o processo de build e publicação de novos apps mobile multi-tenant.</p>
+
+      <h2 id="about">Sobre este guia</h2>
+      <p>Este guia descreve o processo completo para criar e publicar um novo app nas lojas (App Store e Google Play) a partir do repositório interno <code>react-native-app</code>.</p>
+      <p>A plataforma é <strong>multi-tenant</strong>: o mesmo código gera apps diferentes para cada cliente, diferenciados pelo bundle ID e pelo nome do app. Cada tenant gera um app independente nas lojas — com ícone, nome e pacote próprios.</p>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <p>O bundle ID de cada tenant segue o padrão <code>com.plataformaexemplo.slug-do-tenant</code>. O slug é definido no momento de criar o tenant.</p>
+      </div>
+
+      <h2 id="flow">Fluxo geral</h2>
+      <p>O processo é dividido em três fases:</p>
+
+      <p><strong>1. Pré-build</strong> — configuração de ambiente antes de gerar os binários:</p>
+      <ul>
+        <li>Adição dos assets do tenant (ícone, splash)</li>
+        <li>Build iOS local com <code>eas build --platform ios</code> (interativo, uma vez por tenant)</li>
+        <li>Configuração do Firebase Android (<code>google-services.json</code>)</li>
+        <li>Disparo do workflow Android no GitHub Actions</li>
+      </ul>
+
+      <p><strong>2. Pós-build</strong> — configuração de push notifications após os builds estarem prontos:</p>
+      <ul>
+        <li>Criação do aplicativo de plataforma iOS no Amazon SNS (APNs)</li>
+        <li>Criação do aplicativo de plataforma Android no Amazon SNS (FCM)</li>
+        <li>Registro dos ARNs no GI da plataforma</li>
+      </ul>
+
+      <p><strong>3. Publicação</strong> — envio dos apps para as lojas:</p>
+      <ul>
+        <li>Publicação na App Store Connect</li>
+        <li>Publicação no Google Play Console</li>
+      </ul>
+
+      <h2 id="what-workflow">O que o workflow faz</h2>
+      <p>O workflow Android executa automaticamente:</p>
+      <ol>
+        <li>Faz bump da versão do app (<code>patch</code>, <code>minor</code> ou <code>major</code>)</li>
+        <li>Commita e faz push da nova versão no repositório</li>
+        <li>Define as variáveis do tenant no EAS (nome e slug)</li>
+        <li>Inicia o build Android no EAS (assíncrono)</li>
+      </ol>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <p>O build iOS é feito <strong>localmente</strong> antes de disparar o workflow — consulte a seção <strong>Configuração iOS</strong>.</p>
+      </div>
+      <div class="callout tip">
+        <span class="callout-icon">✅</span>
+        <p>O build Android roda no EAS em background. Acompanhe no painel de builds do projeto no <strong>expo.dev</strong> após disparar o workflow.</p>
+      </div>
+    </article>
+
+    <!-- Pré-requisitos -->
+    <article class="page" id="page-prereqs" data-sections='[
+      {"id":"accounts","label":"Contas necessárias"},
+      {"id":"local-tools","label":"Ferramentas locais"}
+    ]'>
+      <div class="page-badge">Setup</div>
+      <h1>Pré-requisitos</h1>
+      <p class="page-desc">O que precisa estar configurado antes de criar o primeiro tenant.</p>
+
+      <h2 id="accounts">Contas necessárias</h2>
+      <table>
+        <thead><tr><th>Conta</th><th>Finalidade</th><th>Permissão mínima</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://developer.apple.com/account" target="_blank"><strong>Apple Developer</strong></a></td><td>Certificados iOS e provisioning profiles — acesso à org interna obrigatório</td><td>App Manager</td></tr>
+          <tr><td><a href="https://developer.apple.com/account" target="_blank"><strong>App Store Connect</strong></a></td><td>API Key para automação de credenciais iOS — acesso à org interna obrigatório</td><td>App Manager</td></tr>
+          <tr><td><a href="https://expo.dev" target="_blank"><strong>Expo / EAS</strong></a></td><td>Build e gerenciamento de credenciais — acesso à org interna obrigatório</td><td>Owner ou Admin</td></tr>
+          <tr><td><a href="https://console.firebase.google.com" target="_blank"><strong>Firebase</strong></a></td><td>Push notifications Android — acesso ao projeto interno obrigatório</td><td>Editor</td></tr>
+          <tr><td><a href="https://github.com" target="_blank"><strong>GitHub</strong></a></td><td>Repositório interno e CI/CD</td><td>Write</td></tr>
+          <tr><td><a href="https://console.aws.amazon.com/sns" target="_blank"><strong>AWS (SNS)</strong></a></td><td>Push notifications iOS e Android via Amazon SNS — necessário acesso ou acompanhamento de alguém com acesso para as etapas de Pós-build</td><td>—</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="local-tools">Ferramentas locais</h2>
+      <p>Para o setup inicial de cada tenant, é necessário ter instalado localmente:</p>
+      <ul>
+        <li><a href="https://nodejs.org/" target="_blank"><strong>Node.js</strong></a> 24.x</li>
+        <li><a href="https://docs.expo.dev/build/introduction/" target="_blank"><strong>EAS CLI</strong></a> — <code>npm install -g eas-cli</code></li>
+        <li><a href="https://yarnpkg.com/" target="_blank"><strong>Yarn</strong></a> ou <a href="https://www.npmjs.com/" target="_blank"><strong>npm</strong></a></li>
+      </ul>
+      <p>E estar autenticado na conta Expo:</p>
+      <pre><code>eas login</code></pre>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <p>Consulte o <a href="#" onclick="navigate('reference'); return false;"><strong>Checklist por tenant</strong></a> na seção de Referência para uma visão completa de todas as etapas antes de começar.</p>
+      </div>
+    </article>
+
+    <!-- Assets -->
+    <article class="page" id="page-assets" data-sections='[
+      {"id":"assets-required","label":"Arquivos obrigatórios"},
+      {"id":"assets-specs","label":"Especificações"},
+      {"id":"assets-where","label":"Onde colocar"}
+    ]'>
+      <div class="page-badge">Novo Tenant</div>
+      <h1>Assets do Tenant</h1>
+      <p class="page-desc">Imagens de ícone e logo obrigatórias antes do primeiro build. Sem elas, o build falhará.</p>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <p><strong>O build falhará</strong> se os assets do tenant não existirem no repositório antes de disparar o workflow. Este passo é obrigatório.</p>
+      </div>
+
+      <h2 id="assets-required">Arquivos obrigatórios</h2>
+      <p>Cada tenant precisa de exatamente dois arquivos dentro da sua pasta:</p>
+      <table>
+        <thead><tr><th>Arquivo</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>logo.png</code></td>
+            <td>Logo exibida dentro do app (splash screen, telas de auth, etc.)</td>
+          </tr>
+          <tr>
+            <td><code>adaptive-icon.png</code></td>
+            <td>Ícone do app no Android (adaptive icon — camada foreground). Também usado como ícone no iOS.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <p>Use o template do Figma Community para exportar os assets nos tamanhos corretos: <a href="https://www.figma.com/pt-br/comunidade/file/1466490409418563617/expo-app-icon-splash-v2-community" target="_blank"><strong>Expo App Icon &amp; Splash (v2) — Figma Community</strong></a>.</p>
+      </div>
+
+      <h2 id="assets-specs">Especificações</h2>
+      <table>
+        <thead><tr><th>Arquivo</th><th>Tamanho recomendado</th><th>Fundo</th><th>Formato</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>logo.png</code></td>
+            <td>Mínimo 512 × 512 px</td>
+            <td>Transparente ou sólido</td>
+            <td>PNG</td>
+          </tr>
+          <tr>
+            <td><code>adaptive-icon.png</code></td>
+            <td>1024 × 1024 px</td>
+            <td>Transparente — o fundo é definido pelo tema do app</td>
+            <td>PNG</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="display:flex;gap:24px;margin:20px 0;align-items:flex-end;justify-content:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <img src="assets/imagens/example-logo.png" alt="Exemplo adaptive-icon.png" style="width:120px;height:120px;object-fit:contain;border-radius:8px;border:1px solid var(--border);">
+          <code style="font-size:0.75rem;">adaptive-icon.png</code>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <img src="assets/imagens/example-adaptive-icon.png" alt="Exemplo logo.png" style="width:120px;height:120px;object-fit:contain;border-radius:8px;border:1px solid var(--border);">
+          <code style="font-size:0.75rem;">logo.png</code>
+        </div>
+      </div>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <p>O <code>adaptive-icon.png</code> deve ter fundo transparente. O Android aplica a cor de fundo do app por baixo — a imagem deve conter apenas o foreground (logo/ícone).</p>
+      </div>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <p><strong>Sempre rode o app localmente antes de publicar.</strong> Verifique se o ícone e a splash screen estão com proporções corretas e bem centralizados — tanto no Android quanto no iOS. Problemas de alinhamento ou corte só ficam visíveis rodando o app de verdade.</p>
+      </div>
+
+      <h2 id="assets-where">Onde colocar</h2>
+      <p>Os arquivos devem estar em:</p>
+      <pre><code>assets/images/tenants/<span class="tenant-slug">slug-do-tenant</span>/
+├── logo.png
+└── adaptive-icon.png</code></pre>
+      <p>Commite e faça push dos arquivos antes de disparar o workflow. Exemplo para o tenant <code><span class="tenant-slug">minha-empresa</span></code>:</p>
+      <pre><code>git add assets/images/tenants/<span class="tenant-slug">minha-empresa</span>/
+git commit -m "feat: add tenant assets for <span class="tenant-slug">minha-empresa</span>"
+git push</code></pre>
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <p>Consulte a pasta de algum tenant já existente em <code>assets/images/tenants/</code> como referência de estrutura e nomes de arquivo.</p>
+      </div>
+    </article>
+    <!-- iOS -->
+    <article class="page" id="page-ios" data-sections='[
+      {"id":"ios-why","label":"Por que é local"},
+      {"id":"ios-steps","label":"Passo a passo"}
+    ]'>
+      <div class="page-badge">Novo Tenant</div>
+      <h1>Configuração iOS</h1>
+      <p class="page-desc">O build iOS é feito localmente — rode o comando abaixo antes de disparar o workflow Android.</p>
+
+      <div class="tenant-setup-box">
+        <div class="tenant-setup-label">Slug do tenant</div>
+        <p class="tenant-setup-desc">Digite o slug para preencher automaticamente os bundle IDs e comandos desta página.</p>
+        <div class="pre-prefix-wrap" style="margin:0">
+          <span class="pre-prefix">com.plataformaexemplo.</span>
+          <div class="pre-input-wrap">
+            <input class="pre-input tenant-page-input" type="text" placeholder="slug-do-tenant" spellcheck="false" autocomplete="off" oninput="updateTenant(this.value)" />
+            <button class="copy-btn" style="opacity:1" onclick="copyBundleId(this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="ios-why">Por que é local</h2>
+      <p>Cada tenant gera um app com bundle ID próprio — por exemplo, <code>com.plataformaexemplo.<span class="tenant-slug">minha-empresa</span></code>. A Apple exige um <strong>Provisioning Profile</strong> exclusivo por bundle ID, e o EAS só consegue criá-lo no <strong>primeiro build em modo interativo</strong>.</p>
+      <p>Por isso o build iOS é feito localmente uma vez por tenant. Builds futuros do iOS também precisam ser feitos localmente — não há workflow automático para iOS.</p>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <p>O Distribution Certificate é compartilhado entre todos os tenants da mesma conta Apple. Apenas o Provisioning Profile é criado por tenant.</p>
+      </div>
+
+      <h2 id="ios-steps">Passo a passo</h2>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <p>Durante o processo, o EAS solicitará login com a conta <strong>Apple Developer</strong>. Use a mesma conta configurada nos <a href="#" onclick="navigate('prereqs'); return false;">pré-requisitos</a>.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Clone o repositório e instale as dependências</div>
+            <pre><code>git clone &lt;URL_DO_REPOSITÓRIO&gt;
+cd react-native-app
+yarn install</code></pre>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Crie o perfil no eas.json e rode o build</div>
+            <p>Adicione o perfil do tenant ao objeto <code>"build"</code> do <code>eas.json</code> e commite antes de buildar:</p>
+            <div class="pre-prefix-wrap" style="margin-bottom:4px">
+              <span class="pre-prefix">TENANTNAME=</span>
+              <div class="pre-input-wrap">
+                <input class="pre-input tenant-name-input" type="text" placeholder="Nome do Tenant" spellcheck="false" autocomplete="off" oninput="updateTenantName(this.value)" />
+              </div>
+            </div>
+            <pre><code>"production-<span class="tenant-slug">slug-do-tenant</span>": {
+  "autoIncrement": false,
+  "node": "24.0.0",
+  "environment": "production",
+  "env": {
+    "EXPO_PUBLIC_TENANT": "<span class="tenant-slug">slug-do-tenant</span>",
+    "TENANTNAME": "<span class="tenant-name">Nome do Tenant</span>"
+  }
+}</code></pre>
+            <p>Em seguida, rode o build:</p>
+            <pre><code>eas build --platform ios --profile production-<span class="tenant-slug">slug-do-tenant</span></code></pre>
+            <div class="callout tip">
+              <span class="callout-icon">💡</span>
+              <p>O EAS solicitará credenciais interativamente na primeira vez — confirme a criação do Provisioning Profile quando perguntado.</p>
+            </div>
+            <div class="callout warning">
+              <span class="callout-icon">⚠️</span>
+              <p>Se o EAS perguntar se deseja recusar o Distribution Certificate existente, <strong>não recuse</strong> — ele é compartilhado entre todos os tenants. Apenas o Provisioning Profile deve ser gerado novo.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Aguarde o build e submeta para a App Store</div>
+            <p>O build roda no EAS. Acompanhe no painel de builds do projeto em <strong>expo.dev → Builds</strong>. Ao concluir, configure as credenciais do tenant e submeta.</p>
+            <p>Primeiro, vincule a API Key ao tenant correto:</p>
+            <pre><code>eas credentials --platform ios --profile production-<span class="tenant-slug">slug-do-tenant</span></code></pre>
+            <p>No menu, selecione <strong>App Store Connect: Manage your API Key</strong> → <strong>Use an existing API Key for EAS Submit</strong> → selecione a <strong>key mais recente</strong>.</p>
+            <p>Em seguida, rode o submit:</p>
+            <pre><code>eas submit --platform ios --profile production-<span class="tenant-slug">slug-do-tenant</span></code></pre>
+            <p>O EAS exibirá um menu de opções — selecione <strong>Select a build from EAS</strong> e depois escolha o build <strong>mais recente</strong> da lista.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Prossiga para a Configuração Android</div>
+            <p>Com o build iOS em andamento, configure o Firebase e dispare o workflow Android. Consulte a seção <strong>Configuração Android</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+    </article>
+    <!-- Android -->
+    <article class="page" id="page-android" data-sections='[
+      {"id":"android-why","label":"Por que é necessário"},
+      {"id":"android-firebase","label":"Registrar no Firebase"},
+      {"id":"android-json","label":"Baixar google-services.json"}
+    ]'>
+      <div class="page-badge">Novo Tenant</div>
+      <h1>Configuração Android</h1>
+      <p class="page-desc">Setup único necessário antes do primeiro build Android de cada novo tenant.</p>
+
+      <div class="tenant-setup-box">
+        <div class="tenant-setup-label">Slug do tenant</div>
+        <p class="tenant-setup-desc">Digite o slug para preencher automaticamente os bundle IDs e comandos desta página.</p>
+        <div class="pre-prefix-wrap" style="margin:0">
+          <span class="pre-prefix">com.plataformaexemplo.</span>
+          <div class="pre-input-wrap">
+            <input class="pre-input tenant-page-input" type="text" placeholder="slug-do-tenant" spellcheck="false" autocomplete="off" oninput="updateTenant(this.value)" />
+            <button class="copy-btn" style="opacity:1" onclick="copyBundleId(this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="android-why">Por que é necessário</h2>
+      <p>O arquivo <code>google-services.json</code> lista os package names autorizados no Firebase. Cada tenant possui um package name único — por exemplo, <code>com.plataformaexemplo.<span class="tenant-slug">minha-empresa</span></code>.</p>
+      <p>Se o package name do novo tenant não estiver no arquivo, o build falhará com o erro:</p>
+      <pre><code>No matching client found for package name 'com.plataformaexemplo.<span class="tenant-slug">slug-do-tenant</span>'
+in /home/expo/workingdir/build/android/app/google-services.json</code></pre>
+
+      <h2 id="android-firebase">Registrar no Firebase</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Acesse o Firebase Console</div>
+            <p>Entre no <a href="https://console.firebase.google.com" target="_blank"><strong>Firebase Console</strong></a> e selecione o projeto interno de notificações.</p>
+            <img class="doc-img" src="assets/imagens/firebase-project-select.webp" alt="Página inicial do Firebase Console — selecionar o projeto interno de notificações" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Clique em "+ Adicionar app"</div>
+            <p>Na visão geral do projeto, clique no botão <strong>+ Adicionar app</strong>.</p>
+            <img class="doc-img" src="assets/imagens/firebase-add-app.webp" alt="Visão geral do projeto Firebase — botão + Adicionar app em destaque" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Selecione a plataforma Android</div>
+            <p>Nas opções de plataforma exibidas, clique no ícone <strong>Android</strong>.</p>
+            <img class="doc-img" src="assets/imagens/firebase-select-android.webp" alt="Seletor de plataforma no Firebase Console — ícone Android em destaque" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Informe o Package name</div>
+            <p>No campo <strong>Nome do pacote do Android</strong>, informe o slug do tenant — o prefixo é sempre fixo:</p>
+            <div class="pre-prefix-wrap">
+              <span class="pre-prefix">com.plataformaexemplo.</span>
+              <div class="pre-input-wrap">
+                <input class="pre-input tenant-page-input" type="text" placeholder="slug-do-tenant" spellcheck="false" autocomplete="off" oninput="updateTenant(this.value)" />
+                <button class="copy-btn" style="opacity:1" onclick="copyBundleId(this)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                </button>
+              </div>
+            </div>
+            <img class="doc-img" src="assets/imagens/firebase-package-name.webp" alt="Formulário Adicionar o Firebase ao seu app Android — campo Nome do pacote do Android" />
+          </div>
+        </div>
+      </div>
+
+      <h2 id="android-json">Baixar google-services.json</h2>
+      <p>Após registrar o app no Firebase, baixe o arquivo <code>google-services.json</code> atualizado e substitua o existente na raiz do projeto.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Baixe o google-services.json</div>
+            <p>No Firebase Console, após adicionar o app Android, clique em <strong>Baixar google-services.json</strong>. O arquivo já conterá todos os apps Android registrados no projeto.</p>
+            <img class="doc-img" src="assets/imagens/firebase-download-json.webp" alt="Passo 2 do Firebase — botão Baixar google-services.json em destaque" />
+            <div class="callout tip">
+              <span class="callout-icon">💡</span>
+              <p>Após baixar o arquivo, clique em <strong>Avançar</strong> nos passos seguintes e depois em <strong>Voltar ao console</strong> — não é necessário seguir as instruções de integração do SDK.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Substitua o arquivo no repositório</div>
+            <p>Copie o arquivo baixado para a raiz do projeto, substituindo o <code>google-services.json</code> existente. Commite e faça push. Em seguida, prossiga para a seção <strong>Executar o Workflow</strong>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <p>Sempre baixe o arquivo diretamente do Firebase após registrar um novo tenant. Não edite o JSON manualmente.</p>
+      </div>
+    </article>
+
+    <!-- Workflow -->
+    <article class="page" id="page-workflow" data-sections='[
+      {"id":"wf-access","label":"Acessar o GitHub Actions"},
+      {"id":"wf-params","label":"Parâmetros"},
+      {"id":"wf-monitor","label":"Monitorar o build"}
+    ]'>
+      <div class="page-badge">CI/CD</div>
+      <h1>Executar o Workflow</h1>
+      <p class="page-desc">Como disparar o build Android de um tenant pelo GitHub Actions. O build iOS é feito separadamente — veja <a href="#" onclick="navigate('ios'); return false;">Configuração iOS</a>.</p>
+
+      <h2 id="wf-access">Acessar o GitHub Actions</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Abra o repositório no GitHub</div>
+            <p>Acesse o repositório interno no GitHub e clique na aba <strong>Actions</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Selecione o workflow</div>
+            <p>Na lista à esquerda, clique em <strong>Start android build in EAS</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Clique em "Run workflow"</div>
+            <p>Um formulário aparecerá para preencher os parâmetros do build. Preencha e confirme.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="wf-params">Parâmetros</h2>
+      <table>
+        <thead><tr><th>Campo</th><th>Descrição</th><th>Exemplo</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>tenant_name</code></td>
+            <td>Nome de exibição do app nas lojas</td>
+            <td><code>Minha Empresa</code></td>
+          </tr>
+          <tr>
+            <td><code>expo_public_tenant</code></td>
+            <td>Slug do tenant — define o bundle ID e as configurações carregadas. Deve ser idêntico ao usado no setup iOS e Firebase</td>
+            <td><code><span class="tenant-slug">minha-empresa</span></code></td>
+          </tr>
+          <tr>
+            <td><code>bump_type</code></td>
+            <td>Tipo de bump de versão. Use <code>patch</code> para builds de rotina</td>
+            <td><code>patch</code></td>
+          </tr>
+          <tr>
+            <td><code>bundle_id</code></td>
+            <td>Prefixo do bundle ID. Para apps com o padrão atual, use <code>com.plataformaexemplo</code>. Para apps antigos com bundle ID customizado, informe o prefixo correto — o slug do tenant é adicionado automaticamente pelo workflow</td>
+            <td><code>com.plataformaexemplo</code></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <p>O <code>expo_public_tenant</code> deve ser exatamente o mesmo slug usado no setup iOS e no registro do Firebase.</p>
+      </div>
+
+      <h2 id="wf-monitor">Monitorar o build</h2>
+      <p>O build roda de forma assíncrona no EAS. Para acompanhar:</p>
+      <ol>
+        <li>Acesse o painel de builds do projeto em <strong>expo.dev → Builds</strong></li>
+        <li>O build aparecerá com status <em>In progress</em></li>
+        <li>Ao concluir, o artefato <code>.aab</code> fica disponível para download</li>
+      </ol>
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <p>Com o build concluído, configure as notificações push antes de publicar nas lojas — veja <a href="#" onclick="navigate('sns-ios'); return false;"><strong>Configuração SNS iOS</strong></a> e <a href="#" onclick="navigate('sns-android'); return false;"><strong>SNS Android</strong></a>.</p>
+      </div>
+    </article>
+
+    <!-- Publicar na App Store -->
+    <article class="page" id="page-publish-ios" data-sections='[
+      {"id":"pi-info","label":"Informações Gerais"},
+      {"id":"pi-ratings","label":"Classificações Etárias"},
+      {"id":"pi-privacy","label":"Privacidade do App"},
+      {"id":"pi-pricing","label":"Preços e Disponibilidade"},
+      {"id":"pi-screenshots","label":"Capturas de Tela"},
+      {"id":"pi-metadata","label":"Metadados do App"},
+      {"id":"pi-build","label":"Compilação"},
+      {"id":"pi-review","label":"Informações de Revisão"},
+      {"id":"pi-submit","label":"Enviar para Revisão"}
+    ]'>
+      <div class="page-badge">Publicação</div>
+      <h1>Publicar na App Store</h1>
+      <p class="page-desc">Como preencher os campos da App Store Connect e submeter o app para revisão.</p>
+
+      <img class="doc-img" src="assets/imagens/asc-idioma-ptbr.webp" alt="Seletor de idioma Português (Brasil) na página App para iOS Versão 1.0" />
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <p>Todos os metadados (capturas de tela, descrição, texto promocional) são vinculados ao idioma selecionado. Se o app tiver outros idiomas configurados, cada um deve ter seus próprios metadados preenchidos — caso contrário, ao clicar em <strong>Adicionar para revisão</strong> aparecerá um erro indicando os campos obrigatórios em falta por idioma:</p>
+      </div>
+      <img class="doc-img" src="assets/imagens/asc-erro-idioma.webp" alt="Erro ao adicionar para revisão — campos obrigatórios faltando para o idioma Inglês (EUA)" />
+
+      <h2 id="pi-info">Informações Gerais</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Acesse o app no App Store Connect</div>
+            <p>Entre em <a href="https://appstoreconnect.apple.com/apps" target="_blank"><strong>appstoreconnect.apple.com → Apps</strong></a>, localize o app do tenant e abra-o.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Preencha o Idioma principal e a Categoria</div>
+            <p>No menu lateral, clique em <strong>Informações gerais</strong>. No campo <strong>Idioma principal</strong>, selecione <strong>Português (Brasil)</strong>. No campo <strong>Categoria</strong>, selecione a categoria de acordo com o propósito do tenant.</p>
+            <div class="callout tip">
+              <span class="callout-icon">💡</span>
+              <p>A categoria principal determina como o app aparece nas buscas e prateleiras da App Store. Escolha a que melhor descreve o produto do tenant.</p>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Configure os Direitos de conteúdo</div>
+            <p>Ainda em <strong>Informações gerais</strong>, localize a seção <strong>Direitos de conteúdo</strong> e clique para editar. Selecione <strong>Não, este app não contém, exibe ou acessa conteúdo de terceiros</strong> e clique em <strong>Concluído</strong>.</p>
+            <img class="doc-img" src="assets/imagens/asc-direitos-conteudo.webp" alt="Modal Direitos de conteúdo — opção Não selecionada" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Salve as Informações gerais</div>
+            <p>Após configurar os direitos de conteúdo, clique em <strong>Salvar</strong> no canto superior direito da página <strong>Informações do app</strong>.</p>
+            <img class="doc-img" src="assets/imagens/asc-info-salvar.webp" alt="Botão Salvar na página Informações do app no App Store Connect" />
+          </div>
+        </div>
+      </div>
+
+      <h2 id="pi-ratings">Classificações Etárias</h2>
+      <p>No menu lateral, clique em <strong>Classificações etárias</strong> e preencha os 7 passos conforme abaixo.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Recursos</div>
+            <table>
+              <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Controles Parentais</td><td>NÃO</td></tr>
+                <tr><td>Restrição por idade</td><td>NÃO</td></tr>
+                <tr><td>Acesso irrestrito à web</td><td>NÃO</td></tr>
+                <tr><td>Conteúdo gerado por usuários</td><td>NÃO</td></tr>
+                <tr><td>Mensagens e chat</td><td>NÃO</td></tr>
+                <tr><td>Publicidade</td><td>NÃO</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Temas adultos</div>
+            <table>
+              <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Linguagem obscena ou humor grosseiro</td><td>NENHUM</td></tr>
+                <tr><td>Temas de terror/medo</td><td>NENHUM</td></tr>
+                <tr><td>Uso ou referências a álcool, tabaco ou drogas</td><td>NENHUM</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Médico ou bem-estar</div>
+            <table>
+              <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Informações médicas ou sobre tratamentos</td><td>NENHUM</td></tr>
+                <tr><td>Tópicos de saúde ou bem-estar</td><td>NÃO</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Sexualidade ou nudez</div>
+            <table>
+              <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Temas adultos ou sugestivos</td><td>NENHUM</td></tr>
+                <tr><td>Conteúdo sexual ou nudez</td><td>NENHUM</td></tr>
+                <tr><td>Conteúdo com imagens sexuais e nudez</td><td>NENHUM</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Violência</div>
+            <table>
+              <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Violência animada ou fantasiosa</td><td>NENHUM</td></tr>
+                <tr><td>Violência realista</td><td>NENHUM</td></tr>
+                <tr><td>Violência realista sádica ou prolongada</td><td>NENHUM</td></tr>
+                <tr><td>Armas de fogo ou outras armas</td><td>NENHUM</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Atividades baseadas em acaso</div>
+            <table>
+              <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Simulação de jogos de azar</td><td>NENHUM</td></tr>
+                <tr><td>Competições</td><td>NENHUM</td></tr>
+                <tr><td>Jogos de azar</td><td>NÃO</td></tr>
+                <tr><td>Caixas de itens</td><td>NÃO</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <div class="step-title">Informações adicionais</div>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Classificação indicativa e substituição</td><td>Não aplicável</td></tr>
+                <tr><td>URL de adequação à idade</td><td>(deixar vazio)</td></tr>
+              </tbody>
+            </table>
+            <p>Clique em <strong>Salvar</strong>. A classificação calculada resultante é <strong>+4</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="pi-privacy">Privacidade do App</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Acesse Privacidade do app</div>
+            <p>No menu lateral, clique em <strong>Privacidade do app</strong> e depois em <strong>Começar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Coleta de dados</div>
+            <p>Na tela <strong>Coleta de dados</strong>, selecione <strong>Não, nós não coletamos dados deste app</strong> e clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Política de privacidade</div>
+            <p>Na seção <strong>Política de privacidade</strong>, clique em <strong>Editar</strong> e preencha os campos:</p>
+            <img class="doc-img" src="assets/imagens/asc-politica-privacidade.webp" alt="Modal Política de privacidade no App Store Connect — campos de URL" />
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>URL da Política de privacidade</strong></td><td>URL da política de privacidade do tenant (máx. 255 caracteres)</td></tr>
+                <tr><td><strong>URL das opções de privacidade do usuário</strong></td><td>Opcional</td></tr>
+              </tbody>
+            </table>
+            <p>Clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Publique as configurações de privacidade</div>
+            <p>Após salvar todas as configurações, clique em <strong>Publicar</strong> no canto superior direito da página <strong>Privacidade do app</strong>.</p>
+            <img class="doc-img" src="assets/imagens/asc-privacidade-publicar.webp" alt="Botão Publicar na página Privacidade do app no App Store Connect" />
+          </div>
+        </div>
+      </div>
+
+      <h2 id="pi-pricing">Preços e Disponibilidade</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Acesse Preços e disponibilidade</div>
+            <p>No menu lateral, em <strong>Monetização</strong>, clique em <strong>Preços e disponibilidade</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Configure a Tabela de preços</div>
+            <p>Na seção <strong>Tabela de preços</strong>, clique em <strong>Adicionar preços</strong>. No modal <strong>Preço do app</strong>, configure:</p>
+            <img class="doc-img" src="assets/imagens/asc-preco.webp" alt="Modal Preço do app — País de referência Estados Unidos e preço $ 0,00" />
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>País ou região de referência</strong></td><td>Estados Unidos (USD)</td></tr>
+                <tr><td><strong>Preço</strong></td><td>$ 0,00 (gratuito)</td></tr>
+              </tbody>
+            </table>
+            <p>Clique em <strong>Próximo</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Preços nos países ou regiões</div>
+            <p>A Apple preencherá automaticamente o preço gratuito para todos os 174 países com base na referência. Não é necessário alterar nada — clique em <strong>Próximo</strong>.</p>
+            <img class="doc-img" src="assets/imagens/asc-preco-paises.webp" alt="Modal Preços nos países ou regiões — todos gratuitos" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Confirme o preço do app</div>
+            <p>Revise o resumo com os 175 países e clique em <strong>Confirmar</strong>.</p>
+            <img class="doc-img" src="assets/imagens/asc-preco-confirmar.webp" alt="Modal Confirme o preço do app — 175 países com preço gratuito" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Configure a disponibilidade</div>
+            <p>Na seção <strong>Disponibilidade do app</strong>, clique em <strong>Configurar disponibilidade</strong>.</p>
+            <img class="doc-img" src="assets/imagens/asc-precos-disponibilidade.webp" alt="Página Preços e disponibilidade no App Store Connect — botão Configurar disponibilidade destacado" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Selecione Todos os países ou regiões</div>
+            <p>Mantenha selecionado <strong>Todos os países ou regiões</strong> e clique em <strong>Próximo</strong>.</p>
+            <img class="doc-img" src="assets/imagens/asc-disponibilidade-paises.webp" alt="Modal Disponibilidade do app — opção Todos os países ou regiões selecionada" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <div class="step-title">Confirme</div>
+            <p>Na tela de confirmação, clique em <strong>Confirmar</strong>.</p>
+            <img class="doc-img" src="assets/imagens/asc-disponibilidade-confirmar.webp" alt="Modal de confirmação de disponibilidade em 175 países" />
+          </div>
+        </div>
+      </div>
+
+      <h2 id="pi-screenshots">Capturas de Tela</h2>
+      <p>Na página <strong>App para iOS Versão 1.0</strong>, preencha a seção <strong>Pré-visualizações e capturas de tela</strong> para iPhone e iPad com as imagens fornecidas pelo time de UX/UI no Figma.</p>
+      <img class="doc-img" src="assets/imagens/asc-screenshots.webp" alt="Seção Pré-visualizações e capturas de tela no App Store Connect — aba iPhone destacada" />
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <p>As imagens são preparadas pelo time de UX/UI no Figma. Solicite os arquivos exportados antes de iniciar este passo.</p>
+      </div>
+      <table>
+        <thead><tr><th>Dispositivo</th><th>Tamanhos aceitos</th><th>Limite</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>iPhone (6,5 pol.)</td>
+            <td><code>1242×2688</code>, <code>2688×1242</code>, <code>1284×2778</code>, <code>2778×1284</code></td>
+            <td>3 pré-visualizações + 10 capturas</td>
+          </tr>
+          <tr>
+            <td>iPad (12,9 ou 13 pol.)</td>
+            <td><code>2064×2752</code>, <code>2752×2064</code>, <code>2048×2732</code>, <code>2732×2048</code></td>
+            <td>3 pré-visualizações + 10 capturas</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <p>As capturas da aba <strong>iPhone</strong> são usadas para todos os tamanhos de tela e idiomas. Preencha também a aba <strong>iPad</strong> separadamente.</p>
+      </div>
+
+      <h2 id="pi-metadata">Metadados do App</h2>
+      <p>Ainda na página <strong>App para iOS Versão 1.0</strong>, preencha os campos de metadados abaixo das capturas de tela.</p>
+      <img class="doc-img" src="assets/imagens/asc-metadados.webp" alt="Campos de metadados na página App para iOS Versão 1.0" />
+      <table>
+        <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Descrição</strong></td><td>Descrição do app do tenant (máx. 4.000 caracteres)</td></tr>
+          <tr><td><strong>Palavras-chave</strong></td><td>Palavras-chave do tenant (máx. 100 caracteres, separadas por vírgula)</td></tr>
+          <tr><td><strong>URL de suporte</strong></td><td>URL de suporte do tenant</td></tr>
+          <tr><td><strong>URL de marketing</strong></td><td>URL de marketing do tenant</td></tr>
+          <tr><td><strong>Versão</strong></td><td><code>1.0</code></td></tr>
+          <tr><td><strong>Copyright</strong></td><td><em>Nome da organização</em></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="pi-build">Compilação</h2>
+      <p>Na seção <strong>Compilação</strong>, clique em <strong>Adicionar compilação</strong> e selecione o único build disponível na lista. Clique em <strong>Concluído</strong>.</p>
+      <img class="doc-img" src="assets/imagens/asc-compilacao.webp" alt="Modal Adicione uma compilação — build do EAS listado para seleção" />
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <p>O build foi enviado automaticamente pelo EAS durante o <code>eas submit</code>. Se a lista estiver vazia, aguarde alguns minutos e recarregue a página.</p>
+      </div>
+
+      <h2 id="pi-review">Informações de Revisão</h2>
+      <p>Na seção <strong>Informações para a equipe de revisão dos apps</strong>, forneça as credenciais e o contato do tenant para que o revisor da Apple consiga fazer login e testar o app.</p>
+      <img class="doc-img" src="assets/imagens/asc-revisao.webp" alt="Seção Informações para a equipe de revisão dos apps no App Store Connect" />
+      <table>
+        <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Início de sessão obrigatório</strong></td><td>Marcado</td></tr>
+          <tr><td><strong>Nome do usuário</strong></td><td>E-mail de um usuário de teste do tenant</td></tr>
+          <tr><td><strong>Senha</strong></td><td>Senha do usuário de teste do tenant</td></tr>
+          <tr><td><strong>Nome / Sobrenome</strong></td><td>Nome do contato do tenant</td></tr>
+          <tr><td><strong>Número de telefone</strong></td><td>Telefone do contato do tenant</td></tr>
+          <tr><td><strong>E-mail</strong></td><td>E-mail do contato do tenant</td></tr>
+          <tr><td><strong>Notas</strong></td><td>Instruções adicionais do tenant para o revisor (opcional)</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="pi-submit">Enviar para Revisão</h2>
+      <p>Com todas as configurações preenchidas e salvas, clique em <strong>Adicionar para revisão</strong> no canto superior direito da página <strong>App para iOS Versão 1.0</strong>.</p>
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <p>O tempo de revisão da Apple costuma levar entre 24 e 48 horas. Acompanhe o status em <a href="https://appstoreconnect.apple.com/apps" target="_blank"><strong>App Store Connect → Apps</strong></a>.</p>
+      </div>
+
+    </article>
+
+    <!-- Pós-publicação iOS -->
+    <article class="page" id="page-post-publish-ios" data-sections='[
+      {"id":"ppi-asc-app-id","label":"Registrar App ID no eas.json"}
+    ]'>
+      <div class="page-badge">Pós-publicação</div>
+      <h1>Pós-publicação iOS</h1>
+      <p class="page-desc">Passos a realizar após o app iOS ser aprovado na App Store.</p>
+
+      <h2 id="ppi-asc-app-id">Registrar App ID no eas.json</h2>
+      <p>O <code>ascAppId</code> é o <strong>ID do Apple</strong> gerado pela App Store Connect ao criar o app. Ele é necessário para que o <code>eas submit</code> saiba para qual app enviar o build nas próximas atualizações.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Localize o ID do Apple no App Store Connect</div>
+            <p>Acesse <a href="https://appstoreconnect.apple.com/apps" target="_blank"><strong>appstoreconnect.apple.com → Apps</strong></a>, abra o app do tenant e clique em <strong>Informações do app</strong> no menu lateral. Role até a seção <strong>Informações gerais</strong> e copie o valor do campo <strong>ID do Apple</strong> (número com ~10 dígitos, ex: <code>123456789</code>).</p>
+            <img class="doc-img" src="assets/imagens/asc-app-id-apple.webp" alt="App Store Connect — Informações do app com campo ID do Apple destacado" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Adicione o ascAppId no eas.json</div>
+            <p>No objeto <code>"submit"</code> do <code>eas.json</code>, adicione o campo <code>ascAppId</code> ao perfil do tenant:</p>
+            <pre><code>"production-<span class="tenant-slug">slug-do-tenant</span>": {
+  "ios": {
+    "ascAppId": "1234567890"
+  }
+}</code></pre>
+            <p>Commite e faça push da alteração.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <span class="callout-icon">💡</span>
+        <p>Com o <code>ascAppId</code> preenchido, o comando <code>eas submit</code> nas próximas atualizações não precisará de confirmação manual do app de destino.</p>
+      </div>
+    </article>
+
+    <!-- Publicar no Google Play -->
+    <article class="page" id="page-publish-android" data-sections='[
+      {"id":"pa-steps","label":"Criando aplicativo"},
+      {"id":"pa-policies","label":"Configurando políticas"},
+      {"id":"pa-store-listing","label":"Detalhes do app"},
+      {"id":"pa-closed-test","label":"Teste fechado"},
+      {"id":"pa-version","label":"Criando versão"}
+    ]'>
+      <div class="page-badge">Publicação</div>
+      <h1>Publicar no Google Play</h1>
+      <p class="page-desc">Como enviar o <code>.aab</code> gerado pelo workflow para o Google Play Console.</p>
+
+      <h2 id="pa-steps">Criando aplicativo</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Acesse a lista de apps da organização</div>
+            <p>Entre no <a href="https://play.google.com/console" target="_blank"><strong>Google Play Console</strong></a>, selecione a conta da organização e clique em <strong>Criar app</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-criar-app.webp" alt="Página inicial do Google Play Console — botão Criar app em destaque" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Preencha os detalhes do app</div>
+            <p>No formulário <strong>Criar app</strong>, preencha os campos conforme abaixo:</p>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>Nome do app</strong></td>
+                  <td>Nome de exibição do tenant (ex: <code>Minha Empresa</code>)</td>
+                </tr>
+                <tr>
+                  <td><strong>Nome do pacote</strong></td>
+                  <td>
+                    <div class="pre-prefix-wrap" style="margin:0">
+                      <span class="pre-prefix">com.plataformaexemplo.</span>
+                      <div class="pre-input-wrap">
+                        <input class="pre-input tenant-page-input" type="text" placeholder="slug-do-tenant" spellcheck="false" autocomplete="off" oninput="updateTenant(this.value)" />
+                        <button class="copy-btn" style="opacity:1" onclick="copyBundleId(this)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Idioma padrão</strong></td>
+                  <td>Português (Brasil) – pt-BR</td>
+                </tr>
+                <tr>
+                  <td><strong>App ou jogo</strong></td>
+                  <td>App</td>
+                </tr>
+                <tr>
+                  <td><strong>Gratuito ou pago</strong></td>
+                  <td>Grátis</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="callout warning">
+              <span class="callout-icon">⚠️</span>
+              <p>O <strong>Nome do pacote</strong> é permanente e não pode ser alterado após a criação. Verifique o slug antes de confirmar.</p>
+            </div>
+            <img class="doc-img" src="assets/imagens/play-nome-pacote.webp" alt="Campo Nome do pacote no formulário Criar app" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Aceite as declarações e crie o app</div>
+            <p>Role até a seção <strong>Declarações</strong>, marque as caixas de conformidade com as políticas do Google Play e clique em <strong>Criar app</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="pa-policies">Configurando políticas</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Acesse Definir Política de Privacidade</div>
+            <p>No painel do app, na seção <strong>Configurar o app → Informar nossa equipe sobre o conteúdo do app</strong>, clique em <strong>Definir Política de Privacidade</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-painel-politicas.webp" alt="Painel do Google Play Console — link Definir Política de Privacidade" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Insira a URL da política e salve</div>
+            <p>No campo de URL, insira <code>https://plataforma-exemplo.com/legal</code> e clique em <strong>Salvar</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-politica-privacidade.webp" alt="Página Política de Privacidade no Google Play Console — URL preenchida" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Acesse Conteúdo do app e inicie as declarações</div>
+            <p>No menu lateral, em <strong>Monitorar e aprimorar → Políticas e programas → Conteúdo do app</strong>, clique em <strong>Iniciar declaração</strong> em cada uma das seções listadas na aba <strong>Precisam de atenção</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-conteudo-app.webp" alt="Página Conteúdo do app no Google Play Console — lista de declarações pendentes" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <div class="step-title">Anúncios</div>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Anúncios</strong></td><td>Não, meu app não tem anúncios</td></tr>
+              </tbody>
+            </table>
+            <p>Clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">8</div>
+          <div class="step-body">
+            <div class="step-title">Acesso de apps</div>
+            <p>Selecione <strong>Todas ou algumas funcionalidades do app são restritas</strong> e clique em <strong>+ Adicionar instruções</strong>.</p>
+            <div class="callout info">
+              <span class="callout-icon">ℹ️</span>
+              <p>Antes de preencher, crie um usuário de teste na plataforma do tenant e use as credenciais dele aqui — o Google Play precisará delas para o revisor fazer login no app durante a avaliação.</p>
+            </div>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Nome da instrução</strong></td><td>Login do App</td></tr>
+                <tr><td><strong>Nome de usuário</strong></td><td>E-mail do usuário de teste do tenant</td></tr>
+                <tr><td><strong>Senha</strong></td><td>Senha do usuário de teste do tenant</td></tr>
+              </tbody>
+            </table>
+            <p>Marque <strong>Nenhuma outra informação é necessária para acessar meu app</strong>. Marque também <strong>Permitir que o Android use as credenciais enviadas para testes de desempenho e compatibilidade do app</strong>. Clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">9</div>
+          <div class="step-body">
+            <div class="step-title">Classificações de conteúdo</div>
+            <p><strong>Passo 1 — Categoria:</strong></p>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Endereço de e-mail</strong></td><td>E-mail do responsável pelo app</td></tr>
+                <tr><td><strong>Categoria</strong></td><td>Todos os Outros Tipos de Aplicações</td></tr>
+                <tr><td><strong>Termos e Condições</strong></td><td>Marcar</td></tr>
+              </tbody>
+            </table>
+            <p><strong>Passo 2 — Questionário:</strong> selecione <strong>Não</strong> em todos os itens:</p>
+            <table>
+              <thead><tr><th>Item</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Aplicação transferida</td><td>Não</td></tr>
+                <tr><td>Partilha de Conteúdos dos Utilizadores</td><td>Não</td></tr>
+                <tr><td>Conteúdo Online</td><td>Não</td></tr>
+                <tr><td>Promoção ou Venda de Produtos com Restrições de Idade</td><td>Não</td></tr>
+                <tr><td>Diversos — Partilha de localização física</td><td>Não</td></tr>
+                <tr><td>Diversos — Compra de artigos digitais</td><td>Não</td></tr>
+                <tr><td>Diversos — Recompensas em criptomoedas/NFTs</td><td>Não</td></tr>
+                <tr><td>Diversos — Browser ou motor de busca</td><td>Não</td></tr>
+                <tr><td>Diversos — Notícia ou produto educativo</td><td>Não</td></tr>
+              </tbody>
+            </table>
+            <p>Clique em <strong>Salvar</strong> no Passo 3 (Resumo).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">10</div>
+          <div class="step-body">
+            <div class="step-title">Público-alvo e conteúdo</div>
+            <p><strong>Passo 1 — Idade do público-alvo:</strong> marque todas as faixas etárias.</p>
+            <table>
+              <thead><tr><th>Faixa etária</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Menores de 5 anos</td><td>Marcado</td></tr>
+                <tr><td>6 a 8</td><td>Marcado</td></tr>
+                <tr><td>9 a 12</td><td>Marcado</td></tr>
+                <tr><td>13 a 15</td><td>Marcado</td></tr>
+                <tr><td>16 a 17</td><td>Marcado</td></tr>
+                <tr><td>Maiores de 18 anos</td><td>Marcado</td></tr>
+              </tbody>
+            </table>
+            <p><strong>Passo 2 — Detalhes do app:</strong> marque <strong>Confirmo que este app obedece a toda a legislação e regulamentação aplicáveis de proteção infantil</strong>.</p>
+            <p><strong>Passo 3 — Anúncios:</strong> selecione <strong>Não, meu app não tem anúncios</strong>.</p>
+            <p><strong>Passo 4 — Presença na loja:</strong> selecione <strong>Não incluir meu app no Programa Aprovado por Professores</strong>.</p>
+            <p>Clique em <strong>Salvar</strong> no Resumo (Passo 5).</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">11</div>
+          <div class="step-body">
+            <div class="step-title">Segurança dos dados</div>
+            <p>Avance até o <strong>Passo 2 — Coleta de dados e segurança</strong> e configure:</p>
+            <table>
+              <thead><tr><th>Pergunta</th><th>Resposta</th></tr></thead>
+              <tbody>
+                <tr><td>O app coleta ou compartilha algum tipo de dados do usuário obrigatórios?</td><td>Não</td></tr>
+                <tr><td>Quer informar o compromisso com a Política para famílias do Google Play?</td><td>Sim</td></tr>
+              </tbody>
+            </table>
+            <p>Avance pelos passos restantes e clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">12</div>
+          <div class="step-body">
+            <div class="step-title">ID de publicidade</div>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>Seu app usa um ID de publicidade?</td><td>Não</td></tr>
+              </tbody>
+            </table>
+            <p>Clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">13</div>
+          <div class="step-body">
+            <div class="step-title">Apps governamentais</div>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td>O app é desenvolvido por um governo ou em nome dele?</td><td>Não</td></tr>
+              </tbody>
+            </table>
+            <p>Clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">14</div>
+          <div class="step-body">
+            <div class="step-title">Recursos financeiros</div>
+            <p>Marque <strong>Meu app não oferece recursos financeiros</strong> e clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">15</div>
+          <div class="step-body">
+            <div class="step-title">Saúde</div>
+            <p>Marque <strong>Meu app não tem recursos de saúde</strong> e clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">16</div>
+          <div class="step-body">
+            <div class="step-title">Selecionar uma categoria do app e fornecer detalhes de contato</div>
+            <p>De volta ao painel, na seção <strong>Configurar o app → Gerenciar a organização e a apresentação do app</strong>, clique em <strong>Selecionar uma categoria do app e fornecer detalhes de contato</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-painel-categoria.webp" alt="Painel do Google Play Console — link Selecionar uma categoria do app e fornecer detalhes de contato" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">17</div>
+          <div class="step-body">
+            <div class="step-title">Preencha categoria e detalhes de contato do tenant</div>
+            <p>Todos os campos desta página são específicos por tenant — extraia as informações diretamente do próprio tenant e preencha conforme abaixo:</p>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Categoria do app</strong></td><td>Sugestão: <strong>Educação</strong></td></tr>
+                <tr><td><strong>Tag</strong></td><td>Sugestão: <strong>Educação</strong></td></tr>
+                <tr><td><strong>E-mail</strong></td><td>E-mail de contato do tenant</td></tr>
+                <tr><td><strong>Telefone</strong></td><td>Telefone de contato do tenant (opcional)</td></tr>
+                <tr><td><strong>Website</strong></td><td>URL do site do tenant</td></tr>
+              </tbody>
+            </table>
+            <p>Clique em <strong>Salvar</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="pa-store-listing">Detalhes do app</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">18</div>
+          <div class="step-body">
+            <div class="step-title">Configure a página "Detalhes do app"</div>
+            <p>No painel do app, em <strong>Gerenciar a organização e a apresentação do app</strong>, clique em <strong>Configurar a página "Detalhes do app"</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-painel-detalhes-app.webp" alt="Painel do Google Play Console — link Configurar a página Detalhes do app" />
+            <p>Preencha os campos com as informações do tenant:</p>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Nome do app</strong></td><td>Nome de exibição do tenant (máx. 30 caracteres)</td></tr>
+                <tr><td><strong>Descrição resumida</strong></td><td>Resumo curto do app (máx. 80 caracteres)</td></tr>
+                <tr><td><strong>Descrição completa</strong></td><td>Descrição detalhada do app do tenant (máx. 4.000 caracteres)</td></tr>
+                <tr><td><strong>Ícone do app</strong></td><td>PNG 512 × 512 px — solicitar ao time de UX/UI</td></tr>
+                <tr><td><strong>Gráfico de recursos</strong></td><td>PNG ou JPEG 1024 × 500 px — solicitar ao time de UX/UI</td></tr>
+                <tr><td><strong>Capturas de tela (celular)</strong></td><td>Mínimo 2, máximo 8 — solicitar ao time de UX/UI</td></tr>
+              </tbody>
+            </table>
+            <div class="callout info">
+              <span class="callout-icon">ℹ️</span>
+              <p>As imagens são preparadas pelo time de UX/UI no Figma. Solicite os arquivos exportados antes de iniciar este passo.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="pa-closed-test">Teste fechado</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">19</div>
+          <div class="step-body">
+            <div class="step-title">Selecione países e regiões</div>
+            <p>No painel do app, em <strong>Lançar o app → Configurar uma faixa de teste fechada</strong>, clique em <strong>Selecionar países e regiões</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-lancar-paises.webp" alt="Painel Lançar o app — link Selecionar países e regiões na faixa de teste fechada" />
+            <p>Na página <strong>Países / regiões</strong>, marque o checkbox do cabeçalho da coluna <strong>País / região</strong> para selecionar todos os países de uma vez. Em seguida, clique em <strong>Salvar</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-paises-selecionar-todos.webp" alt="Página Países / regiões — checkbox de seleção de todos os países marcado" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">20</div>
+          <div class="step-body">
+            <div class="step-title">Selecione testadores</div>
+            <p>De volta ao painel, em <strong>Lançar o app → Configurar uma faixa de teste fechada</strong>, clique em <strong>Selecionar testadores</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-selecionar-testadores.webp" alt="Painel Lançar o app — link Selecionar testadores na faixa de teste fechada" />
+            <p>Adicione os endereços de e-mail das contas Google que devem ter acesso ao teste fechado e salve.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="pa-version">Criando versão</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">21</div>
+          <div class="step-body">
+            <div class="step-title">Crie uma nova versão</div>
+            <p>No painel do app, em <strong>Lançar o app → Criar e lançar uma versão</strong>, clique em <strong>Criar uma nova versão</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-criar-versao-fechada.webp" alt="Painel Lançar o app — link Criar uma nova versão em Criar e lançar uma versão" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">22</div>
+          <div class="step-body">
+            <div class="step-title">Baixe o .aab no EAS</div>
+            <p>Acesse o painel de builds do projeto no <strong>expo.dev</strong>, abra o build Android mais recente e clique em <strong>Download</strong> para baixar o artefato <code>.aab</code>.</p>
+            <img class="doc-img" src="assets/imagens/eas-download-aab.webp" alt="Página do build Android no EAS — botão Download do artefato AAB" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">23</div>
+          <div class="step-body">
+            <div class="step-title">Faça upload do .aab e preencha os detalhes da versão</div>
+            <p>Na página <strong>Criar versão de teste fechado</strong>, arraste o <code>.aab</code> para a área <strong>Pacotes de apps</strong> ou clique em <strong>Enviar</strong>. Aguarde o upload concluir.</p>
+            <p>Em <strong>Detalhes da versão</strong>, preencha:</p>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Nome da versão</strong></td><td>Gerado automaticamente — pode editar (ex: <code>Versão 1.0</code>)</td></tr>
+                <tr><td><strong>Notas da versão</strong></td><td>Descreva o que há na versão dentro das tags de idioma: <code>&lt;pt-BR&gt;Versão 1.0&lt;/pt-BR&gt;</code></td></tr>
+              </tbody>
+            </table>
+            <p>Clique em <strong>Próximo</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">24</div>
+          <div class="step-body">
+            <div class="step-title">Salve e publique a versão</div>
+            <p>Na página <strong>Visualizar e confirmar</strong> (Passo 2), revise o resumo da versão, clique em <strong>Salvar e publicar</strong> e em seguida em <strong>Ir para a visão geral</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">25</div>
+          <div class="step-body">
+            <div class="step-title">Envie as mudanças para revisão</div>
+            <p>Na página <strong>Visão geral da publicação</strong>, confirme todos os dados listados em <strong>Mudanças que ainda não foram enviadas para revisão</strong> e clique em <strong>Enviar para revisão</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-enviar-revisao.webp" alt="Página Visão geral da publicação — botão Enviar mudanças para revisão" />
+            <p>Confirme o envio no modal de confirmação. Após isso, basta aguardar o review do Google — o prazo usual é de algumas horas a alguns dias.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SNS iOS -->
+    <article class="page" id="page-sns-ios" data-sections='[
+      {"id":"sns-ios-steps","label":"Passo a passo"},
+      {"id":"sns-ios-arn","label":"Copiar ARN"}
+    ]'>
+      <div class="page-badge">Pós-build</div>
+      <h1>Configuração SNS iOS</h1>
+      <p class="page-desc">Configure o aplicativo de plataforma no Amazon SNS para habilitar push notifications via APNs. Tenha o arquivo <code>.p8</code> da chave APNs em mãos antes de começar.</p>
+
+      <div class="tenant-setup-box">
+        <div class="tenant-setup-label">Slug do tenant</div>
+        <p class="tenant-setup-desc">Digite o slug para preencher automaticamente os bundle IDs desta página.</p>
+        <div class="pre-prefix-wrap" style="margin:0">
+          <span class="pre-prefix">com.plataformaexemplo.</span>
+          <div class="pre-input-wrap">
+            <input class="pre-input tenant-page-input" type="text" placeholder="slug-do-tenant" spellcheck="false" autocomplete="off" oninput="updateTenant(this.value)" />
+            <button class="copy-btn" style="opacity:1" onclick="copyBundleId(this)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="sns-ios-steps">Passo a passo</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Gere uma chave APNs no Apple Developer</div>
+            <p>Acesse <a href="https://developer.apple.com/account/resources/authkeys/list" target="_blank"><strong>developer.apple.com → Certificates, Identifiers &amp; Profiles → Keys</strong></a> e clique no botão <strong>+</strong> ao lado de "Keys" para criar uma nova chave.</p>
+            <img class="doc-img" src="assets/imagens/apple-keys-list.webp" alt="Apple Developer — lista de Keys com botão + destacado" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Preencha o nome da chave e ative o APNs</div>
+            <p>No campo <strong>Key Name</strong>, use o padrão <code>SNS<span class="tenant-name">NomeDoTenant</span></code> (ex: <code>SNSMinhaPlataforma</code>). Em seguida, marque o checkbox <strong>Apple Push Notifications service (APNs)</strong> e clique em <strong>Configure</strong>.</p>
+            <img class="doc-img" src="assets/imagens/apple-register-key.webp" alt="Apple Developer — formulário Register a New Key com APNs marcado" />
+            <img class="doc-img" src="assets/imagens/apple-configure-apns-btn.webp" alt="Apple Developer — botão Configure ao lado do Apple Push Notifications service" />
+            <p>Na tela <strong>Configure Key</strong>, defina:</p>
+            <ul>
+              <li><strong>Environment</strong>: <code>Production</code></li>
+              <li><strong>Key Restriction</strong>: <code>Team Scoped (All Topics)</code></li>
+            </ul>
+            <img class="doc-img" src="assets/imagens/apple-configure-key.webp" alt="Apple Developer — tela Configure Key com Environment=Production e Key Restriction=Team Scoped" />
+            <div class="callout danger">
+              <span class="callout-icon">⚠️</span>
+              <div class="callout-body"><p>O ambiente e o tipo de restrição <strong>não podem ser alterados após salvar</strong>. Confirme os valores antes de continuar.</p></div>
+            </div>
+            <p>Clique em <strong>Save</strong> para confirmar e depois em <strong>Continue</strong> na tela anterior.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Confirme, baixe a chave e guarde o Key ID</div>
+            <p>Clique em <strong>Continue</strong> e depois em <strong>Register</strong> para finalizar o cadastro da chave.</p>
+            <p>Na tela <strong>Download Your Key</strong>, clique em <strong>Download</strong> para baixar o arquivo <code>.p8</code> e anote o <strong>Key ID</strong> exibido na página (ex: <code>ABC123</code>).</p>
+            <img class="doc-img" src="assets/imagens/apple-download-key.webp" alt="Apple Developer — tela Download Your Key com Key ID e botão Download" />
+            <div class="callout danger">
+              <span class="callout-icon">⚠️</span>
+              <div class="callout-body"><p>O arquivo <code>.p8</code> <strong>só pode ser baixado uma vez</strong>. Guarde-o em local seguro — ele será necessário para configurar o SNS.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Acesse o SNS no AWS Console</div>
+            <p>Entre no <a href="https://console.aws.amazon.com/sns" target="_blank"><strong>AWS Console → SNS → Mobile → Push notifications</strong></a> e clique em <strong>Criar aplicativo de plataforma</strong>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Preencha os dados do aplicativo de plataforma</div>
+            <p>No formulário do SNS, configure os campos:</p>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Nome do aplicativo</strong></td><td><code><span class="tenant-slug">slug-do-tenant</span>-ios</code></td></tr>
+                <tr><td><strong>Serviço push</strong></td><td>iOS</td></tr>
+                <tr><td><strong>Método de autenticação</strong></td><td>Token</td></tr>
+                <tr><td><strong>Chave de assinatura</strong></td><td>Faça upload do arquivo <code>.p8</code> da chave APNs da conta Apple Developer</td></tr>
+                <tr><td><strong>ID da chave de assinatura</strong></td><td>Visível em <a href="https://developer.apple.com/account/resources/authkeys/list" target="_blank">developer.apple.com → Keys</a> (10 caracteres)</td></tr>
+                <tr><td><strong>ID da equipe</strong></td><td>Acesse <a href="https://appstoreconnect.apple.com/" target="_blank">App Store Connect → Configurações do usuário</a> — o ID da equipe é exibido nessa página (10 caracteres alfanuméricos)</td></tr>
+                <tr><td><strong>ID do pacote</strong></td><td><code>com.plataformaexemplo.<span class="tenant-slug">slug-do-tenant</span></code></td></tr>
+              </tbody>
+            </table>
+            <img class="doc-img" src="assets/imagens/sns-criar-plataforma.webp" alt="Formulário de criação de aplicativo de plataforma no Amazon SNS" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Crie a plataforma</div>
+            <p>Clique em <strong>Criar aplicativo de plataforma</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="sns-ios-arn">Copiar ARN</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <div class="step-title">Copie o ARN gerado</div>
+            <p>Após a criação, copie o <strong>ARN</strong> exibido na página do aplicativo de plataforma.</p>
+            <img class="doc-img" src="assets/imagens/sns-arn.webp" alt="ARN do aplicativo de plataforma no Amazon SNS" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">8</div>
+          <div class="step-body">
+            <div class="step-title">Cole o ARN nas configurações do tenant na plataforma</div>
+            <p>Acesse o GI da plataforma, vá em <strong>Detalhes do inquilino → Configurações do App</strong> e cole o ARN copiado no campo <strong>ARN do endpoint iOS no Amazon SNS</strong>. Clique em <strong>Atualizar Tenant</strong> para salvar.</p>
+            <img class="doc-img" src="assets/imagens/gi-configuracoes-app.webp" alt="Configurações do App no GI da plataforma — campo ARN do endpoint iOS" />
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- SNS Android -->
+    <article class="page" id="page-sns-android" data-sections='[
+      {"id":"sns-android-steps","label":"Passo a passo"},
+      {"id":"sns-android-arn","label":"Copiar ARN"}
+    ]'>
+      <div class="page-badge">Pós-build</div>
+      <h1>Configuração SNS Android</h1>
+      <p class="page-desc">Configure o aplicativo de plataforma no Amazon SNS para habilitar push notifications via FCM. O bundle ID deve estar registrado no Firebase — veja <a href="#" onclick="navigate('android'); return false;">Configuração Android</a>.</p>
+
+      <h2 id="sns-android-steps">Passo a passo</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Acesse o Firebase Console</div>
+            <p>Entre no <a href="https://console.firebase.google.com" target="_blank"><strong>Firebase Console</strong></a> e selecione o projeto interno de notificações.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title">Abra as configurações do app Android</div>
+            <p>Na visão geral do projeto, localize o app Android criado nos passos da <a href="#" onclick="navigate('android'); return false;">Configuração Android</a> e clique no ícone de <strong>engrenagem</strong> ao lado do nome do app.</p>
+            <img class="doc-img" src="assets/imagens/firebase-android-gear.webp" alt="Visão geral do projeto Firebase — ícone de engrenagem ao lado do app Android" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title">Gere a chave privada da conta de serviço</div>
+            <p>Na página de configurações, clique na aba <strong>Contas de serviço</strong> e, na seção <strong>SDK Admin do Firebase</strong>, clique em <strong>Gerar nova chave privada</strong>. Um arquivo <code>.json</code> será baixado — guarde-o, pois será necessário no próximo passo.</p>
+            <img class="doc-img" src="assets/imagens/firebase-service-accounts.webp" alt="Configurações do projeto Firebase — aba Contas de serviço com botão Gerar nova chave privada em destaque" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title">Acesse o SNS no AWS Console</div>
+            <p>Entre no <a href="https://console.aws.amazon.com/sns" target="_blank"><strong>AWS Console → SNS → Mobile → Notificações por push</strong></a> e clique em <strong>Criar um aplicativo de plataforma</strong>.</p>
+            <img class="doc-img" src="assets/imagens/sns-android-criar-plataforma.webp" alt="Página Notificações por push para dispositivos móveis no Amazon SNS — botão Criar um aplicativo de plataforma" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title">Preencha os dados do aplicativo de plataforma</div>
+            <p>No formulário, configure os campos conforme abaixo:</p>
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Nome do aplicativo</strong></td><td><code><span class="tenant-slug">slug-do-tenant</span>-android</code></td></tr>
+                <tr><td><strong>Plataforma de notificações por push</strong></td><td>Firebase Cloud Messaging (FCM)</td></tr>
+                <tr><td><strong>Método de autenticação</strong></td><td>Token (recomendado)</td></tr>
+                <tr><td><strong>Json de serviço</strong></td><td>Clique em <strong>Escolher arquivo</strong> e selecione o <code>.json</code> baixado no passo 3</td></tr>
+              </tbody>
+            </table>
+            <p>Deixe <strong>Notificações de eventos</strong> e <strong>Registro em log do status da entrega</strong> recolhidos (opcionais) e clique em <strong>Criar um aplicativo de plataforma</strong>.</p>
+            <img class="doc-img" src="assets/imagens/sns-android-form.webp" alt="Formulário Criar um aplicativo de plataforma no Amazon SNS — campos preenchidos para Android FCM" />
+          </div>
+        </div>
+      </div>
+
+      <h2 id="sns-android-arn">Copiar ARN</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-body">
+            <div class="step-title">Copie o ARN gerado</div>
+            <p>Após a criação, copie o <strong>ARN</strong> exibido na página do aplicativo de plataforma.</p>
+            <img class="doc-img" src="assets/imagens/sns-arn.webp" alt="ARN do aplicativo de plataforma no Amazon SNS" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-body">
+            <div class="step-title">Cole o ARN nas configurações do tenant na plataforma</div>
+            <p>Acesse o GI da plataforma, vá em <strong>Detalhes do inquilino → Configurações do App</strong> e cole o ARN copiado no campo <strong>ARN do endpoint Android no Amazon SNS</strong>. Clique em <strong>Atualizar Tenant</strong> para salvar.</p>
+            <img class="doc-img" src="assets/imagens/gi-configuracoes-app-android.webp" alt="Configurações do App no GI da plataforma — campo ARN do endpoint Android" />
+          </div>
+        </div>
+      </div>
+    </article>
+
+
+    <!-- Atualizar App -->
+    <!-- Atualizar iOS -->
+    <article class="page" id="page-update-ios" data-sections='[
+      {"id":"ua-profile","label":"Perfil no eas.json"},
+      {"id":"ua-build","label":"Gerar novo build"},
+      {"id":"ua-submit","label":"Submeter para a App Store"}
+    ]'>
+      <div class="page-badge">Manutenção</div>
+      <h1>Atualizar iOS</h1>
+      <p class="page-desc">Como gerar novo build iOS e submeter uma atualização para um tenant existente.</p>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <div class="callout-body">
+          <p>Tenants mais antigos podem não seguir o padrão atual de bundle ID (<code>com.plataformaexemplo.[slug-do-tenant]</code>). Sempre confirme o bundle ID correto consultando o painel de apps publicados na <a href="https://appstoreconnect.apple.com/" target="_blank"><strong>App Store Connect</strong></a> antes de gerar o build.</p>
+          <p>Se o app já estiver publicado com um bundle ID diferente do padrão, use a opção <strong>App existente</strong> abaixo para informar o prefixo correto.</p>
+        </div>
+      </div>
+
+      <div class="tenant-setup-box">
+        <div class="tenant-setup-label">Tipo de app</div>
+        <select class="ua-mode-select" onchange="setUpdateMode(this.value)" style="margin-bottom:12px;width:100%;padding:6px 8px;border-radius:6px;border:1px solid var(--border,#e2e8f0);background:var(--bg,#fff);color:inherit;font-size:0.875rem;cursor:pointer;">
+          <option value="new">App novo — bundle ID padrão (com.plataformaexemplo.[slug])</option>
+          <option value="existing">App existente — bundle ID customizado</option>
+        </select>
+        <div class="tenant-setup-label">Slug do tenant</div>
+        <p class="tenant-setup-desc">Digite o slug e o nome para preencher automaticamente os comandos desta página.</p>
+        <div class="pre-prefix-wrap" style="margin:0">
+          <span class="pre-prefix">com.plataformaexemplo.</span>
+          <div class="pre-input-wrap">
+            <input class="pre-input tenant-page-input" type="text" placeholder="slug-do-tenant" spellcheck="false" autocomplete="off" oninput="updateTenant(this.value)" />
+          </div>
+        </div>
+        <div class="pre-prefix-wrap" style="margin-top:8px">
+          <span class="pre-prefix">TENANTNAME=</span>
+          <div class="pre-input-wrap">
+            <input class="pre-input tenant-name-input" type="text" placeholder="Nome do Tenant" spellcheck="false" autocomplete="off" oninput="updateTenantName(this.value)" />
+          </div>
+        </div>
+        <div class="bundle-prefix-row" style="display:none">
+          <div class="pre-prefix-wrap" style="margin-top:8px">
+            <span class="pre-prefix">bundle_id=</span>
+            <div class="pre-input-wrap">
+              <input class="pre-input bundle-prefix-input" type="text" placeholder="com.prefixo-existente" spellcheck="false" autocomplete="off" oninput="updateBundlePrefix(this.value)" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <p>Todas as alterações (código, assets, configurações) precisam estar <strong>commitadas e no repositório remoto</strong> antes de gerar o build — o EAS usa o estado atual do branch.</p>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">ℹ️</span>
+        <p>O workflow Android bumpa <code>runtimeVersion</code> e <code>versionCode</code> automaticamente via <code>scripts/bump-version.js</code>. Para manter iOS e Android na mesma versão, <strong>dispare o workflow Android primeiro</strong>, faça <code>git pull</code> do commit gerado e só então rode o build iOS.</p>
+      </div>
+
+      <div class="callout warning">
+        <span class="callout-icon">⚠️</span>
+        <p>O build iOS é sempre <strong>manual</strong> — não há workflow automático para iOS.</p>
+      </div>
+
+      <h2 id="ua-profile">Perfil no eas.json</h2>
+      <p>Confirme se o tenant tem perfis em <code>eas.json</code>. Os nomes seguem o padrão <code>production-[slug]</code>. Se não existirem, adicione os dois trechos abaixo (<code>"build"</code> e <code>"submit"</code>) e commite antes de buildar.</p>
+
+      <div class="ua-mode-new">
+        <p>No objeto <code>"build"</code>:</p>
+        <pre><code>"production-<span class="tenant-slug">slug-do-tenant</span>": {
+  "autoIncrement": false,
+  "node": "24.0.0",
+  "environment": "production",
+  "env": {
+    "EXPO_PUBLIC_TENANT": "<span class="tenant-slug">slug-do-tenant</span>",
+    "TENANTNAME": "<span class="tenant-name">Nome do Tenant</span>"
+  }
+}</code></pre>
+        <p>No objeto <code>"submit"</code>:</p>
+        <pre><code>"production-<span class="tenant-slug">slug-do-tenant</span>": {}</code></pre>
+      </div>
+
+      <div class="ua-mode-existing" style="display:none">
+        <p>Para apps com bundle ID customizado, inclua também o campo <code>BUNDLE_ID</code> no perfil de build — assim os comandos de build e submit dispensam variáveis de ambiente inline:</p>
+        <p>No objeto <code>"build"</code>:</p>
+        <pre><code>"production-<span class="tenant-slug">slug-do-tenant</span>": {
+  "autoIncrement": false,
+  "node": "24.0.0",
+  "environment": "production",
+  "env": {
+    "EXPO_PUBLIC_TENANT": "<span class="tenant-slug">slug-do-tenant</span>",
+    "TENANTNAME": "<span class="tenant-name">Nome do Tenant</span>",
+    "BUNDLE_ID": "<span class="bundle-prefix">com.prefixo-existente</span>.<span class="tenant-slug">slug-do-tenant</span>"
+  }
+}</code></pre>
+        <p>No objeto <code>"submit"</code>:</p>
+        <pre><code>"production-<span class="tenant-slug">slug-do-tenant</span>": {}</code></pre>
+      </div>
+
+      <h2 id="ua-build">Gerar novo build</h2>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title">Sincronizar versão e gerar o build</div>
+            <p>Após o workflow Android concluir, puxe o commit de bump de versão antes de buildar:</p>
+            <pre><code>git pull
+eas build --platform ios --profile production-<span class="tenant-slug">slug-do-tenant</span></code></pre>
+          </div>
+        </div>
+      </div>
+
+      <h2 id="ua-submit">Submeter para a App Store</h2>
+
+      <div class="ua-mode-new">
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Submeter para a App Store</div>
+              <div class="callout warning" style="margin-bottom:12px">
+                <span class="callout-icon">⚠️</span>
+                <p>Rode o submit apenas se o campo <code>ascAppId</code> do perfil <code>production-<span class="tenant-slug">slug-do-tenant</span></code> em <code>eas.json</code> estiver preenchido. Consulte <a href="#" onclick="navigate('post-publish-ios'); return false;"><strong>Registrar App ID no eas.json</strong></a>.</p>
+              </div>
+              <p>Após o build concluir no EAS, rode o submit:</p>
+              <pre><code>EXPO_PUBLIC_TENANT="<span class="tenant-slug">slug-do-tenant</span>" TENANTNAME="<span class="tenant-name">Nome do Tenant</span>" eas submit --platform ios --profile production-<span class="tenant-slug">slug-do-tenant</span></code></pre>
+              <p>Selecione <strong>Select a build from EAS</strong> e escolha o build mais recente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ua-mode-existing" style="display:none">
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body">
+              <div class="step-title">Submeter para a App Store</div>
+              <div class="callout warning" style="margin-bottom:12px">
+                <span class="callout-icon">⚠️</span>
+                <p>Rode o submit apenas se o campo <code>ascAppId</code> do perfil <code>production-<span class="tenant-slug">slug-do-tenant</span></code> em <code>eas.json</code> estiver preenchido. Consulte <a href="#" onclick="navigate('post-publish-ios'); return false;"><strong>Registrar App ID no eas.json</strong></a>.</p>
+              </div>
+              <p>Após o build concluir no EAS, rode o submit:</p>
+              <pre><code>EXPO_PUBLIC_TENANT="<span class="tenant-slug">slug-do-tenant</span>" TENANTNAME="<span class="tenant-name">Nome do Tenant</span>" BUNDLE_ID="<span class="bundle-prefix">com.prefixo-existente</span>.<span class="tenant-slug">slug-do-tenant</span>" eas submit --platform ios --profile production-<span class="tenant-slug">slug-do-tenant</span></code></pre>
+              <p>Selecione <strong>Select a build from EAS</strong> e escolha o build mais recente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Atualizar Android -->
+    <article class="page" id="page-update-android" data-sections='[
+      {"id":"ua-workflow","label":"Disparar o workflow"},
+      {"id":"ua-download","label":"Baixar o artefato"},
+      {"id":"ua-play","label":"Criar nova versão no Google Play"},
+      {"id":"ua-upload","label":"Upload e detalhes da versão"},
+      {"id":"ua-review","label":"Enviar para revisão"}
+    ]'>
+      <div class="page-badge">Manutenção</div>
+      <h1>Atualizar Android</h1>
+      <p class="page-desc">Como disparar novo build Android e publicar uma atualização para um tenant existente.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <div class="step-title" id="ua-workflow">Disparar o workflow</div>
+            <p>Dispare o workflow pelo GitHub Actions. Consulte <a href="#" onclick="navigate('workflow'); return false;"><strong>Executar o Workflow</strong></a>.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <div class="step-title" id="ua-download">Baixar o artefato</div>
+            <p>Acesse <strong>expo.dev → Builds</strong> e aguarde o build com status <em>In progress</em> concluir. Ao finalizar, clique em <strong>Download</strong> na seção <strong>Build artifact</strong> para baixar o arquivo <code>.aab</code>.</p>
+            <img class="doc-img" src="assets/imagens/eas-download-aab.webp" alt="Página do build no EAS — seção Build artifact com botão Download em destaque" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <div class="step-title" id="ua-play">Criar nova versão no Google Play</div>
+            <p>Acesse o <a href="https://play.google.com/console/" target="_blank"><strong>Google Play Console</strong></a>, selecione o app do tenant e, no menu lateral, clique em <strong>Testar e lançar → Produção</strong>. Em seguida, clique em <strong>Criar nova versão</strong>.</p>
+            <img class="doc-img" src="assets/imagens/play-criar-versao.webp" alt="Página Produção no Google Play Console — botão Criar nova versão em destaque" />
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-title" id="ua-upload">Upload e detalhes da versão</div>
+            <p>Na tela <strong>Criar versão de produção</strong>, faça o upload do <code>.aab</code> baixado na seção <strong>Pacotes de apps</strong> — arraste o arquivo ou clique em <strong>Enviar</strong>. Em seguida, preencha a seção <strong>Detalhes da versão</strong>:</p>
+            <img class="doc-img" src="assets/imagens/play-upload-aab.webp" alt="Tela Criar versão de produção — upload do .aab e preenchimento dos detalhes da versão" />
+            <table>
+              <thead><tr><th>Campo</th><th>Valor</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Nome da versão</strong></td><td>Preenchido automaticamente com base no <code>.aab</code> — não é necessário alterar</td></tr>
+                <tr><td><strong>Notas da versão</strong></td><td>Descreva o que mudou nesta versão para os usuários, dentro das tags <code>&lt;pt-BR&gt;</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-body">
+            <div class="step-title" id="ua-review">Enviar para revisão</div>
+            <p>Clique em <strong>Salvar</strong> e depois em <strong>Revisar versão</strong>. Na tela de revisão, clique em <strong>Iniciar lançamento para produção</strong> para enviar o app para revisão do Google Play.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Referência -->
+    <article class="page" id="page-reference" data-sections='[
+      {"id":"ref-secrets","label":"GitHub Secrets"},
+      {"id":"ref-checklist","label":"Checklist por tenant"}
+    ]'>
+      <div class="page-badge">Referência</div>
+      <h1>Referência</h1>
+      <p class="page-desc">Consulta rápida de secrets, variáveis e checklist completo por tenant.</p>
+
+      <h2 id="ref-secrets">GitHub Secrets</h2>
+      <table>
+        <thead><tr><th>Secret</th><th>Tipo</th><th>Descrição</th><th>Onde encontrar</th></tr></thead>
+        <tbody>
+          <tr><td><code>EXPO_TOKEN</code></td><td><span class="tag required">Obrigatório</span></td><td>Token de acesso Expo</td><td>expo.dev → Account Settings → Access Tokens → Create token</td></tr>
+        </tbody>
+      </table>
+
+      <div class="doc-links">
+        <a class="doc-link" href="https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          GitHub — Using secrets in Actions
+        </a>
+        <a class="doc-link" href="https://docs.expo.dev/accounts/programmatic-access/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          Expo — Programmatic access (tokens)
+        </a>
+      </div>
+
+      <h2 id="ref-checklist">Checklist por tenant</h2>
+      <p>Use esta lista para cada novo tenant antes de disparar o workflow pela primeira vez:</p>
+      <table>
+        <thead><tr><th>#</th><th>Tarefa</th><th>Frequência</th></tr></thead>
+        <tbody>
+          <tr><td colspan="3"><strong>Pré-build</strong></td></tr>
+          <tr><td>1</td><td>Definir o slug do tenant</td><td><span class="tag once">Por tenant</span></td></tr>
+          <tr><td>2</td><td>Adicionar <code>logo.png</code> e <code>adaptive-icon.png</code> em <code>assets/images/tenants/[slug]/</code> e commitar — <strong>build falha sem estes arquivos</strong> — ver <a href="#" onclick="navigate('assets'); return false;"><strong>Assets do Tenant</strong></a></td><td><span class="tag once">Por tenant</span></td></tr>
+          <tr><td>3</td><td>Fazer build iOS local com EAS e submeter à App Store — ver <a href="#" onclick="navigate('ios'); return false;"><strong>Configuração iOS</strong></a></td><td><span class="tag once">Por tenant</span></td></tr>
+          <tr><td>4</td><td>Registrar app Android no Firebase Console e adicionar entrada ao <code>google-services.json</code> e commitar — ver <a href="#" onclick="navigate('android'); return false;"><strong>Configuração Android</strong></a></td><td><span class="tag once">Por tenant</span></td></tr>
+          <tr><td>5</td><td>Disparar o workflow Android no GitHub Actions — ver <a href="#" onclick="navigate('workflow'); return false;"><strong>Executar o Workflow</strong></a></td><td>—</td></tr>
+          <tr><td colspan="3"><strong>Pós-build</strong></td></tr>
+          <tr><td>6</td><td>Configurar aplicativo de plataforma iOS no Amazon SNS (APNs) — ver <a href="#" onclick="navigate('sns-ios'); return false;"><strong>Configuração SNS iOS</strong></a></td><td><span class="tag once">Por tenant</span></td></tr>
+          <tr><td>7</td><td>Configurar aplicativo de plataforma Android no Amazon SNS (FCM) — ver <a href="#" onclick="navigate('sns-android'); return false;"><strong>Configuração SNS Android</strong></a></td><td><span class="tag once">Por tenant</span></td></tr>
+          <tr><td>8</td><td>Registrar os ARNs gerados no GI da plataforma (Configurações do App)</td><td><span class="tag once">Por tenant</span></td></tr>
+          <tr><td colspan="3"><strong>Publicação</strong></td></tr>
+          <tr><td>9</td><td>Criar app e preencher metadados no App Store Connect — ver <a href="#" onclick="navigate('publish-ios'); return false;"><strong>Publicar na App Store</strong></a></td><td><span class="tag once">Por tenant</span></td></tr>
+          <tr><td>10</td><td>Criar app, configurar políticas, fazer upload do <code>.aab</code> e enviar para revisão no Google Play — ver <a href="#" onclick="navigate('publish-android'); return false;"><strong>Publicar no Google Play</strong></a></td><td><span class="tag once">Por tenant</span></td></tr>
+        </tbody>
+      </table>
+      <div class="doc-links">
+        <a class="doc-link" href="https://docs.expo.dev/build/building-on-ci/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          Expo — Trigger builds from CI
+        </a>
+        <a class="doc-link" href="https://docs.expo.dev/app-signing/managed-credentials/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          Expo — Managed credentials
+        </a>
+        <a class="doc-link" href="https://firebase.google.com/docs/android/setup" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          Firebase — Add Android app
+        </a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Right: TOC -->
+  <aside class="sidebar-right">
+    <div class="nav-links">
+      <div class="sidebar-label">Nesta página</div>
+      <nav id="toc"></nav>
+    </div>
+  </aside>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

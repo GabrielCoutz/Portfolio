@@ -47,11 +47,9 @@
     </div>
     <div class="sidenav-group">
       <div class="sidenav-group-label">Impactos</div>
+      <div class="sidenav-item sidenav-item-wip">☁️ Cloudflare Images<span class="sidenav-wip-badge">Em breve</span></div>
       <button class="sidenav-item" data-project="treeshaking" onclick="goProject('treeshaking')">🌳 Tree Shaking</button>
-      <div class="sidenav-item sidenav-item-wip">
-        📱 Publicação de apps
-        <span class="sidenav-wip-badge">Em breve</span>
-      </div>
+      <button class="sidenav-item" data-project="apps" onclick="goProject('apps')">📱 Publicação de apps</button>
       <button class="sidenav-item" data-project="cls" onclick="goProject('cls')">⚡ Otimização de CLS</button>
       <button class="sidenav-item" data-project="lcp" onclick="goProject('lcp')">🖼️ Otimização de LCP</button>
     </div>
@@ -76,13 +74,16 @@
       </div>
       <div class="sidenav-group">
         <div class="sidenav-group-label">Impactos</div>
+        <div class="sidenav-item sidenav-item-wip">
+          ☁️ Cloudflare Images
+          <span class="sidenav-wip-badge">Em breve</span>
+        </div>
         <button class="sidenav-item" data-project="treeshaking" onclick="goProject('treeshaking')">
           🌳 Tree Shaking
         </button>
-        <div class="sidenav-item sidenav-item-wip">
+        <button class="sidenav-item" data-project="apps" onclick="goProject('apps')">
           📱 Publicação de apps
-          <span class="sidenav-wip-badge">Em breve</span>
-        </div>
+        </button>
         <button class="sidenav-item" data-project="cls" onclick="goProject('cls')">
           ⚡ Otimização de CLS
         </button>
@@ -99,7 +100,7 @@
   <div class="view active" id="view-home" tabindex="-1">
 
     <section class="hero">
-      <div class="badge" aria-label="Cargo atual: Technical Champion na Ensinio">Technical Champion · Ensinio</div>
+      <div class="badge" aria-label="Disponível para novas oportunidades">Disponível para novas oportunidades</div>
       <h1>Frontend Engineer<br>& Technical Champion.</h1>
       <p>3 anos construindo produtos escaláveis na Ensinio. Especializado em React, Next.js e TypeScript, focado em performance, qualidade de código e experiência do usuário.</p>
     </section>
@@ -109,19 +110,19 @@
     <h2 class="label reveal">Números gerais</h2>
     <div class="stats reveal">
       <div class="stat">
-        <div class="stat-num" data-count="96" data-prefix="−" data-suffix="%">−96%</div>
+        <div class="stat-num" data-count="96" data-prefix="−" data-suffix="%" aria-live="polite" aria-atomic="true">−96%</div>
         <div class="stat-label">Redução de CLS na página principal</div>
       </div>
       <div class="stat">
-        <div class="stat-num" data-count="76" data-prefix="−" data-suffix="%">−76%</div>
+        <div class="stat-num" data-count="76" data-prefix="−" data-suffix="%" aria-live="polite" aria-atomic="true">−76%</div>
         <div class="stat-label">Redução do bundle principal</div>
       </div>
       <div class="stat">
-        <div class="stat-num" data-count="64" data-prefix="−" data-suffix="%">−64%</div>
+        <div class="stat-num" data-count="64" data-prefix="−" data-suffix="%" aria-live="polite" aria-atomic="true">−64%</div>
         <div class="stat-label">Dados economizados por acesso</div>
       </div>
       <div class="stat">
-        <div class="stat-num">
+        <div class="stat-num" aria-live="polite" aria-atomic="true">
           <span>38</span><span style="color:var(--dim)" aria-hidden="true">→</span><span class="sr-only"> para </span><span data-count="53" data-from="38">53</span>
         </div>
         <div class="stat-label">PageSpeed Performance</div>
@@ -130,6 +131,20 @@
 
     <h2 class="label reveal">Impactos</h2>
     <div class="projects reveal">
+
+      <div class="project-row project-row-wip" aria-label="Em desenvolvimento">
+        <div class="project-main">
+          <div class="project-icon" aria-hidden="true">☁️</div>
+          <div class="project-text">
+            <h3>Redução de custos com otimização de imagens via Cloudflare</h3>
+            <div class="tags">Cloudflare · Performance · Custos · Imagens</div>
+            <p class="desc">Otimização do pipeline de imagens da plataforma utilizando Cloudflare, reduzindo custos de armazenamento e entrega sem comprometer a qualidade visual.</p>
+          </div>
+        </div>
+        <div class="project-side">
+          <span class="wip-badge">Em desenvolvimento</span>
+        </div>
+      </div>
 
       <button class="project-row" onclick="goProject('treeshaking')">
         <div class="project-main">
@@ -149,19 +164,23 @@
         </div>
       </button>
 
-      <div class="project-row project-row-wip" aria-label="Em desenvolvimento">
+      <button class="project-row" onclick="goProject('apps')">
         <div class="project-main">
           <div class="project-icon" aria-hidden="true">📱</div>
           <div class="project-text">
             <h3>Publicação de apps nas lojas: do build ao review</h3>
-            <div class="tags">App Store · Google Play · Documentação · CI/CD</div>
-            <p class="desc">Documentação do processo completo de publicação de apps do negócio nas lojas, cobrindo configuração de build, setup nas plataformas e envio para revisão.</p>
+            <div class="tags">Documentação · App Store · Google Play · CI/CD</div>
+            <p class="desc">Sem processo definido, cada publicação virava uma maratona de consultas e tentativas de se lembrar dos passos. Criei uma documentação completa do zero cobrindo todo o ciclo — de build a revisão — para iOS e Android.</p>
           </div>
         </div>
         <div class="project-side">
-          <span class="wip-badge">Em desenvolvimento</span>
+          <div class="project-kpi">
+            <div class="project-kpi-value">14</div>
+            <div class="project-kpi-label">Artigos criados</div>
+          </div>
+          <span class="arrow" aria-hidden="true">→</span>
         </div>
-      </div>
+      </button>
 
       <button class="project-row" onclick="goProject('cls')">
         <div class="project-main">
@@ -203,7 +222,7 @@
 
     <div class="cta reveal">
       <p class="cta-text">Seu negócio também precisa de resultados?</p>
-      <a href="https://www.linkedin.com/in/gabrielcoutz/" target="_blank" rel="noopener" class="cta-btn">
+      <a href="https://www.linkedin.com/in/gabrielcoutz/" target="_blank" rel="noopener" class="cta-btn" aria-label="Vamos conversar (abre em nova aba)">
         Vamos conversar
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -229,6 +248,19 @@
     </div>
   </aside>
 
+</div>
+
+<div
+  id="iframe-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Documentação do projeto"
+  onclick="if(event.target===this)closeIframeModal()"
+>
+  <div class="iframe-modal-inner">
+    <button class="iframe-modal-close" onclick="closeIframeModal()" aria-label="Fechar documentação">×</button>
+    <iframe id="iframe-modal-frame" src="" title="Documentação do projeto" loading="lazy"></iframe>
+  </div>
 </div>
 
 <div

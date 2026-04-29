@@ -48,6 +48,23 @@ const projects = {
     ],
     tags: ['Next.js', 'React', 'TypeScript', 'Core Web Vitals', 'LCP', 'Otimização de Imagens'],
   },
+  apps: {
+    title: 'Publicação de apps nas lojas: do build ao review',
+    subtitle: 'Documentação · App Store · Google Play · CI/CD',
+    summary: 'Sem processo definido, cada publicação virava uma maratona de consultas a docs externas e tentativas de se lembrar dos passos. Criei uma documentação completa do zero cobrindo todo o ciclo — de build a revisão — para iOS e Android, padronizando o processo para toda a equipe.',
+    metrics: [
+      { value: '14',            label: 'Artigos criados' },
+      { value: 'iOS + Android', label: 'Plataformas cobertas' },
+      { value: '14',            label: 'Seções na documentação' },
+      { value: '18+',           label: 'Tarefas no checklist por tenant' },
+    ],
+    context:  'O produto é multi-tenant: gera apps independentes para cada cliente — cada um com bundle ID, ícone e presença própria nas lojas. Com o crescimento do número de tenants, publicar e manter cada app virou parte recorrente do trabalho. Mas sem nenhum processo centralizado.',
+    pain:     'Cada publicação era feita de memória ou com consultas avulsas a docs externas em inglês. A equipe não tinha guia centralizado: o processo era lento, confuso e propenso a erros. Devs novos ficavam perdidos, e os experientes perdiam tempo relembrando configurações espalhadas entre App Store, Google Play, Firebase e AWS.',
+    solution: 'Criei uma documentação técnica completa do zero, em português, cobrindo todo o ciclo para iOS e Android: assets por tenant, build com EAS, configuração de push via AWS SNS, publicação na App Store e Google Play, e manutenção. A doc inclui inputs interativos que preenchem automaticamente bundle IDs e snippets de código com base no slug do tenant.',
+    results:  'O processo que antes exigia consultas a múltiplas fontes e conhecimento de memória passou a ter um guia único e centralizado. Novos devs conseguem publicar apps de forma autônoma. A equipe conta com um checklist de validação completo por tenant, eliminando a confusão e reduzindo significativamente o tempo por publicação.',
+    iframeSrc: 'projects/apps/index.html',
+    tags: ['React Native', 'Expo EAS', 'App Store', 'Google Play', 'AWS SNS', 'Firebase', 'GitHub Actions', 'Documentação'],
+  },
   cls: {
     title: 'Otimização de CLS na página principal da plataforma',
     subtitle: 'Core Web Vitals · Performance · UX',
@@ -77,6 +94,9 @@ const projects = {
   },
 };
 
+/* ── MOCK IMAGE ── */
+const MOCK_SRC = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500"><rect width="800" height="500" fill="#1c1c1e"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" fill="#555">imagem interna mockada</text></svg>')}`;
+
 /* ── HELPERS ── */
 function fmtVal(val) {
   if (!val.includes('→')) return val;
@@ -91,8 +111,8 @@ function sectionImgs(imgs, cols) {
     <div class="ps-image-wrap">
       ${img.label   ? `<div class="ps-image-label">${img.label}</div>` : ''}
       ${img.caption ? `<div class="ps-image-caption">${img.caption}</div>` : ''}
-      <button class="ps-image" onclick="openLightbox('${img.src}','${(img.label||img.caption||'').replace(/'/g,"\\'")}')" aria-label="Ampliar imagem: ${(img.label||img.caption||'').replace(/"/g,'&quot;')}">
-        <img src="${img.src}" alt="${(img.caption||img.label||'').replace(/"/g,'&quot;')}" loading="lazy">
+      <button class="ps-image${img.mock ? ' ps-image--mock' : ''}" onclick="openLightbox('${img.mock ? MOCK_SRC : img.src}','${(img.label||img.caption||'').replace(/'/g,"\\'")}')" aria-label="Ampliar imagem: ${(img.label||img.caption||'').replace(/"/g,'&quot;')}">
+        ${img.mock ? '<span class="ps-mock-label">imagem interna mockada</span>' : `<img src="${img.src}" alt="${(img.caption||img.label||'').replace(/"/g,'&quot;')}" loading="lazy">`}
       </button>
       ${img.fonte ? `<div class="ps-image-fonte">Fonte: <a href="${img.fonte}" target="_blank" rel="noopener">${img.fonte}</a></div>` : ''}
     </div>`).join('')}</div>`;
@@ -111,10 +131,14 @@ let tocScrollHandler = null;
 
 function updateSidebarActive(id) {
   document.querySelectorAll('.sidenav-item[data-project]').forEach(el => {
-    el.classList.toggle('active', el.dataset.project === id);
+    const isActive = el.dataset.project === id;
+    el.classList.toggle('active', isActive);
+    isActive ? el.setAttribute('aria-current', 'page') : el.removeAttribute('aria-current');
   });
   document.querySelectorAll('[data-home]').forEach(el => {
-    el.classList.toggle('active', !id);
+    const isActive = !id;
+    el.classList.toggle('active', isActive);
+    isActive ? el.setAttribute('aria-current', 'page') : el.removeAttribute('aria-current');
   });
 }
 
@@ -130,9 +154,13 @@ function openMobileMenu() {
   const btn      = document.getElementById('hamburger');
   backdrop.classList.add('open');
   drawer.classList.add('open');
-  requestAnimationFrame(() => backdrop.classList.add('visible'));
+  requestAnimationFrame(() => {
+    backdrop.classList.add('visible');
+    drawer.querySelector('button, a, [tabindex]:not([tabindex="-1"])')?.focus();
+  });
   btn.setAttribute('aria-expanded', 'true');
   document.addEventListener('keydown', onDrawerKey);
+  drawer.addEventListener('keydown', trapFocusDrawer);
 }
 
 function closeMobileMenu() {
@@ -144,9 +172,19 @@ function closeMobileMenu() {
   backdrop.addEventListener('transitionend', () => backdrop.classList.remove('open'), { once: true });
   btn.setAttribute('aria-expanded', 'false');
   document.removeEventListener('keydown', onDrawerKey);
+  drawer.removeEventListener('keydown', trapFocusDrawer);
 }
 
 function onDrawerKey(e) { if (e.key === 'Escape') closeMobileMenu(); }
+
+function trapFocusDrawer(e) {
+  if (e.key !== 'Tab') return;
+  const drawer = document.getElementById('mobile-drawer');
+  const focusable = [...drawer.querySelectorAll('button, a, [tabindex]:not([tabindex="-1"])')].filter(el => !el.disabled);
+  const [first, last] = [focusable.at(0), focusable.at(-1)];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+}
 
 /* sync drawer theme button */
 function syncDrawerThemeBtn() {
@@ -157,6 +195,8 @@ function syncDrawerThemeBtn() {
 }
 
 function showToc() {
+  document.getElementById('sidebar-right').style.display = '';
+  document.querySelector('.layout')?.classList.remove('layout--home');
   destroyTocTracking();
   const toc = document.getElementById('toc');
   const nav = document.getElementById('toc-nav');
@@ -173,6 +213,8 @@ function showToc() {
 }
 
 function hideToc() {
+  document.getElementById('sidebar-right').style.display = 'none';
+  document.querySelector('.layout')?.classList.add('layout--home');
   document.getElementById('toc').setAttribute('hidden', '');
   document.getElementById('toc-nav').innerHTML = '';
   destroyTocTracking();
@@ -187,7 +229,9 @@ function initTocTracking() {
       if (s.getBoundingClientRect().top <= offset) current = s.id;
     }
     document.querySelectorAll('.toc-link').forEach(l => {
-      l.classList.toggle('active', l.dataset.target === current);
+      const isActive = l.dataset.target === current;
+      l.classList.toggle('active', isActive);
+      isActive ? l.setAttribute('aria-current', 'true') : l.removeAttribute('aria-current');
     });
   };
   window.addEventListener('scroll', tocScrollHandler, { passive: true });
@@ -230,7 +274,7 @@ function goProject(id, skipHistory) {
   const tags = p.tags.map(t => `<span class="ptag">${t}</span>`).join('');
 
   document.getElementById('project-content').innerHTML = `
-    <button class="back-btn" onclick="goHome()">← Voltar</button>
+    <button class="back-btn" onclick="goHome()"><span aria-hidden="true">←</span> Voltar</button>
     <div class="project-page-header">
       <h1>${p.title}</h1>
       <p class="subtitle">${p.subtitle}</p>
@@ -240,13 +284,13 @@ function goProject(id, skipHistory) {
     <div class="project-sections">
       <div class="ps" id="section-contexto"><h2 class="ps-title">Contexto</h2><p>${p.context}</p>${sectionImgs(p.contextImages, p.contextCols)}</div>
       <div class="ps" id="section-dor"><h2 class="ps-title">A dor</h2><p>${p.pain}</p>${sectionImgs(p.painImages, p.painCols)}</div>
-      <div class="ps" id="section-solucao"><h2 class="ps-title">O que foi feito</h2><p>${p.solution}</p>${sectionImgs(p.solutionImages, p.solutionCols)}</div>
+      <div class="ps" id="section-solucao"><h2 class="ps-title">O que foi feito</h2><p>${p.solution}</p>${p.iframeSrc ? `<button class="view-project-btn" onclick="openIframeModal('${p.iframeSrc}')">Ver documentação <span aria-hidden="true">→</span></button>` : ''}${sectionImgs(p.solutionImages, p.solutionCols)}</div>
       <div class="ps" id="section-resultados"><h2 class="ps-title">Resultados</h2><p>${p.results}</p>${sectionImgs(p.resultsImages, p.resultsCols)}</div>
       <div class="ps" id="section-tecnologias"><h2 class="ps-title">Tecnologias</h2><div class="project-tags">${tags}</div></div>
     </div>
     <div class="cta">
       <p class="cta-text">Seu negócio também precisa de resultados?</p>
-      <a href="https://www.linkedin.com/in/gabrielcoutz/" target="_blank" rel="noopener" class="cta-btn">
+      <a href="https://www.linkedin.com/in/gabrielcoutz/" target="_blank" rel="noopener" class="cta-btn" aria-label="Vamos conversar (abre em nova aba)">
         Vamos conversar
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -343,6 +387,37 @@ function trapFocus(e) {
   else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 }
 
+/* ── IFRAME MODAL ── */
+let iframeModalTrigger = null;
+
+function openIframeModal(src) {
+  iframeModalTrigger = document.activeElement;
+  const modal = document.getElementById('iframe-modal');
+  const frame = document.getElementById('iframe-modal-frame');
+  frame.src = src;
+  modal.classList.add('open');
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    modal.classList.add('visible');
+    modal.querySelector('.iframe-modal-close').focus();
+  }));
+  document.addEventListener('keydown', onIframeModalKey);
+}
+
+function closeIframeModal() {
+  const modal = document.getElementById('iframe-modal');
+  const frame = document.getElementById('iframe-modal-frame');
+  modal.classList.remove('visible');
+  modal.addEventListener('transitionend', () => {
+    modal.classList.remove('open');
+    frame.src = '';
+  }, { once: true });
+  document.removeEventListener('keydown', onIframeModalKey);
+  iframeModalTrigger?.focus();
+  iframeModalTrigger = null;
+}
+
+function onIframeModalKey(e) { if (e.key === 'Escape') closeIframeModal(); }
+
 /* ── REVEAL ── */
 function triggerReveal() {
   const obs = new IntersectionObserver(entries => {
@@ -360,7 +435,7 @@ window.addEventListener('popstate', () => {
 
 const initHash = location.hash.slice(1);
 if (initHash && projects[initHash]) goProject(initHash, true);
-else { triggerReveal(); updateSidebarActive(null); }
+else { hideToc(); triggerReveal(); updateSidebarActive(null); }
 
 /* ── COUNTERS ── */
 function animateCount(el) {
