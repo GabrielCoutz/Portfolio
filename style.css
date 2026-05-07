@@ -246,6 +246,10 @@ body > nav {
 }
 .sidebar-left::-webkit-scrollbar { display: none; }
 
+/* ── ANCHOR RESETS (elements styled as buttons/cards) ── */
+a.project-row, a.sidenav-item, a.back-btn { text-decoration: none; }
+a.nav-logo { text-decoration: none; }
+
 /* ── SIDENAV ── */
 .sidenav-group { margin-bottom: .875rem; }
 

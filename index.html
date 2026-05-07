@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Portfolio de Gabriel Coutinho — Frontend Engineer especializado em React, Next.js e TypeScript. Cases de performance, otimização de Core Web Vitals (CLS, LCP), redução de bundle via Tree Shaking e documentação técnica para publicação de apps nas lojas.">
 <title>Portfolio · Gabriel Coutinho</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -48,10 +49,10 @@
     <div class="sidenav-group">
       <div class="sidenav-group-label">Impactos</div>
       <div class="sidenav-item sidenav-item-wip">☁️ Cloudflare Images<span class="sidenav-wip-badge">Em breve</span></div>
-      <button class="sidenav-item" data-project="treeshaking" onclick="goProject('treeshaking')">🌳 Tree Shaking</button>
-      <button class="sidenav-item" data-project="apps" onclick="goProject('apps')">📱 Publicação de apps</button>
-      <button class="sidenav-item" data-project="cls" onclick="goProject('cls')">⚡ Otimização de CLS</button>
-      <button class="sidenav-item" data-project="lcp" onclick="goProject('lcp')">🖼️ Otimização de LCP</button>
+      <a class="sidenav-item" href="impactos/tree-shaking.html" data-project="treeshaking" onclick="event.preventDefault();goProject('treeshaking')">🌳 Tree Shaking</a>
+      <a class="sidenav-item" href="impactos/apps.html" data-project="apps" onclick="event.preventDefault();goProject('apps')">📱 Publicação de apps</a>
+      <a class="sidenav-item" href="impactos/cls.html" data-project="cls" onclick="event.preventDefault();goProject('cls')">⚡ Otimização de CLS</a>
+      <a class="sidenav-item" href="impactos/lcp.html" data-project="lcp" onclick="event.preventDefault();goProject('lcp')">🖼️ Otimização de LCP</a>
     </div>
   </div>
   <div class="mobile-drawer-footer">
@@ -78,18 +79,18 @@
           ☁️ Cloudflare Images
           <span class="sidenav-wip-badge">Em breve</span>
         </div>
-        <button class="sidenav-item" data-project="treeshaking" onclick="goProject('treeshaking')">
+        <a class="sidenav-item" href="impactos/tree-shaking.html" data-project="treeshaking" onclick="event.preventDefault();goProject('treeshaking')">
           🌳 Tree Shaking
-        </button>
-        <button class="sidenav-item" data-project="apps" onclick="goProject('apps')">
+        </a>
+        <a class="sidenav-item" href="impactos/apps.html" data-project="apps" onclick="event.preventDefault();goProject('apps')">
           📱 Publicação de apps
-        </button>
-        <button class="sidenav-item" data-project="cls" onclick="goProject('cls')">
+        </a>
+        <a class="sidenav-item" href="impactos/cls.html" data-project="cls" onclick="event.preventDefault();goProject('cls')">
           ⚡ Otimização de CLS
-        </button>
-        <button class="sidenav-item" data-project="lcp" onclick="goProject('lcp')">
+        </a>
+        <a class="sidenav-item" href="impactos/lcp.html" data-project="lcp" onclick="event.preventDefault();goProject('lcp')">
           🖼️ Otimização de LCP
-        </button>
+        </a>
       </div>
     </nav>
   </aside>
@@ -146,7 +147,7 @@
         </div>
       </div>
 
-      <button class="project-row" onclick="goProject('treeshaking')">
+      <a class="project-row" href="impactos/tree-shaking.html" onclick="event.preventDefault();goProject('treeshaking')">
         <div class="project-main">
           <div class="project-icon" aria-hidden="true">🌳</div>
           <div class="project-text">
@@ -162,9 +163,9 @@
           </div>
           <span class="arrow" aria-hidden="true">→</span>
         </div>
-      </button>
+      </a>
 
-      <button class="project-row" onclick="goProject('apps')">
+      <a class="project-row" href="impactos/apps.html" onclick="event.preventDefault();goProject('apps')">
         <div class="project-main">
           <div class="project-icon" aria-hidden="true">📱</div>
           <div class="project-text">
@@ -180,9 +181,9 @@
           </div>
           <span class="arrow" aria-hidden="true">→</span>
         </div>
-      </button>
+      </a>
 
-      <button class="project-row" onclick="goProject('cls')">
+      <a class="project-row" href="impactos/cls.html" onclick="event.preventDefault();goProject('cls')">
         <div class="project-main">
           <div class="project-icon" aria-hidden="true">⚡</div>
           <div class="project-text">
@@ -198,9 +199,9 @@
           </div>
           <span class="arrow" aria-hidden="true">→</span>
         </div>
-      </button>
+      </a>
 
-      <button class="project-row" onclick="goProject('lcp')">
+      <a class="project-row" href="impactos/lcp.html" onclick="event.preventDefault();goProject('lcp')">
         <div class="project-main">
           <div class="project-icon" aria-hidden="true">🖼️</div>
           <div class="project-text">
@@ -216,7 +217,7 @@
           </div>
           <span class="arrow" aria-hidden="true">→</span>
         </div>
-      </button>
+      </a>
 
     </div>
 

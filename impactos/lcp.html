@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Como reduzi o peso de dados da página principal de 22MB para 8MB otimizando imagens, reduzindo o tempo de carregamento de 10.69s para 5.38s e melhorando o LCP (Largest Contentful Paint).">
+<title>Otimização de LCP na página principal da plataforma · Gabriel Coutinho</title>
+<link rel="canonical" href="https://gabrielcoutz.github.io/Portfolio/impactos/lcp.html">
+<link rel="stylesheet" href="../style.css">
+<style>
+  a.nav-logo { text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .impacto-wrap { margin-top: 54px; max-width: 760px; margin-left: auto; margin-right: auto; padding: 40px 24px 80px; }
+  .project-page { padding: 0; }
+  .ps-image { background: none; border: none; padding: 0; cursor: default; display: block; width: 100%; }
+  .ps-image img { width: 100%; border-radius: var(--radius); display: block; }
+  @media (max-width: 680px) { .impacto-wrap { padding: 24px 1.25rem 80px; } }
+</style>
+</head>
+<body>
+<script>(function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})();</script>
+
+<nav aria-label="Navegação principal">
+  <a class="nav-logo" href="../index.html" aria-label="Portfólio de Gabriel Coutinho">
+    <span class="nav-title-full">Portfolio · <span style="color:var(--muted);font-weight:400">Gabriel Coutinho</span></span>
+    <span class="nav-title-short">Portfolio · <span style="color:var(--muted);font-weight:400">Gabriel</span></span>
+  </a>
+  <div class="nav-actions">
+    <a href="https://www.linkedin.com/in/gabrielcoutz/" target="_blank" rel="noopener" class="theme-btn" aria-label="LinkedIn (abre em nova aba)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+  </div>
+</nav>
+
+<main class="impacto-wrap" id="main-content">
+  <div class="project-page">
+
+    <a href="../index.html" class="back-btn"><span aria-hidden="true">←</span> Voltar</a>
+
+    <div class="project-page-header">
+      <h1>Otimização de LCP na página principal da plataforma</h1>
+      <p class="subtitle">Core Web Vitals · Performance · Imagens</p>
+      <p class="summary">As imagens não otimizadas da página principal forçavam o usuário a baixar 22MB de recursos para ver o conteúdo. Em conexões lentas, isso significava minutos de espera. Com a otimização das imagens, o peso caiu para 8MB e o tempo de carregamento reduziu de 10.69s para 5.38s.</p>
+    </div>
+
+    <div class="project-metrics-grid">
+      <div class="pm-card">
+        <div class="pm-value"><span style="color:var(--before)">22MB</span><span style="color:var(--dim)" aria-hidden="true">→</span><span class="sr-only"> para </span>8MB</div>
+        <div class="pm-label">Dados economizados</div>
+      </div>
+      <div class="pm-card">
+        <div class="pm-value"><span style="color:var(--before)">10.69s</span><span style="color:var(--dim)" aria-hidden="true">→</span><span class="sr-only"> para </span>5.38s</div>
+        <div class="pm-label">Tempo de carregamento</div>
+      </div>
+      <div class="pm-card">
+        <div class="pm-value">−64%</div>
+        <div class="pm-label">Redução no peso das imagens</div>
+      </div>
+      <div class="pm-card">
+        <div class="pm-value">−50%</div>
+        <div class="pm-label">Tempo de conclusão</div>
+      </div>
+    </div>
+
+    <div class="project-sections">
+
+      <div class="ps" id="section-contexto">
+        <h2 class="ps-title">Contexto</h2>
+        <p>O LCP (Largest Contentful Paint) mede quanto tempo leva para o maior elemento visível de uma página carregar completamente. É uma das métricas mais importantes do Core Web Vitals, diretamente ligada à percepção de velocidade do usuário e ao ranqueamento no Google. A página principal da plataforma concentrava imagens pesadas sem nenhuma otimização, resultando em LCP elevado.</p>
+        <div class="ps-images" style="grid-template-columns:1fr">
+          <div class="ps-image-wrap">
+            <div class="ps-image-caption">LCP: momento em que o conteúdo mais relevante da página se torna visível ao usuário.</div>
+            <div class="ps-image"><img src="../assets/lcp/explicacao.png" alt="LCP: momento em que o conteúdo mais relevante da página se torna visível ao usuário." loading="lazy"></div>
+            <div class="ps-image-fonte">Fonte: <a href="https://web.dev/articles/lcp?hl=pt-br" target="_blank" rel="noopener">https://web.dev/articles/lcp?hl=pt-br</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps" id="section-dor">
+        <h2 class="ps-title">A dor</h2>
+        <p>Usuários em conexões mais lentas, como 3G, precisavam aguardar mais de 10 segundos para visualizar o conteúdo principal. O download de 22MB de recursos só para renderizar a página tornava a experiência frustrante e aumentava a taxa de abandono.</p>
+      </div>
+
+      <div class="ps" id="section-solucao">
+        <h2 class="ps-title">O que foi feito</h2>
+        <p>Todas as imagens da página principal foram otimizadas: compressão, formatos modernos e ajuste de dimensões para eliminar dados desnecessários. O objetivo era reduzir o payload sem comprometer a qualidade visual percebida pelo usuário.</p>
+        <div class="ps-images" style="grid-template-columns:1fr">
+          <div class="ps-image-wrap">
+            <div class="ps-image-caption">Comparação de carregamento com 3G simulado: antes e depois da otimização.</div>
+            <div class="ps-image"><img src="../assets/lcp/antes-depois.gif" alt="Comparação de carregamento com 3G simulado: antes e depois da otimização." loading="lazy"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps" id="section-resultados">
+        <h2 class="ps-title">Resultados</h2>
+        <p>O peso total de dados transferidos caiu de <b>22MB para 8MB</b>, redução de <b>64%</b>. O tempo de carregamento caiu de <b>10.69s para 5.38s</b>, redução de <b>50%</b>. Em 3G, o conteúdo que antes levaria minutos passou a carregar em poucos segundos.</p>
+        <div class="ps-images" style="grid-template-columns:1fr">
+          <div class="ps-image-wrap">
+            <div class="ps-image-caption">Redução de 22MB para 8MB em dados transferidos e de 10.69s para 5.38s no tempo de carregamento.</div>
+            <div class="ps-image"><img src="../assets/lcp/resultados.png" alt="Redução de 22MB para 8MB em dados transferidos e de 10.69s para 5.38s no tempo de carregamento." loading="lazy"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps" id="section-tecnologias">
+        <h2 class="ps-title">Tecnologias</h2>
+        <div class="project-tags">
+          <span class="ptag">Next.js</span>
+          <span class="ptag">React</span>
+          <span class="ptag">TypeScript</span>
+          <span class="ptag">Core Web Vitals</span>
+          <span class="ptag">LCP</span>
+          <span class="ptag">Otimização de Imagens</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cta">
+      <p class="cta-text">Seu negócio também precisa de resultados?</p>
+      <a href="https://www.linkedin.com/in/gabrielcoutz/" target="_blank" rel="noopener" class="cta-btn" aria-label="Vamos conversar (abre em nova aba)">
+        Vamos conversar
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>

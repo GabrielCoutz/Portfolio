@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Como reduzi o bundle principal de 3MB para 708kB com Tree Shaking via Webpack, reduzindo o loading em 3G de 16s para 6s e aumentando o PageSpeed Performance de 38 para 53.">
+<title>Tree Shaking: redução de bundle e ganho de performance · Gabriel Coutinho</title>
+<link rel="canonical" href="https://gabrielcoutz.github.io/Portfolio/impactos/tree-shaking.html">
+<link rel="stylesheet" href="../style.css">
+<style>
+  a.nav-logo { text-decoration: none; display: flex; align-items: center; gap: 8px; }
+  .impacto-wrap { margin-top: 54px; max-width: 760px; margin-left: auto; margin-right: auto; padding: 40px 24px 80px; }
+  .project-page { padding: 0; }
+  .ps-image { background: none; border: none; padding: 0; cursor: default; display: block; width: 100%; }
+  .ps-image img { width: 100%; border-radius: var(--radius); display: block; }
+  @media (max-width: 680px) { .impacto-wrap { padding: 24px 1.25rem 80px; } }
+</style>
+</head>
+<body>
+<script>(function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)})();</script>
+
+<nav aria-label="Navegação principal">
+  <a class="nav-logo" href="../index.html" aria-label="Portfólio de Gabriel Coutinho">
+    <span class="nav-title-full">Portfolio · <span style="color:var(--muted);font-weight:400">Gabriel Coutinho</span></span>
+    <span class="nav-title-short">Portfolio · <span style="color:var(--muted);font-weight:400">Gabriel</span></span>
+  </a>
+  <div class="nav-actions">
+    <a href="https://www.linkedin.com/in/gabrielcoutz/" target="_blank" rel="noopener" class="theme-btn" aria-label="LinkedIn (abre em nova aba)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    </a>
+  </div>
+</nav>
+
+<main class="impacto-wrap" id="main-content">
+  <div class="project-page">
+
+    <a href="../index.html" class="back-btn"><span aria-hidden="true">←</span> Voltar</a>
+
+    <div class="project-page-header">
+      <h1>Tree Shaking: redução de bundle e ganho de performance</h1>
+      <p class="subtitle">Performance · Webpack · Bundle · Core Web Vitals</p>
+      <p class="summary">A plataforma acumulava código legado de features descontinuadas e dependências não utilizadas, inflando o bundle principal para 3MB. Com Tree Shaking via Webpack, o bundle caiu para 708kB, o loading em 3G passou de 16s para 6s e a nota de performance no PageSpeed subiu de 38 para 53.</p>
+    </div>
+
+    <div class="project-metrics-grid">
+      <div class="pm-card">
+        <div class="pm-value"><span style="color:var(--before)">3MB</span><span style="color:var(--dim)" aria-hidden="true">→</span><span class="sr-only"> para </span>708kB</div>
+        <div class="pm-label">Bundle principal</div>
+      </div>
+      <div class="pm-card">
+        <div class="pm-value"><span style="color:var(--before)">16s</span><span style="color:var(--dim)" aria-hidden="true">→</span><span class="sr-only"> para </span>6s</div>
+        <div class="pm-label">Loading em 3G</div>
+      </div>
+      <div class="pm-card">
+        <div class="pm-value"><span style="color:var(--before)">38</span><span style="color:var(--dim)" aria-hidden="true">→</span><span class="sr-only"> para </span>53</div>
+        <div class="pm-label">PageSpeed Performance</div>
+      </div>
+      <div class="pm-card">
+        <div class="pm-value"><span style="color:var(--before)">5.4s</span><span style="color:var(--dim)" aria-hidden="true">→</span><span class="sr-only"> para </span>2.6s</div>
+        <div class="pm-label">LCP</div>
+      </div>
+    </div>
+
+    <div class="project-sections">
+
+      <div class="ps" id="section-contexto">
+        <h2 class="ps-title">Contexto</h2>
+        <p>Tree Shaking é uma técnica de otimização que remove código não utilizado do bundle final. Pense na aplicação como uma árvore: os galhos são as dependências. Sacudir a árvore elimina os galhos secos: código legado, métodos nunca chamados e imports de features descontinuadas. O resultado é um bundle menor e uma aplicação mais rápida.</p>
+      </div>
+
+      <div class="ps" id="section-dor">
+        <h2 class="ps-title">A dor</h2>
+        <p>Além de reclamações de usuários sobre lentidão, a plataforma carregava código de features há muito descontinuadas. O bundle principal (_app.page.tsx) havia chegado a 3MB, tornando o loading inicial lento mesmo em boas conexões. Em 3G, o usuário esperava mais de 16 segundos para ver a aplicação.</p>
+      </div>
+
+      <div class="ps" id="section-solucao">
+        <h2 class="ps-title">O que foi feito</h2>
+        <p>Utilizei a configuração nativa de Tree Shaking do Webpack para identificar e eliminar todo código não referenciado no bundle de produção. O foco principal foi o arquivo _app.page.tsx, responsável por renderizar toda a aplicação.</p>
+        <div class="ps-images">
+          <div class="ps-image-wrap">
+            <div class="ps-image-caption">Loading antes e depois em 3G rápido simulado.</div>
+            <div class="ps-image"><img src="../assets/treeshaking/loading.gif" alt="Loading antes e depois em 3G rápido simulado." loading="lazy"></div>
+          </div>
+          <div class="ps-image-wrap">
+            <div class="ps-image-caption">Bundle _app: 3.0MB/2.16s antes, 708kB/508ms depois.</div>
+            <div class="ps-image"><img src="../assets/treeshaking/bundle.png" alt="Bundle _app: 3.0MB/2.16s antes, 708kB/508ms depois." loading="lazy"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps" id="section-resultados">
+        <h2 class="ps-title">Resultados</h2>
+        <p>O bundle principal caiu de <b>3MB para 708kB</b> (redução de <b>76%</b>). O tempo de parse e execução caiu de <b>2.16s para 508ms</b>. O loading em 3G caiu de <b>16s para 6s</b>. A nota de Performance no PageSpeed subiu de <b>38 para 53</b> e o LCP passou de <b>5.4s para 2.6s</b>.</p>
+        <div class="ps-images" style="grid-template-columns:1fr">
+          <div class="ps-image-wrap">
+            <div class="ps-image-caption">PageSpeed antes e depois: Performance de 38 para 53, LCP de 5.4s para 2.6s.</div>
+            <div class="ps-image"><img src="../assets/treeshaking/pagespeed.png" alt="PageSpeed antes e depois: Performance de 38 para 53, LCP de 5.4s para 2.6s." loading="lazy"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps" id="section-tecnologias">
+        <h2 class="ps-title">Tecnologias</h2>
+        <div class="project-tags">
+          <span class="ptag">Webpack</span>
+          <span class="ptag">Next.js</span>
+          <span class="ptag">TypeScript</span>
+          <span class="ptag">Tree Shaking</span>
+          <span class="ptag">Bundle Optimization</span>
+          <span class="ptag">Core Web Vitals</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cta">
+      <p class="cta-text">Seu negócio também precisa de resultados?</p>
+      <a href="https://www.linkedin.com/in/gabrielcoutz/" target="_blank" rel="noopener" class="cta-btn" aria-label="Vamos conversar (abre em nova aba)">
+        Vamos conversar
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+
+  </div>
+</main>
+
+</body>
+</html>
