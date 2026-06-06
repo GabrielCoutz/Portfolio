@@ -92,6 +92,22 @@ const projects = {
     resultsCols: 1,
     tags: ['Next.js', 'React', 'TypeScript', 'Core Web Vitals', 'CLS', 'PageSpeed Insights'],
   },
+  'custos-imagens': {
+    title: 'Redução de custos com otimização de imagens via Cloudflare',
+    subtitle: 'Infraestrutura · Cloudflare · Vercel · Custos',
+    summary: 'A plataforma usava a otimização de imagens nativa da Vercel, que sozinha custava US$ 346/mês — quase 70% de uma fatura que já passava de US$ 500. Migrei essa camada para a Cloudflare usando transformação via URL, reduzindo o custo de imagens para US$ 85/mês e a fatura total para menos de US$ 150/mês.',
+    metrics: [
+      { value: 'US$ 500+→< US$ 150', label: 'Fatura total mensal' },
+      { value: 'US$ 346→US$ 85',     label: 'Custo de otimização de imagens' },
+      { value: '−~70%',              label: 'Redução na fatura total' },
+      { value: '−~75%',              label: 'Redução no custo de imagens' },
+    ],
+    context:  'O produto é um SaaS multi-tenant em Next.js + TypeScript. A Vercel era responsável por hospedar e otimizar as imagens da plataforma usando o serviço nativo de Image Optimization. Ao auditar a fatura linha por linha, identifiquei que esse serviço sozinho custava US$ 346/mês — quase 70% de uma fatura total que já ultrapassava US$ 500.',
+    pain:     'O serviço de otimização de imagens da Vercel era usado como padrão desde o início do projeto, sem nenhuma avaliação de custo-benefício. Ninguém havia questionado se existia alternativa mais barata. A fatura crescia mês a mês e a maior parte do custo estava concentrada nesse único serviço.',
+    solution: 'Substituí o Image Optimization da Vercel pela <b>transformação de imagens via URL da Cloudflare</b>. Na prática, as imagens passaram a ser otimizadas pela Cloudflare através de parâmetros na própria URL (formato, qualidade, dimensões), sem necessidade de alterar o pipeline de build nem adicionar etapas extras no deploy. O componente de imagem do Next.js continuou funcionando da mesma forma para o time.',
+    results:  'O custo de otimização de imagens caiu de <b>US$ 346 para US$ 85/mês</b> (redução de <b>~75%</b>). A fatura total de infraestrutura caiu de <b>US$ 500+ para menos de US$ 150/mês</b> (redução de <b>~70%</b>). Não houve degradação de performance nem mudança na qualidade visual das imagens entregues ao usuário.',
+    tags: ['Next.js', 'React', 'TypeScript', 'Cloudflare', 'Vercel', 'Image Optimization'],
+  },
 };
 
 /* ── MOCK IMAGE ── */

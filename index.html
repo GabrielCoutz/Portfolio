@@ -48,7 +48,7 @@
     </div>
     <div class="sidenav-group">
       <div class="sidenav-group-label">Impactos</div>
-      <div class="sidenav-item sidenav-item-wip">☁️ Cloudflare Images<span class="sidenav-wip-badge">Em breve</span></div>
+      <a class="sidenav-item" href="impactos/custos-imagens.html" data-project="custos-imagens" onclick="event.preventDefault();goProject('custos-imagens')">☁️ Cloudflare Images</a>
       <a class="sidenav-item" href="impactos/tree-shaking.html" data-project="treeshaking" onclick="event.preventDefault();goProject('treeshaking')">🌳 Tree Shaking</a>
       <a class="sidenav-item" href="impactos/apps.html" data-project="apps" onclick="event.preventDefault();goProject('apps')">📱 Publicação de apps</a>
       <a class="sidenav-item" href="impactos/cls.html" data-project="cls" onclick="event.preventDefault();goProject('cls')">⚡ Otimização de CLS</a>
@@ -75,10 +75,9 @@
       </div>
       <div class="sidenav-group">
         <div class="sidenav-group-label">Impactos</div>
-        <div class="sidenav-item sidenav-item-wip">
+        <a class="sidenav-item" href="impactos/custos-imagens.html" data-project="custos-imagens" onclick="event.preventDefault();goProject('custos-imagens')">
           ☁️ Cloudflare Images
-          <span class="sidenav-wip-badge">Em breve</span>
-        </div>
+        </a>
         <a class="sidenav-item" href="impactos/tree-shaking.html" data-project="treeshaking" onclick="event.preventDefault();goProject('treeshaking')">
           🌳 Tree Shaking
         </a>
@@ -133,19 +132,23 @@
     <h2 class="label reveal">Impactos</h2>
     <div class="projects reveal">
 
-      <div class="project-row project-row-wip" aria-label="Em desenvolvimento">
+      <a class="project-row" href="impactos/custos-imagens.html" onclick="event.preventDefault();goProject('custos-imagens')">
         <div class="project-main">
           <div class="project-icon" aria-hidden="true">☁️</div>
           <div class="project-text">
             <h3>Redução de custos com otimização de imagens via Cloudflare</h3>
-            <div class="tags">Cloudflare · Performance · Custos · Imagens</div>
-            <p class="desc">Otimização do pipeline de imagens da plataforma utilizando Cloudflare, reduzindo custos de armazenamento e entrega sem comprometer a qualidade visual.</p>
+            <div class="tags">Cloudflare · Vercel · Infraestrutura · Custos</div>
+            <p class="desc">A plataforma usava a otimização de imagens nativa da Vercel, que sozinha custava US$ 346/mês. Migrei essa camada para a Cloudflare usando transformação via URL, reduzindo o custo de imagens para US$ 85/mês e a fatura total de US$ 500+ para menos de US$ 150/mês.</p>
           </div>
         </div>
         <div class="project-side">
-          <span class="wip-badge">Em desenvolvimento</span>
+          <div class="project-kpi">
+            <div class="project-kpi-value">−~70%</div>
+            <div class="project-kpi-label">Redução na fatura de infra</div>
+          </div>
+          <span class="arrow" aria-hidden="true">→</span>
         </div>
-      </div>
+      </a>
 
       <a class="project-row" href="impactos/tree-shaking.html" onclick="event.preventDefault();goProject('treeshaking')">
         <div class="project-main">
